@@ -1,0 +1,3300 @@
+{
+  "chapter": "3",
+  "chapter_title": "Transcendental Functions",
+  "course": "calculus-1",
+  "source_file": "study-guide/calculus-1/03-transcendental-functions.md",
+  "micro_skills": [
+    {
+      "id": "3.1-verify-one-to-one-find-inverse",
+      "section": "3.1",
+      "topic": "Transcendental Functions",
+      "subtopic": "One-to-One Functions and Inverses",
+      "micro_skill": "Verify one-to-one and find the inverse algebraically",
+      "definitions": [
+        "f is one-to-one if x1 ≠ x2 in the domain implies f(x1) ≠ f(x2), equivalently f(x1)=f(x2) ⇒ x1=x2. Geometrically: every horizontal line meets the graph at most once.",
+        "Any function that is strictly increasing or strictly decreasing on an interval is automatically one-to-one there.",
+        "If f is one-to-one, its inverse f^-1 is defined by y = f^-1(x) ⇔ x = f(y).",
+        "f is self-inverse if f^-1 = f (e.g. f(x)=1/x)."
+      ],
+      "theorems": [],
+      "formulas": [
+        "domain of f^-1 = range of f; range of f^-1 = domain of f",
+        "f^-1(f(x)) = x for all x in domain of f",
+        "f(f^-1(x)) = x for all x in domain of f^-1",
+        "(f^-1)^-1 = f",
+        "graph of f^-1 = reflection of graph of f in the line y=x",
+        "Do NOT confuse f^-1(x) with 1/f(x) = [f(x)]^-1"
+      ],
+      "prerequisites": [],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.1-verify-one-to-one-find-inverse-monotonic-linear",
+          "difficulty": "easy",
+          "prompt_template": "Show that a given linear or simple polynomial/rational f is one-to-one by checking f'(x) has constant sign, then solve x=f(y) for y to find f^-1(x).",
+          "example": "Show f(x) = 2x - 1 is one-to-one and find f^-1.",
+          "answer": "f'(x)=2>0 everywhere so f is increasing, hence one-to-one; f^-1(x) = (x+1)/2.",
+          "recognition_cue": "The function is a simple algebraic expression and the question says 'show it has an inverse' or 'is one-to-one' — the fastest route is a derivative sign check, not the x1=x2 definition.",
+          "method_plan": [
+            "Compute f'(x) and determine its sign on the whole domain",
+            "Conclude monotonic ⇒ one-to-one",
+            "Set y = f^-1(x), write x = f(y), solve algebraically for y in terms of x",
+            "State f^-1(x)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct derivative and sign argument for monotonicity",
+            "A1: correct algebraic solve for y",
+            "A1: f^-1 stated in function notation, matching variable"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Solving for x instead of y (mixing up which variable is the input to f^-1)"
+            },
+            {
+              "type": "presentation",
+              "description": "Never explicitly stating the one-to-one conclusion before writing the inverse"
+            }
+          ],
+          "merged_topics": [
+            "3.1-inverse-derivative-formula",
+            "domain and range"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.1-verify-one-to-one-find-inverse-algebraic-definition",
+          "difficulty": "medium",
+          "prompt_template": "Show f is one-to-one using the algebraic definition f(x1)=f(x2) ⇒ x1=x2 (useful when f' is awkward, e.g. involves a square root), then find f^-1 and its domain.",
+          "example": "Show g(x) = sqrt(2x+1) is invertible and find g^-1.",
+          "answer": "g is increasing on its domain x ≥ -1/2 (one-to-one); g^-1(x) = (x^2-1)/2 for x ≥ 0.",
+          "recognition_cue": "The function involves a radical or awkward algebraic form where differentiating to check sign is more work than directly assuming g(x1)=g(x2) and manipulating the equation until x1=x2 falls out.",
+          "method_plan": [
+            "Assume g(x1) = g(x2)",
+            "Manipulate algebraically (e.g. square both sides) to derive x1 = x2",
+            "Conclude one-to-one",
+            "Solve x = g(y) for y, tracking any sign/domain restriction introduced (e.g. y ≥ 0)",
+            "State g^-1 together with its domain"
+          ],
+          "full_mark_rubric": [
+            "M1: correct one-to-one argument from the algebraic definition",
+            "M1: correct solve for the inverse",
+            "A1: correct stated domain of g^-1 (matching the range of g)"
+          ],
+          "common_errors": [
+            {
+              "type": "presentation",
+              "description": "Omitting the domain restriction on f^-1 entirely"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error when squaring/un-squaring a radical equation"
+            }
+          ],
+          "merged_topics": [
+            "domain and range",
+            "3.1-inverse-derivative-formula"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.1-verify-one-to-one-find-inverse-domain-restriction",
+          "difficulty": "medium",
+          "prompt_template": "Given f not one-to-one on its natural domain, restrict the domain to a monotone piece, then find the inverse of the restriction, stating domain/range.",
+          "example": "Let f(x) = x^2 for x ≥ 0. Find f^-1 and state its domain and range.",
+          "answer": "f^-1(x) = sqrt(x), domain x ≥ 0, range y ≥ 0.",
+          "recognition_cue": "The stated domain of f is explicitly restricted (e.g. 'x ≥ 0') rather than all reals — signal that f fails the horizontal line test on its natural domain and the restriction is what makes inversion possible.",
+          "method_plan": [
+            "Confirm f is one-to-one on the restricted domain given",
+            "Solve x = f(y) for y on that restricted piece, choosing the correct branch/sign",
+            "State f^-1 with domain = range of the restricted f and range = the restricted domain"
+          ],
+          "full_mark_rubric": [
+            "M1: correct branch chosen when solving (e.g. positive square root)",
+            "A1: correct f^-1 formula",
+            "A1: domain and range of f^-1 stated correctly"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Not restricting the domain first and trying to invert x^2 directly (fails the one-to-one requirement)"
+            },
+            {
+              "type": "procedural",
+              "description": "Choosing the wrong branch of the square/nth-root when solving for y"
+            }
+          ],
+          "merged_topics": [
+            "3.5-evaluate-inverse-trig-exact-values",
+            "piecewise functions"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.1-verify-one-to-one-find-inverse-properties-application",
+          "difficulty": "easy",
+          "prompt_template": "Use the boxed inverse-function properties (f^-1(f(x))=x, reflection in y=x, domain/range swap) to answer a conceptual or graph-based question without fully solving for f^-1.",
+          "example": "If f(3) = 7 and f is one-to-one, state f^-1(7) and describe how the graph of f^-1 relates to the graph of f.",
+          "answer": "f^-1(7) = 3; the graph of f^-1 is the reflection of the graph of f in the line y = x.",
+          "recognition_cue": "The question gives a specific function value or asks about the graph relationship rather than asking to 'find f^-1(x)' as a formula — a cue to use the definitional properties directly instead of algebra.",
+          "method_plan": [
+            "Apply y = f^-1(x) ⇔ x = f(y) directly to the given data point",
+            "State the reflection-in-y=x graph property if asked about the graph"
+          ],
+          "full_mark_rubric": [
+            "A1: correct value via the defining property (no need to find f^-1 explicitly)",
+            "A1: correct statement of the graph reflection property if requested"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Confusing f^-1(x) with 1/f(x) when reading off the value"
+            },
+            {
+              "type": "presentation",
+              "description": "Failing to justify the point swap (x,y)→(y,x) reasoning"
+            }
+          ],
+          "merged_topics": [
+            "graphing",
+            "3.1-inverse-derivative-formula"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.1-inverse-derivative-formula",
+      "section": "3.1",
+      "topic": "Transcendental Functions",
+      "subtopic": "Derivative of an Inverse Function",
+      "micro_skill": "Differentiate an inverse function using the inverse-derivative formula",
+      "definitions": [
+        "Obtained by differentiating f(f^-1(x)) = x with the Chain Rule."
+      ],
+      "theorems": [
+        {
+          "name": "Derivative of an inverse function",
+          "statement": "If f is differentiable and monotonic on (a,b) with f'(x) ≠ 0, then d/dx[f^-1(x)] = 1 / f'(f^-1(x)).",
+          "conditions": [
+            "f differentiable on (a,b)",
+            "f monotonic (strictly increasing or decreasing) on (a,b)",
+            "f'(x) ≠ 0"
+          ]
+        }
+      ],
+      "formulas": [
+        "d/dx f^-1(x) = 1 / f'(f^-1(x))"
+      ],
+      "prerequisites": [
+        "3.1-verify-one-to-one-find-inverse"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.1-inverse-derivative-formula-given-value",
+          "difficulty": "medium",
+          "prompt_template": "Given f(a) = b for a specific numeric a, find (f^-1)'(b) using the formula without finding f^-1 explicitly (typically because f^-1 has no elementary closed form).",
+          "example": "Let f(x) = x^3 + x. Since f(2) = 10, find (f^-1)'(10).",
+          "answer": "(f^-1)'(10) = 1/13.",
+          "recognition_cue": "The problem gives a function value f(a)=b and asks for the derivative of the inverse at b — an explicit closed form for f^-1 is not requested or not obtainable, signaling 'use the formula, not algebra.'",
+          "method_plan": [
+            "Verify f is monotonic (f'(x) ≠ 0 everywhere) so the inverse exists and is differentiable",
+            "Identify f^-1(b) = a using the given data point",
+            "Compute f'(a)",
+            "Apply (f^-1)'(b) = 1/f'(a)"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies f^-1(b) = a from the given value (not solving for f^-1 directly)",
+            "M1: correct computation of f'(a)",
+            "A1: correct final reciprocal"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Trying to find f^-1(x) explicitly by inverting a cubic instead of using the formula"
+            },
+            {
+              "type": "procedural",
+              "description": "Plugging b (not a = f^-1(b)) into f'(x) — the classic 'wrong argument' error"
+            }
+          ],
+          "merged_topics": [
+            "3.1-verify-one-to-one-find-inverse",
+            "chain rule"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.1-inverse-derivative-formula-verify-two-ways",
+          "difficulty": "medium",
+          "prompt_template": "Given an explicitly invertible f, find f^-1 directly, differentiate it, and separately verify the same result using the inverse-derivative formula.",
+          "example": "If f(x) = x^2 for x ≥ 0, find f^-1 and verify (f^-1)'(4) two ways.",
+          "answer": "f^-1(x) = sqrt(x), (f^-1)'(4) = 1/4; formula check: f^-1(4)=2, f'(2)=4, so 1/f'(2)=1/4. Both agree.",
+          "recognition_cue": "The prompt explicitly says 'verify two ways' or 'confirm using the formula' — requires both direct differentiation of f^-1 and the reciprocal-derivative formula.",
+          "method_plan": [
+            "Find f^-1(x) explicitly and differentiate directly",
+            "Evaluate at the given point",
+            "Separately compute f^-1 of the point and f' at that value, then take the reciprocal",
+            "Confirm both answers match"
+          ],
+          "full_mark_rubric": [
+            "M1: correct explicit f^-1 and its derivative",
+            "A1: correct value from direct differentiation",
+            "M1: correct application of the formula as a check",
+            "A1: both methods reconciled"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip evaluating the derivative at the specific point"
+            },
+            {
+              "type": "presentation",
+              "description": "Not showing the reconciliation between the two methods when asked to verify"
+            }
+          ],
+          "merged_topics": [
+            "3.1-verify-one-to-one-find-inverse"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.1-inverse-derivative-formula-symbolic-application",
+          "difficulty": "hard",
+          "prompt_template": "Differentiate y = f^-1(x) symbolically to derive a general formula (e.g. rediscovering d/dx sqrt(x) or an inverse-trig derivative from first principles using this theorem).",
+          "example": "Use the inverse-function derivative formula to find d/dx[sin^-1(x)] starting from f(y) = sin y on [-π/2, π/2].",
+          "answer": "d/dx sin^-1(x) = 1/sqrt(1-x^2).",
+          "recognition_cue": "The question says 'derive' or 'use the inverse function theorem to find the derivative of...' pointing at a known inverse (inverse trig, nth root) rather than asking to just quote the memorized formula.",
+          "method_plan": [
+            "Let y = f^-1(x) so x = f(y)",
+            "Apply the formula dy/dx = 1/f'(y)",
+            "Express f'(y) in terms of x using x = f(y) and (if needed) a Pythagorean/algebraic identity",
+            "State the final derivative purely in terms of x"
+          ],
+          "full_mark_rubric": [
+            "M1: correct setup x = f(y), dy/dx = 1/f'(y)",
+            "M1: correct substitution back to a function of x using an identity",
+            "A1: fully simplified final formula"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Leaving the answer in terms of y instead of converting back to x"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error when taking the square root to convert cos y (or similar) into a function of x"
+            }
+          ],
+          "merged_topics": [
+            "3.5-derivatives-of-inverse-trig-functions"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.2-simplify-exponential-log-expressions",
+      "section": "3.2",
+      "topic": "Transcendental Functions",
+      "subtopic": "Laws of Exponents and Logarithms",
+      "micro_skill": "Simplify expressions using the laws of exponents and logarithms",
+      "definitions": [
+        "For a>0: a^0=1; a^n = a·a···a (n factors); a^-n = 1/a^n; a^(m/n) = nth-root(a^m).",
+        "For a>0, a≠1: y = log_a x ⇔ x = a^y. Domain of log_a is (0,∞); range is ℝ.",
+        "Cancellation identities: log_a(a^x) = x, a^(log_a x) = x."
+      ],
+      "theorems": [],
+      "formulas": [
+        "a^0=1, a^(x+y)=a^x·a^y, a^-x=1/a^x, a^(x-y)=a^x/a^y, (a^x)^y=a^(xy), (ab)^x=a^x·b^x",
+        "log_a 1 = 0, log_a(xy) = log_a x + log_a y, log_a(1/x) = -log_a x",
+        "log_a(x/y) = log_a x - log_a y, log_a(x^y) = y·log_a x",
+        "change of base: log_a x = log_b x / log_b a"
+      ],
+      "prerequisites": [],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.2-simplify-exponential-log-expressions-combine-logs",
+          "difficulty": "easy",
+          "prompt_template": "Combine a sum/difference of logarithms (same base) into a single log using the product/quotient rules and evaluate.",
+          "example": "Simplify log_2(10) + log_2(12) - log_2(15).",
+          "answer": "3 (since log_2(10·12/15) = log_2 8 = 3).",
+          "recognition_cue": "Several log terms with the same base are added and subtracted — combine into one log of a product/quotient before evaluating, rather than trying to evaluate each log separately.",
+          "method_plan": [
+            "Combine all + terms into a single log of a product",
+            "Combine all - terms by dividing",
+            "Simplify the resulting argument numerically",
+            "Evaluate the single logarithm"
+          ],
+          "full_mark_rubric": [
+            "M1: correct use of product rule to combine additive terms",
+            "M1: correct use of quotient rule to combine subtractive terms",
+            "A1: correct final numeric evaluation"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Writing log(x+y) = log x + log y (invalid — only products split this way)"
+            },
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip combining the fraction inside the log before evaluating"
+            }
+          ],
+          "merged_topics": [
+            "3.2-solve-exponential-log-equations"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.2-simplify-exponential-log-expressions-change-of-base-tower",
+          "difficulty": "medium",
+          "prompt_template": "Simplify an expression like a^(log_b c) using change of base to rewrite the exponent in base a, then simplify the power.",
+          "example": "Simplify 3^(log_9 4).",
+          "answer": "2 (since 3^(log_9 4) = 3^((log_3 4)/2) = 4^(1/2) = 2).",
+          "recognition_cue": "An exponential expression has a logarithm with a different base than the exponential base itself — the mismatch is the cue to change base so exponent and base line up.",
+          "method_plan": [
+            "Rewrite log_9 4 in base 3 using change-of-base: log_9 4 = log_3 4 / log_3 9",
+            "Simplify log_3 9 = 2",
+            "Rewrite 3^(log_3 4 / 2) as (3^(log_3 4))^(1/2)",
+            "Use cancellation 3^(log_3 4) = 4, then take the square root"
+          ],
+          "full_mark_rubric": [
+            "M1: correct change of base applied",
+            "M1: correct use of cancellation identity a^(log_a x) = x",
+            "A1: correct final numeric answer"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Trying to evaluate log_9 4 as a decimal instead of using the cancellation identity"
+            },
+            {
+              "type": "algebra",
+              "description": "Mishandling the fractional exponent when splitting the power"
+            }
+          ],
+          "merged_topics": [
+            "3.2-solve-exponential-log-equations"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.2-simplify-exponential-log-expressions-numeric-evaluation",
+          "difficulty": "easy",
+          "prompt_template": "Evaluate a purely numeric expression involving exponents/logs using the laws (no unknown x), e.g. simplifying a product of powers with different bases sharing a common base.",
+          "example": "Simplify (2^5 · 4^-2) / 8^(1/3).",
+          "answer": "2 (rewrite all terms as powers of 2: 2^5 · 2^-4 / 2^1 = 2^0... recompute carefully: 2^5·2^-4=2^1, divided by 2^1 = 2^0=1). [Answer depends on exact numbers used in the drill instance.]",
+          "recognition_cue": "All bases in the expression are powers of a common base (e.g. 2, 4, 8 are all powers of 2) — rewrite everything with that common base before combining exponents.",
+          "method_plan": [
+            "Rewrite every term as a power of the common base",
+            "Combine exponents using the exponent laws",
+            "Simplify to a single power",
+            "Evaluate numerically if required"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly rewrites all terms with a common base",
+            "M1: correct exponent arithmetic combining terms",
+            "A1: correct final simplified value"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Exponent arithmetic slip when combining terms with a common base"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting to convert every term to the common base before combining"
+            }
+          ],
+          "merged_topics": [
+            "3.2-solve-exponential-log-equations"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.2-solve-exponential-log-equations",
+      "section": "3.2",
+      "topic": "Transcendental Functions",
+      "subtopic": "Solving Exponential and Logarithmic Equations",
+      "micro_skill": "Solve equations with the unknown in an exponent or inside a logarithm",
+      "definitions": [
+        "Solving an exponential equation typically requires taking ln (or log) of both sides to bring the unknown out of the exponent.",
+        "Solving a logarithmic equation requires exponentiating, and always checking candidate solutions lie in the domain x>0 of every log involved."
+      ],
+      "theorems": [],
+      "formulas": [
+        "a^x = b ⇔ x = ln b / ln a (any base works, ln is conventional)"
+      ],
+      "prerequisites": [
+        "3.2-simplify-exponential-log-expressions"
+      ],
+      "difficulty_levels": [
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.2-solve-exponential-log-equations-take-ln-both-sides",
+          "difficulty": "medium",
+          "prompt_template": "Solve an equation with different bases raised to expressions involving x by taking ln of both sides and isolating x.",
+          "example": "Solve 3^(x-1) = 2^x for x.",
+          "answer": "x = ln 3 / ln(3/2) ≈ 2.7095.",
+          "recognition_cue": "The unknown x appears only in exponents with two different bases that are not simple powers of each other — signals 'take ln of both sides' rather than trying to equalize bases.",
+          "method_plan": [
+            "Take ln of both sides",
+            "Use ln(a^k) = k·ln a to bring exponents down as multipliers",
+            "Collect all x terms on one side",
+            "Factor out x and divide to solve; give exact and decimal forms if requested"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly applies ln to both sides and the power rule",
+            "M1: correctly collects x terms and factors",
+            "A1: correct exact form",
+            "A1: correct decimal approximation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign error collecting x terms (e.g. x ln3 - x ln2 vs x ln2 - x ln3)"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving only a decimal approximation when an exact expression was requested"
+            }
+          ],
+          "merged_topics": [
+            "3.2-simplify-exponential-log-expressions",
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.2-solve-exponential-log-equations-domain-check",
+          "difficulty": "medium",
+          "prompt_template": "Solve a logarithmic equation (possibly quadratic in the log or with logs of linear expressions) and reject any solution outside the domain of the original logs.",
+          "example": "Solve log_2(x) + log_2(x-2) = 3.",
+          "answer": "x = 4 (the other algebraic root x = -2 is rejected since log_2(-2) is undefined).",
+          "recognition_cue": "The equation contains log of an expression in x (not just log of x alone), so solving algebraically can generate extraneous roots that must be checked against x>0 for every log argument.",
+          "method_plan": [
+            "Combine logs into a single log using the product/quotient rules",
+            "Exponentiate both sides to clear the log",
+            "Solve the resulting polynomial/algebraic equation for x",
+            "Check every candidate root against the domain of each original log term and reject invalid ones"
+          ],
+          "full_mark_rubric": [
+            "M1: correct combination of logs",
+            "M1: correct exponentiation and resulting equation solved",
+            "A1: correct identification and rejection of the extraneous root",
+            "A1: correct final valid solution stated"
+          ],
+          "common_errors": [
+            {
+              "type": "presentation",
+              "description": "Not checking the domain and reporting an extraneous root as valid"
+            },
+            {
+              "type": "algebra",
+              "description": "Error solving the resulting quadratic/polynomial equation"
+            }
+          ],
+          "merged_topics": [
+            "3.2-simplify-exponential-log-expressions"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.2-solve-exponential-log-equations-common-base",
+          "difficulty": "medium",
+          "prompt_template": "Solve an exponential equation where both sides can be rewritten as powers of the same base without needing logarithms.",
+          "example": "Solve 4^(x+1) = 8^(x-1).",
+          "answer": "x = 5 (rewrite 4=2^2, 8=2^3: 2(x+1) = 3(x-1) ⇒ x=5).",
+          "recognition_cue": "Both numeric bases are powers of a small common integer (2, 3, e, etc.) — recognizing this avoids needing logarithms at all; a faster, cleaner method than taking ln.",
+          "method_plan": [
+            "Rewrite each base as a power of a common integer",
+            "Use (a^m)^n = a^(mn) to write both sides as that common base to a single exponent",
+            "Equate the exponents (valid since a^u=a^v ⇒ u=v for a>0,a≠1)",
+            "Solve the resulting linear/polynomial equation for x"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly rewrites both sides with a common base",
+            "M1: correctly equates exponents",
+            "A1: correct final solution"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Taking logarithms of both sides when a common-base shortcut was available (not wrong, but inefficient and more error-prone)"
+            },
+            {
+              "type": "algebra",
+              "description": "Distributing the exponent incorrectly, e.g. 2(x+1) mis-expanded"
+            }
+          ],
+          "merged_topics": [
+            "3.2-simplify-exponential-log-expressions"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.3-derivative-of-ln-and-exponential-composite",
+      "section": "3.3",
+      "topic": "Transcendental Functions",
+      "subtopic": "Derivatives of ln, exp, and general exponential/log functions",
+      "micro_skill": "Differentiate composite functions built from ln, e^x, and general a^x / log_a x",
+      "definitions": [
+        "For x>0, ln x is defined as the signed area under y=1/t between t=1 and t=x.",
+        "exp x is defined as the inverse of ln x; e = exp(1) ≈ 2.718281828...; exp x = e^x for all real x.",
+        "General exponential: a^x = e^(x ln a) for a>0.",
+        "d/dx ln|x| = 1/x for all x≠0, so ∫(1/x) dx = ln|x| + C."
+      ],
+      "theorems": [
+        {
+          "name": "Theorem 1",
+          "statement": "d/dx ln x = 1/x for x>0.",
+          "conditions": [
+            "x > 0"
+          ]
+        },
+        {
+          "name": "General Power Rule",
+          "statement": "d/dx x^a = a·x^(a-1) for x>0 and any real a, derived from x^a = e^(a ln x).",
+          "conditions": [
+            "x > 0",
+            "a real"
+          ]
+        }
+      ],
+      "formulas": [
+        "d/dx e^x = e^x, ∫e^x dx = e^x + C",
+        "d/dx a^x = a^x · ln a",
+        "d/dx log_a x = 1/(x ln a)",
+        "ln x = log_e x"
+      ],
+      "prerequisites": [
+        "3.1-inverse-derivative-formula"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.3-derivative-of-ln-and-exponential-composite-e-to-gx",
+          "difficulty": "easy",
+          "prompt_template": "Differentiate y = e^(g(x)) for a polynomial or simple inner function g(x) using the Chain Rule.",
+          "example": "Differentiate y = e^(x^2 - 3x).",
+          "answer": "y' = (2x-3)e^(x^2-3x).",
+          "recognition_cue": "The base is e with a non-trivial exponent (not just x) — the Chain Rule factor g'(x) must multiply the unchanged e^(g(x)).",
+          "method_plan": [
+            "Identify the inner function g(x) in the exponent",
+            "Differentiate g(x)",
+            "Write y' = g'(x)·e^(g(x))"
+          ],
+          "full_mark_rubric": [
+            "M1: correct inner derivative g'(x)",
+            "A1: correctly multiplied by the unchanged e^(g(x))"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the chain-rule factor g'(x) entirely (treating e^(g(x)) as if it differentiates to itself)"
+            },
+            {
+              "type": "algebra",
+              "description": "Error differentiating the polynomial exponent g(x)"
+            }
+          ],
+          "merged_topics": [
+            "3.3-logarithmic-differentiation",
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-derivative-of-ln-and-exponential-composite-ln-gx",
+          "difficulty": "easy",
+          "prompt_template": "Differentiate y = ln(g(x)) for a composite inner function using d/dx ln(g(x)) = g'(x)/g(x).",
+          "example": "Differentiate y = ln(sec x + tan x).",
+          "answer": "y' = sec x.",
+          "recognition_cue": "A logarithm wraps a non-trivial inner expression — apply the chain rule as (inner derivative)/(inner function), then simplify algebraically/trigonometrically.",
+          "method_plan": [
+            "Identify the inner function g(x) inside ln(·)",
+            "Differentiate g(x)",
+            "Write y' = g'(x)/g(x)",
+            "Simplify algebraically (factor, cancel) to the cleanest form"
+          ],
+          "full_mark_rubric": [
+            "M1: correct inner derivative",
+            "M1: correct chain-rule quotient set up",
+            "A1: fully simplified final answer"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the chain rule and writing y' = 1/g(x) with no g'(x) factor"
+            },
+            {
+              "type": "algebra",
+              "description": "Missing an algebraic/trig simplification that the problem expects (e.g. not factoring sec x out)"
+            }
+          ],
+          "merged_topics": [
+            "3.3-logarithmic-differentiation",
+            "3.6-hyperbolic-identities-and-derivatives"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-derivative-of-ln-and-exponential-composite-general-a-to-x",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate a general exponential a^(g(x)) or logarithm log_a(g(x)) with base a≠e, using the ln-a factor.",
+          "example": "Differentiate y = 5^(x^2) and y = log_3(2x+1).",
+          "answer": "d/dx 5^(x^2) = 2x·5^(x^2)·ln5;  d/dx log_3(2x+1) = 2/((2x+1)ln3).",
+          "recognition_cue": "The base of the exponential/log is a specific number other than e — the extra factor ln a (or division by ln a) is required, unlike the e^x / ln x case.",
+          "method_plan": [
+            "Recall d/dx a^u = a^u·ln a·u' and d/dx log_a u = u'/(u·ln a)",
+            "Identify u(x) and compute u'(x)",
+            "Substitute into the appropriate formula",
+            "Simplify"
+          ],
+          "full_mark_rubric": [
+            "M1: correct formula selected with the ln a factor included",
+            "M1: correct chain-rule derivative of the inner function",
+            "A1: correctly simplified final answer for both parts"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Omitting the ln a factor and treating a^x like e^x"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting the chain-rule inner derivative u'(x)"
+            }
+          ],
+          "merged_topics": [
+            "3.3-distinguishing-power-vs-exponential-forms"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-derivative-of-ln-and-exponential-composite-nested-radical",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate ln of an expression containing a square root or sum with a radical, requiring simplification after the chain rule (often collapsing to a surprisingly simple result).",
+          "example": "Find d/dx ln(x + sqrt(x^2+1)).",
+          "answer": "1/sqrt(x^2+1).",
+          "recognition_cue": "The argument of ln contains x plus a square-root term of a similar form (a classic 'this simplifies dramatically' setup related to inverse hyperbolic functions) — expect heavy algebraic cancellation after differentiating.",
+          "method_plan": [
+            "Differentiate the inner expression x + sqrt(x^2+1), using the chain rule on the square root",
+            "Divide by the original inner expression (chain rule for ln)",
+            "Factor sqrt(x^2+1) from numerator and denominator to cancel the (x + sqrt(x^2+1)) factor",
+            "State the simplified final answer"
+          ],
+          "full_mark_rubric": [
+            "M1: correct derivative of the inner radical expression",
+            "M1: correct chain-rule quotient formed",
+            "A1: fully simplified answer after cancellation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Failing to spot the common factor that cancels, leaving an unsimplified (and ungraded-as-complete) answer"
+            },
+            {
+              "type": "procedural",
+              "description": "Chain rule error differentiating sqrt(x^2+1) (missing the x/sqrt(x^2+1) factor)"
+            }
+          ],
+          "merged_topics": [
+            "3.6-inverse-hyperbolic-in-terms-of-ln"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.3-logarithmic-differentiation",
+      "section": "3.3",
+      "topic": "Transcendental Functions",
+      "subtopic": "Logarithmic Differentiation",
+      "micro_skill": "Differentiate products/quotients of many factors or variable-exponent expressions via logarithmic differentiation",
+      "definitions": [
+        "For y=[f(x)]^g(x) or for products/quotients of many factors, take ln of both sides first, then differentiate implicitly; this converts products/quotients to sums/differences and handles variable exponents."
+      ],
+      "theorems": [],
+      "formulas": [
+        "ln|y| = sum of ln|factors|  ⇒  y'/y = sum of (factor')/(factor)  ⇒  y' = y · (sum of (factor')/(factor))"
+      ],
+      "prerequisites": [
+        "3.3-derivative-of-ln-and-exponential-composite"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.3-logarithmic-differentiation-product-quotient-many-factors",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate a product/quotient of three or more linear (or simple) factors using logarithmic differentiation instead of repeated product/quotient rule.",
+          "example": "Differentiate y = [(x+1)(x+2)(x+3)]/(x+4) using logarithmic differentiation.",
+          "answer": "y' = y·(1/(x+1) + 1/(x+2) + 1/(x+3) - 1/(x+4)), with y as given.",
+          "recognition_cue": "Three or more factors are multiplied/divided together — direct product/quotient rule would be tedious; taking ln first converts everything to a sum, which is much faster to differentiate.",
+          "method_plan": [
+            "Take ln|y| of both sides and expand using log laws into a sum/difference of ln|factor| terms",
+            "Differentiate implicitly: d/dx ln|y| = y'/y",
+            "Differentiate each ln|factor| term to get factor'/factor",
+            "Solve for y' by multiplying both sides by y (substitute the original expression for y)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct expansion of ln|y| into sum of logs",
+            "M1: correct implicit differentiation term by term",
+            "A1: correctly solved for y' with y substituted back in"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting to multiply back by y at the end (leaving the answer as y'/y)"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error on the subtracted (denominator) term"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-logarithmic-differentiation-variable-exponent",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate y = x^x or a similar 'variable base, variable exponent' expression by writing y=e^(x ln x) or by taking ln of both sides.",
+          "example": "Find the critical point of y = x^x for x>0.",
+          "answer": "Critical point at x = 1/e (since y' = x^x(1+ln x) = 0 ⇒ ln x = -1).",
+          "recognition_cue": "Both the base and the exponent contain the variable x (x^x, or more generally f(x)^g(x)) — neither the Power Rule nor the exponential rule alone applies; this is the signature case for logarithmic differentiation.",
+          "method_plan": [
+            "Take ln of both sides: ln y = x ln x",
+            "Differentiate implicitly using the product rule on the right: y'/y = ln x + 1",
+            "Solve for y' = y(ln x + 1) = x^x(1+ln x)",
+            "If asked for a critical point, set y'=0 and solve (noting y=x^x>0 never vanishes, so 1+ln x=0)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct implicit ln differentiation using product rule",
+            "A1: correct final derivative with y substituted back",
+            "M1: correctly sets the bracket factor to zero",
+            "A1: correct critical point value"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Trying to use the ordinary Power Rule (nx^(n-1)) on x^x, which does not apply since the exponent is also variable"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting the product rule when differentiating x ln x on the right-hand side"
+            }
+          ],
+          "merged_topics": [
+            "4.4-finding-critical-and-singular-points",
+            "3.3-distinguishing-power-vs-exponential-forms"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-logarithmic-differentiation-general-f-to-g",
+          "difficulty": "hard",
+          "prompt_template": "Differentiate y=[f(x)]^(g(x)) for general (non-x) f and g using logarithmic differentiation.",
+          "example": "Differentiate y = (sin x)^(cos x).",
+          "answer": "y' = (sin x)^(cos x) · [-sin x·ln(sin x) + cos x·cot x].",
+          "recognition_cue": "Both the base f(x) and exponent g(x) are non-constant functions of x (not just x itself) — a strictly more general version of the x^x pattern, still requiring logarithmic differentiation.",
+          "method_plan": [
+            "Take ln of both sides: ln y = g(x)·ln f(x)",
+            "Differentiate the right side with the product rule: (ln y)' = g'(x)ln f(x) + g(x)·f'(x)/f(x)",
+            "Multiply both sides by y = [f(x)]^(g(x)) to isolate y'",
+            "Substitute back f, g explicitly and simplify"
+          ],
+          "full_mark_rubric": [
+            "M1: correct ln y = g ln f setup",
+            "M1: correct product-rule differentiation of the right side",
+            "A1: correctly multiplied back by y with f,g substituted",
+            "A1: reasonable simplification shown"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Missing the product rule and only differentiating one of g(x)ln f(x)'s two factors"
+            },
+            {
+              "type": "algebra",
+              "description": "Chain rule slip differentiating ln f(x) itself, i.e. dropping the f'(x)/f(x) factor"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.3-distinguishing-power-vs-exponential-forms",
+      "section": "3.3",
+      "topic": "Transcendental Functions",
+      "subtopic": "Recognizing Which Differentiation Rule Applies",
+      "micro_skill": "Correctly identify whether an expression is a power function, an exponential function, or requires logarithmic differentiation",
+      "definitions": [
+        "x^a (variable base, constant exponent) is a power function — use the Power/General Power Rule.",
+        "a^x (constant base, variable exponent) is an exponential function — use d/dx a^x = a^x ln a.",
+        "x^x, f(x)^g(x), or products/quotients of many variable factors require logarithmic differentiation — neither of the above rules alone applies."
+      ],
+      "theorems": [],
+      "formulas": [
+        "x^a → a·x^(a-1);  a^x → a^x·ln a;  [f(x)]^(g(x)) → logarithmic differentiation"
+      ],
+      "prerequisites": [
+        "3.3-derivative-of-ln-and-exponential-composite",
+        "3.3-logarithmic-differentiation"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.3-distinguishing-power-vs-exponential-forms-identify-rule",
+          "difficulty": "easy",
+          "prompt_template": "Given several superficially similar expressions (x^5, 5^x, x^x), state which differentiation rule applies to each before differentiating.",
+          "example": "For y1=x^7, y2=7^x, y3=x^7 + 7^x, y4=x^x, state which rule(s) apply and differentiate each.",
+          "answer": "y1'=7x^6 (Power Rule); y2'=7^x ln7 (exponential rule); y3'=7x^6+7^x ln7 (sum of both); y4'=x^x(1+ln x) (logarithmic differentiation).",
+          "recognition_cue": "A list or mixed expression contains both x^(constant) and (constant)^x forms side by side — the deliberate visual similarity is the trap; check which piece (base or exponent) is the variable.",
+          "method_plan": [
+            "For each term, identify whether the variable is in the base, the exponent, or both",
+            "Apply Power Rule if variable is only in the base",
+            "Apply a^x·ln a rule if variable is only in the exponent",
+            "Apply logarithmic differentiation if variable is in both"
+          ],
+          "full_mark_rubric": [
+            "M1: correct rule identified for each term",
+            "A1: correct derivative for the power-function term(s)",
+            "A1: correct derivative for the exponential term(s)",
+            "A1: correct derivative for any mixed term via log differentiation"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Applying the Power Rule to a^x (treating x as the base) or the exponential rule to x^a (treating a as the base)"
+            },
+            {
+              "type": "procedural",
+              "description": "Missing the ln a factor on an exponential term"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite",
+            "3.3-logarithmic-differentiation"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-distinguishing-power-vs-exponential-forms-mixed-sum",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate a sum/difference containing a mix of power, exponential, and log terms in one expression.",
+          "example": "Differentiate y = 3x^4 - 2^x + ln(5x) - x^(1/2).",
+          "answer": "y' = 12x^3 - 2^x ln2 + 1/x - (1/2)x^(-1/2).",
+          "recognition_cue": "Multiple distinct term types are added together (polynomial, exponential base a≠e, ln, fractional power) — each term must be routed to its own correct rule and then summed via linearity.",
+          "method_plan": [
+            "Split the sum into individual terms",
+            "Differentiate each term with its appropriate rule (power, exponential-base-a, ln chain rule)",
+            "Add the results (linearity of differentiation)"
+          ],
+          "full_mark_rubric": [
+            "A1: correct power-rule term(s)",
+            "A1: correct exponential term with ln a factor",
+            "A1: correct ln-chain-rule term",
+            "A1: all terms correctly summed with signs preserved"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Using the wrong rule on one term while correctly handling the others"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error carried through from the original expression"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-distinguishing-power-vs-exponential-forms-critical-point-x-to-x",
+          "difficulty": "medium",
+          "prompt_template": "Apply the correct rule (logarithmic differentiation) to find and classify a critical point of a genuinely mixed-variable expression like x^x, distinguishing it from a similar-looking power or exponential function.",
+          "example": "Explain why d/dx(x^x) ≠ x·x^(x-1) and ≠ x^x·ln x, then find the correct derivative and its critical point.",
+          "answer": "Both proposed shortcuts are wrong because x^x is neither a pure power nor a pure exponential; correct derivative is x^x(1+ln x), critical point x=1/e.",
+          "recognition_cue": "The question explicitly asks to explain a common misconception about which rule applies to x^x — a conceptual/diagnostic archetype rather than a pure computation.",
+          "method_plan": [
+            "State why the Power Rule fails (exponent is not constant)",
+            "State why the pure exponential rule fails (base is not constant)",
+            "Apply logarithmic differentiation correctly",
+            "Solve for the critical point"
+          ],
+          "full_mark_rubric": [
+            "A1: correct explanation of why Power Rule doesn't apply",
+            "A1: correct explanation of why exponential rule doesn't apply",
+            "M1: correct logarithmic-differentiation derivative",
+            "A1: correct critical point"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Applying either the Power Rule or exponential rule to x^x despite both being invalid here"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving the correct final derivative without any justification when the question asks for explanation"
+            }
+          ],
+          "merged_topics": [
+            "3.3-logarithmic-differentiation",
+            "4.4-finding-critical-and-singular-points"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.3-basic-integrals-ln-exp",
+      "section": "3.3",
+      "topic": "Transcendental Functions",
+      "subtopic": "Basic Integrals Involving ln and exp",
+      "micro_skill": "Evaluate basic integrals that produce ln or exponential antiderivatives",
+      "definitions": [
+        "∫e^x dx = e^x + C.",
+        "∫(1/x) dx = ln|x| + C for x≠0.",
+        "More generally, ∫ f'(x)/f(x) dx = ln|f(x)| + C whenever the numerator is (a constant multiple of) the derivative of the denominator."
+      ],
+      "theorems": [],
+      "formulas": [
+        "∫e^(kx) dx = (1/k)e^(kx) + C",
+        "∫(1/x) dx = ln|x| + C",
+        "∫ f'(x)/f(x) dx = ln|f(x)| + C"
+      ],
+      "prerequisites": [
+        "3.3-derivative-of-ln-and-exponential-composite"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.3-basic-integrals-ln-exp-e-to-linear",
+          "difficulty": "easy",
+          "prompt_template": "Integrate e^(kx+b) for constants k,b, remembering to divide by the inner-derivative constant k.",
+          "example": "Evaluate ∫e^(3x-1) dx.",
+          "answer": "(1/3)e^(3x-1) + C.",
+          "recognition_cue": "The exponent is a linear function of x (not just x) — reverse chain rule requires dividing by the coefficient of x.",
+          "method_plan": [
+            "Identify the inner linear function and its derivative (a constant k)",
+            "Write the antiderivative as (1/k)e^(inner) ",
+            "Add +C"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies the 1/k scaling factor",
+            "A1: correct final antiderivative with +C"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting to divide by k (treating ∫e^(kx)dx as if it were e^(kx))"
+            },
+            {
+              "type": "presentation",
+              "description": "Omitting +C"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-basic-integrals-ln-exp-reciprocal-linear",
+          "difficulty": "easy",
+          "prompt_template": "Integrate 1/(ax+b) using the ln|·| antiderivative, dividing by the coefficient a.",
+          "example": "Evaluate ∫ dx/(2x+5).",
+          "answer": "(1/2)ln|2x+5| + C.",
+          "recognition_cue": "The integrand is a constant over a linear expression — recognize the ln|linear| antiderivative pattern with the 1/(coefficient of x) scaling.",
+          "method_plan": [
+            "Recognize the form 1/(linear) matches d/dx ln|linear| up to a constant",
+            "Divide by the coefficient of x inside",
+            "Write the antiderivative with the absolute value and +C"
+          ],
+          "full_mark_rubric": [
+            "M1: correct recognition of the ln form",
+            "A1: correct scaling constant and final answer with |·| and +C"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the 1/(coefficient) scaling factor"
+            },
+            {
+              "type": "presentation",
+              "description": "Omitting the absolute value bars or +C"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.3-basic-integrals-ln-exp-recognize-fprime-over-f",
+          "difficulty": "medium",
+          "prompt_template": "Recognize an integrand of the form f'(x)/f(x) (numerator is exactly, or a constant multiple of, the derivative of the denominator) and integrate directly to ln|f(x)|+C.",
+          "example": "Evaluate ∫ (2x-3)/(x^2-3x+7) dx.",
+          "answer": "ln|x^2-3x+7| + C.",
+          "recognition_cue": "The numerator is exactly the derivative of the denominator (or a constant multiple of it) — a strong visual cue that no substitution algebra is needed beyond recognizing this pattern.",
+          "method_plan": [
+            "Differentiate the denominator mentally and compare to the numerator",
+            "If they match (up to a constant multiple), write the antiderivative as (constant)·ln|denominator|",
+            "Adjust for any constant multiple mismatch",
+            "Add +C"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies numerator as (a multiple of) the derivative of the denominator",
+            "A1: correct antiderivative with any necessary constant adjustment and +C"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Missing the f'/f pattern entirely and attempting a much harder technique (e.g. partial fractions) unnecessarily"
+            },
+            {
+              "type": "algebra",
+              "description": "Constant-multiple mismatch not corrected for (e.g. numerator is 2× the true derivative but this isn't accounted for)"
+            }
+          ],
+          "merged_topics": [
+            "6.2-partial-fractions-repeated-linear",
+            "u-substitution"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.4-exponential-growth-decay-basic-setup",
+      "section": "3.4",
+      "topic": "Transcendental Functions",
+      "subtopic": "Exponential Growth and Decay",
+      "micro_skill": "Set up and solve the exponential growth/decay model dy/dt = ky from data",
+      "definitions": [
+        "If dy/dt = ky, the general solution is y = Ce^(kt).",
+        "The initial-value problem y' = ky, y(0)=y0 has the unique solution y(t) = y0·e^(kt).",
+        "k>0 gives exponential growth; k<0 gives exponential decay."
+      ],
+      "theorems": [
+        {
+          "name": "ln x ≤ x-1 (Theorem 4)",
+          "statement": "For x>0: ln x ≤ x-1, with equality only at x=1 (the curve y=ln x lies below its tangent line y=x-1 at (1,0)).",
+          "conditions": [
+            "x > 0"
+          ]
+        }
+      ],
+      "formulas": [
+        "y(t) = y0·e^(kt)"
+      ],
+      "prerequisites": [
+        "3.3-derivative-of-ln-and-exponential-composite"
+      ],
+      "difficulty_levels": [
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.4-exponential-growth-decay-basic-setup-find-k-and-predict",
+          "difficulty": "medium",
+          "prompt_template": "Given an initial value and one later data point, find k, then use it to predict the value at a third time.",
+          "example": "A bacteria culture has 500 cells initially and 800 after 24 h. How many after a further 12 h (t=36)?",
+          "answer": "≈1012 cells (y(36) = 500·(1.6)^(3/2)).",
+          "recognition_cue": "Two data points (an initial amount and one amount at a later, specific time) are given, and a third, different time is asked about — classic 'find k first' setup.",
+          "method_plan": [
+            "Write y(t) = y0·e^(kt) using the given initial value as y0",
+            "Substitute the second data point to solve for k (usually left as k = (1/t1)·ln(ratio) rather than a decimal)",
+            "Substitute the target time into y(t) with this k",
+            "State the numeric answer in context, rounded sensibly"
+          ],
+          "full_mark_rubric": [
+            "M1: correct model y=y0 e^(kt) with y0 identified",
+            "M1: correct equation set up and solved for k",
+            "A1: correct substitution and evaluation at the target time",
+            "A1: answer stated in context with correct rounding"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip solving for k or evaluating the final exponential"
+            },
+            {
+              "type": "procedural",
+              "description": "Rounding k too early, propagating error into the final answer (should keep k exact/symbolic until the last step)"
+            }
+          ],
+          "merged_topics": [
+            "3.4-doubling-time-half-life",
+            "3.2-solve-exponential-log-equations"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-exponential-growth-decay-basic-setup-find-time-to-reach-value",
+          "difficulty": "medium",
+          "prompt_template": "Given the growth/decay model and constant k (or the data to find it), solve for the time t at which the quantity reaches a specified target value.",
+          "example": "A radioactive substance decays with y(0)=100 and y(5)=80. How long until only 20 remain?",
+          "answer": "t = 5·ln(0.2)/ln(0.8) ≈ 36.05 (units of time).",
+          "recognition_cue": "The question asks 'how long until...' or 'when does the quantity reach...' — solve the exponential equation for t rather than for y.",
+          "method_plan": [
+            "Set up y(t)=y0 e^(kt) and find k from the given data if not already known",
+            "Set y(t) equal to the target value",
+            "Divide by y0 and take ln of both sides",
+            "Solve for t and interpret in context"
+          ],
+          "full_mark_rubric": [
+            "M1: correct value of k obtained/used",
+            "M1: correct equation formed with the target value",
+            "A1: correct algebraic solve using ln",
+            "A1: sensible final numeric answer with units"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Confusing which exponent is growth (k>0) vs decay (k<0) and getting a nonsensical (negative time or wrong-direction) answer"
+            },
+            {
+              "type": "algebra",
+              "description": "Error isolating t after taking ln"
+            }
+          ],
+          "merged_topics": [
+            "3.4-doubling-time-half-life",
+            "3.2-solve-exponential-log-equations"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-exponential-growth-decay-basic-setup-percent-change",
+          "difficulty": "medium",
+          "prompt_template": "Given a growth/decay rate expressed as a percent per unit time, translate into k and use the model to answer a percent-remaining or percent-grown question.",
+          "example": "A population grows continuously at 3% per year. What percent increase occurs over 10 years?",
+          "answer": "≈34.99% increase (e^(0.3) ≈ 1.3499).",
+          "recognition_cue": "The rate is stated as a percentage (e.g. '3% per year' or 'decays at 2% per hour') rather than as raw data points — directly gives k as the decimal rate, no data-fitting step needed.",
+          "method_plan": [
+            "Convert the percent rate to k as a decimal (k = rate/100, with sign matching growth/decay)",
+            "Write y(t) = y0 e^(kt)",
+            "Evaluate at the given time and compare to y0 to get percent change",
+            "State as a percent increase or decrease"
+          ],
+          "full_mark_rubric": [
+            "M1: correct k identified directly from the stated rate",
+            "M1: correct evaluation of e^(kt) at the given time",
+            "A1: correctly converted to a percent change and interpreted"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Confusing a continuously-compounded percent rate with a simple/discrete percent rate (using (1+rate)^t instead of e^(kt))"
+            },
+            {
+              "type": "presentation",
+              "description": "Reporting the raw ratio (e.g. 1.3499) instead of converting it to '35% increase'"
+            }
+          ],
+          "merged_topics": [
+            "3.4-continuous-compounding"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-exponential-growth-decay-basic-setup-identify-model-from-verbal-description",
+          "difficulty": "easy",
+          "prompt_template": "Given a purely verbal description (no explicit equation), identify that the situation is modeled by dy/dt=ky and write down the correct model before solving.",
+          "example": "A rumor spreads through a population such that its rate of spread at any time is proportional to the number of people who already know it. Write a differential equation model and its general solution.",
+          "answer": "dy/dt = ky, so y(t) = Ce^(kt).",
+          "recognition_cue": "The phrase 'rate of change proportional to the amount present/remaining' appears in the problem statement — the direct verbal signature of dy/dt=ky, before any numbers are even given.",
+          "method_plan": [
+            "Translate 'rate proportional to the quantity' into dy/dt = ky",
+            "State the general solution y = Ce^(kt)",
+            "If initial data is given, specialize to y=y0 e^(kt)"
+          ],
+          "full_mark_rubric": [
+            "A1: correct differential equation written from the verbal description",
+            "A1: correct general solution stated"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Misreading 'proportional to' and setting up a different (e.g. linear or logistic) model without justification"
+            },
+            {
+              "type": "presentation",
+              "description": "Jumping straight to a numeric answer without stating the governing differential equation when asked to model"
+            }
+          ],
+          "merged_topics": [
+            "3.4-logistic-growth"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.4-doubling-time-half-life",
+      "section": "3.4",
+      "topic": "Transcendental Functions",
+      "subtopic": "Doubling Time and Half-Life",
+      "micro_skill": "Compute and use the constant doubling time or half-life of an exponential growth/decay process",
+      "definitions": [
+        "Doubling time T (growth) or half-life T (decay) satisfies e^(kT)=2 or e^(kT)=1/2 respectively.",
+        "y(t+T) = 2y(t) (doubling) or (1/2)y(t) (halving) for ANY t — the doubling/halving time is constant, independent of the starting time."
+      ],
+      "theorems": [],
+      "formulas": [
+        "T = ln2 / k  (doubling, k>0)",
+        "T = ln(1/2)/k = -ln2/k  (half-life, k<0, T reported as positive)"
+      ],
+      "prerequisites": [
+        "3.4-exponential-growth-decay-basic-setup"
+      ],
+      "difficulty_levels": [
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.4-doubling-time-half-life-compute-half-life-from-data",
+          "difficulty": "medium",
+          "prompt_template": "Given two data points of a decaying quantity, find k and then compute the half-life.",
+          "example": "A radioactive sample decays from 100g to 80g in 5 years. Find its half-life.",
+          "answer": "T = 5·ln(0.5)/ln(0.8) ≈ 15.53 years.",
+          "recognition_cue": "The question explicitly asks for 'half-life' (or 'doubling time') rather than an amount at a given time — solve for T using e^(kT)=1/2, not for y(t).",
+          "method_plan": [
+            "Find k from the given data (as in the basic growth/decay setup)",
+            "Set e^(kT) = 1/2 and take ln of both sides",
+            "Solve T = -ln2/k, reporting a positive value",
+            "State with correct units"
+          ],
+          "full_mark_rubric": [
+            "M1: correct k found from given data",
+            "M1: correct equation e^(kT)=1/2 set up and solved",
+            "A1: correct positive value with units"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign confusion producing a negative half-life (forgetting k<0 for decay)"
+            },
+            {
+              "type": "conceptual",
+              "description": "Confusing the half-life formula with the doubling-time formula (using ln2 vs ln(1/2) inconsistently)"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-doubling-time-half-life-compute-doubling-time",
+          "difficulty": "medium",
+          "prompt_template": "Given a growth rate k (or data to find it), compute the doubling time T=ln2/k.",
+          "example": "A population grows according to y'=0.04y. Find the doubling time.",
+          "answer": "T = ln2/0.04 ≈ 17.33 years.",
+          "recognition_cue": "k is given directly (or easily extracted) and the question asks specifically for doubling time — a one-line application of T=ln2/k once k is known.",
+          "method_plan": [
+            "Identify k directly from the given rate equation",
+            "Apply T = ln2/k",
+            "State the numeric value with units"
+          ],
+          "full_mark_rubric": [
+            "M1: correct k identified from y'=ky",
+            "A1: correct doubling time computed"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Confusing k with the doubling time itself, or with a percent rate not yet converted to k"
+            },
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip computing ln2/k"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-doubling-time-half-life-use-known-half-life-percent-remaining",
+          "difficulty": "medium",
+          "prompt_template": "Given a known half-life, find the percent remaining after a specified (typically short) time, or the time to lose a given percent — using the constant-ratio property rather than re-deriving k from scratch data.",
+          "example": "A substance has half-life 1200 years. What percent remains after 10 years, and how long to lose 10%?",
+          "answer": "≈99.42% remains after 10 years; ≈182.4 years to lose 10%.",
+          "recognition_cue": "The half-life is given as a stated fact (not derived from two data points), and the question asks about a time interval that is small relative to the half-life or about losing a specific fraction — use k=-ln2/T directly rather than fitting new data.",
+          "method_plan": [
+            "Recover k from the given half-life via k = -ln2/T",
+            "Write p(t) = 100e^(kt) (as a percent model)",
+            "For 'percent remaining', substitute the given t",
+            "For 'time to lose X%', set p(t)=100-X and solve for t"
+          ],
+          "full_mark_rubric": [
+            "M1: correct k recovered from the half-life",
+            "M1: correct percent-remaining evaluation",
+            "M1: correct equation set up for the 'time to lose X%' part",
+            "A1: correct final answers for both parts"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Using T (the half-life) directly as if it were k"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign or log-manipulation error solving for t in the second part"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.4-newtons-law-of-cooling",
+      "section": "3.4",
+      "topic": "Transcendental Functions",
+      "subtopic": "Newton's Law of Cooling",
+      "micro_skill": "Set up and solve Newton's Law of Cooling problems by shifting to the ambient temperature",
+      "definitions": [
+        "For a quantity relaxing toward an ambient value a: dy/dt = k(y-a).",
+        "Substituting u=y-a reduces this to u'=ku, so u=u0 e^(kt), i.e. y(t) = a + (y0-a)e^(kt).",
+        "The raw quantity y does NOT itself satisfy y'=ky — only the shifted quantity u=y-a does; forgetting this shift is the signature error in this topic."
+      ],
+      "theorems": [],
+      "formulas": [
+        "y(t) = a + (y0-a)e^(kt)"
+      ],
+      "prerequisites": [
+        "3.4-exponential-growth-decay-basic-setup"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.4-newtons-law-of-cooling-find-k-from-two-temps",
+          "difficulty": "medium",
+          "prompt_template": "An object cools from one temperature to another over a known time in a room of known ambient temperature; find k, then predict the temperature at a further time.",
+          "example": "Coffee cools from 80°C to 50°C in 5 min in a 20°C room. How much longer to reach 40°C?",
+          "answer": "≈2.92 more minutes (total ≈7.92 min, since t = 5ln3/ln2).",
+          "recognition_cue": "A temperature (or similar quantity like concentration) is said to approach a stated ambient/background value — the presence of an explicit 'room temperature' or 'surrounding medium' value is the cue to shift by that ambient value before treating it as pure exponential decay.",
+          "method_plan": [
+            "Define u = y - a (temperature minus ambient)",
+            "Compute u0 = y0 - a and the value of u at the known later time",
+            "Solve for k using u(t1)=u0 e^(k t1)",
+            "Set u(t) equal to (target temp - a) and solve for t; subtract off any time already elapsed if the question asks for 'additional' time"
+          ],
+          "full_mark_rubric": [
+            "M1: correct shift u=y-a set up with correct u0",
+            "M1: correct k found from the given data point",
+            "M1: correct equation formed for the target temperature",
+            "A1: correct final time, with 'additional time' interpreted correctly if asked"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Applying y=y0 e^(kt) directly to the raw temperature without subtracting the ambient temperature first — the signature Newton's-cooling error"
+            },
+            {
+              "type": "presentation",
+              "description": "Reporting total elapsed time when the question asked for additional time beyond the given data point, or vice versa"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-newtons-law-of-cooling-find-time-to-target",
+          "difficulty": "medium",
+          "prompt_template": "Given k already known (or found from data), solve for the specific time at which the object reaches a new target temperature.",
+          "example": "An object at 100°C cools in a 25°C room with k=-0.05 (per minute). When does it reach 30°C?",
+          "answer": "t = ln(5/75)/(-0.05) = ln15/0.05 ≈ 54.16 minutes.",
+          "recognition_cue": "The question directly asks 'when/how long until temperature reaches ___' with k already given or easily found — solve for t via the shifted exponential equation.",
+          "method_plan": [
+            "Shift to u=y-a and identify u0",
+            "Compute the target value of u = (target temperature - a)",
+            "Set u0 e^(kt) equal to the target u and take ln of both sides",
+            "Solve for t and check the sign/magnitude makes physical sense"
+          ],
+          "full_mark_rubric": [
+            "M1: correct target u value computed",
+            "M1: correct equation solved using ln",
+            "A1: correct final time with sensible sign"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign error in the exponent or in taking ln of a value between 0 and 1"
+            },
+            {
+              "type": "conceptual",
+              "description": "Forgetting to subtract the ambient temperature when computing the 'target u' value"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-newtons-law-of-cooling-warming-toward-ambient",
+          "difficulty": "medium",
+          "prompt_template": "An object colder than its surroundings warms up toward the ambient temperature (rather than cooling down) — same model, opposite direction, testing whether the student mechanically applies the formula rather than the underlying physics.",
+          "example": "A can of soda at 5°C is placed in a 25°C room and warms to 15°C in 20 minutes. Estimate its temperature after 1 hour.",
+          "answer": "y(60) = 25 + (5-25)e^(60k) where k = (1/20)ln(0.5), giving y(60) = 25-20·(0.5)^3 = 22.5°C.",
+          "recognition_cue": "The object's initial temperature is BELOW the ambient temperature (a warming, not cooling, scenario) — the same y=a+(y0-a)e^(kt) formula applies unchanged, but y0-a is now negative and k is still negative (approaching a from below).",
+          "method_plan": [
+            "Identify a (ambient), y0 (initial, below a), and set up u=y-a (negative initially)",
+            "Use the given data point to solve for k",
+            "Substitute the target time into y(t)=a+(y0-a)e^(kt)",
+            "Sanity check the answer is between y0 and a and increasing toward a"
+          ],
+          "full_mark_rubric": [
+            "M1: correct identification that y0<a and correct sign handling",
+            "M1: correct k solved from the data",
+            "A1: correct final temperature, sanity-checked to lie between y0 and a"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming warming requires a different formula or a positive k, rather than recognizing the same model with y0<a still gives k<0"
+            },
+            {
+              "type": "presentation",
+              "description": "Final answer not sanity-checked against the physically required range (y0, a)"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.4-continuous-compounding",
+      "section": "3.4",
+      "topic": "Transcendental Functions",
+      "subtopic": "Continuous Compounding",
+      "micro_skill": "Apply the continuous-compounding model to find growth time, future value, or compare compounding schemes",
+      "definitions": [
+        "$A invested at nominal rate r% compounded continuously grows to $A·e^(r/100) in one year.",
+        "This follows from e^x = lim(n→∞) (1+x/n)^n (Theorem 6)."
+      ],
+      "theorems": [
+        {
+          "name": "Theorem 6",
+          "statement": "e^x = lim(n→∞) (1 + x/n)^n.",
+          "conditions": [
+            "n → ∞"
+          ]
+        }
+      ],
+      "formulas": [
+        "A(t) = A0·e^(rt)  (r as a decimal rate, t in years)"
+      ],
+      "prerequisites": [
+        "3.4-exponential-growth-decay-basic-setup"
+      ],
+      "difficulty_levels": [
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.4-continuous-compounding-find-time-to-target",
+          "difficulty": "medium",
+          "prompt_template": "Given a principal, a continuous nominal rate, and a target amount, solve for the time required.",
+          "example": "How long for $1000 to grow to $2000 at nominal 6% compounded continuously?",
+          "answer": "t = ln2/0.06 ≈ 11.55 years.",
+          "recognition_cue": "The problem explicitly says 'compounded continuously' with a stated nominal rate — directly use A=A0 e^(rt) with r as a decimal, no need to fit k from data.",
+          "method_plan": [
+            "Write A(t)=A0 e^(rt) with r as a decimal (rate/100)",
+            "Set A(t) equal to the target amount",
+            "Divide by A0 and take ln",
+            "Solve for t"
+          ],
+          "full_mark_rubric": [
+            "M1: correct model with r correctly converted from percent to decimal",
+            "M1: correct equation solved using ln",
+            "A1: correct final time"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Forgetting to convert the percent rate to a decimal before using it as r"
+            },
+            {
+              "type": "procedural",
+              "description": "Confusing continuous compounding (e^(rt)) with periodic compounding ((1+r/n)^(nt))"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-continuous-compounding-find-future-value",
+          "difficulty": "easy",
+          "prompt_template": "Given a principal, continuous rate, and time, compute the resulting amount directly.",
+          "example": "Find the value after 8 years of $5000 invested at a nominal 4.5% compounded continuously.",
+          "answer": "A = 5000·e^(0.045·8) = 5000·e^0.36 ≈ $7166.64.",
+          "recognition_cue": "The question asks directly for a future value ('how much will it be worth after...') with both rate and time given — a direct plug-in, no equation-solving for an unknown exponent needed.",
+          "method_plan": [
+            "Convert the percent rate to a decimal",
+            "Substitute principal, rate, and time into A=A0 e^(rt)",
+            "Evaluate numerically",
+            "Round to appropriate currency precision"
+          ],
+          "full_mark_rubric": [
+            "M1: correct substitution into the model",
+            "A1: correct numeric evaluation rounded appropriately"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Rate not converted from percent to decimal"
+            },
+            {
+              "type": "presentation",
+              "description": "Answer not rounded to a sensible currency precision (e.g. 2 decimal places)"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-continuous-compounding-compare-schemes",
+          "difficulty": "medium",
+          "prompt_template": "Compare continuous compounding to periodic (annual/monthly) compounding at the same nominal rate, using Theorem 6 as justification for why continuous compounding is the limiting case.",
+          "example": "Compare the value after 1 year of $1000 at 8% compounded (a) annually, (b) monthly, (c) continuously.",
+          "answer": "(a) $1080; (b) $1000(1+0.08/12)^12 ≈ $1083.00; (c) $1000e^0.08 ≈ $1083.29 — continuous is the largest, as the limiting case of increasingly frequent compounding.",
+          "recognition_cue": "The question explicitly asks to 'compare' compounding frequencies or asks 'why is continuous compounding the limit of...' — a conceptual archetype tying back to Theorem 6.",
+          "method_plan": [
+            "Compute the periodic-compounding value(s) using A0(1+r/n)^(nt)",
+            "Compute the continuous-compounding value using A0 e^(rt)",
+            "Compare the numeric results",
+            "Explain via Theorem 6 why continuous compounding is the n→∞ limit of periodic compounding"
+          ],
+          "full_mark_rubric": [
+            "A1: correct periodic compounding calculation(s)",
+            "A1: correct continuous compounding calculation",
+            "A1: correct numeric comparison stated",
+            "A1: correct conceptual link to Theorem 6"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Believing continuous compounding gives a dramatically larger result than frequent periodic compounding, rather than a marginally larger one (the limit converges)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors evaluating (1+r/n)^(nt) for large n"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.4-logistic-growth",
+      "section": "3.4",
+      "topic": "Transcendental Functions",
+      "subtopic": "Logistic Growth",
+      "micro_skill": "Set up and use the logistic growth model for population growth limited by a carrying capacity",
+      "definitions": [
+        "dy/dt = ky(1 - y/L) models growth limited by a carrying capacity L.",
+        "Solution with y(0)=y0: y(t) = L·y0 / (y0 + (L-y0)e^(-kt)).",
+        "lim(t→∞) y(t) = L for 0<y0<L — the population approaches but never exceeds the carrying capacity."
+      ],
+      "theorems": [],
+      "formulas": [
+        "y(t) = L·y0 / (y0 + (L-y0)e^(-kt))"
+      ],
+      "prerequisites": [
+        "3.4-exponential-growth-decay-basic-setup"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.4-logistic-growth-identify-parameters",
+          "difficulty": "medium",
+          "prompt_template": "Given a logistic differential equation or a verbal description ('growth rate proportional to both the population and the remaining room to capacity'), identify k, L, and y0 and write the explicit solution.",
+          "example": "A population satisfies dy/dt = 0.02y(1-y/5000) with y(0)=200. Write y(t) explicitly.",
+          "answer": "y(t) = 5000·200 / (200+4800e^(-0.02t)) = 1,000,000/(200+4800e^(-0.02t)).",
+          "recognition_cue": "The differential equation has the explicit form ky(1-y/L) (or the problem states a 'carrying capacity') — distinguishes it from plain exponential growth dy/dt=ky.",
+          "method_plan": [
+            "Identify k and L directly from the differential equation's coefficients",
+            "Identify y0 from the initial condition",
+            "Substitute all three into the logistic solution formula",
+            "Simplify the resulting expression"
+          ],
+          "full_mark_rubric": [
+            "M1: correct k and L identified",
+            "M1: correct y0 identified",
+            "A1: correctly substituted and simplified explicit formula"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Treating the logistic equation as plain exponential growth and using y=y0e^(kt) instead"
+            },
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip computing L-y0"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-logistic-growth-evaluate-at-time",
+          "difficulty": "medium",
+          "prompt_template": "Given a fully specified logistic model, evaluate the population at a specific future time.",
+          "example": "Using y(t) = 1000/(1+9e^(-0.5t)), find y(4).",
+          "answer": "y(4) = 1000/(1+9e^(-2)) ≈ 1000/(1+1.2179) ≈ 450.9.",
+          "recognition_cue": "A logistic formula (with the characteristic 1/(1+Ce^(-kt))-style denominator) is already given explicitly, and a specific numeric time is requested — a direct evaluation, not a setup problem.",
+          "method_plan": [
+            "Substitute the given time into the logistic formula",
+            "Evaluate the exponential term",
+            "Simplify the fraction",
+            "Round appropriately"
+          ],
+          "full_mark_rubric": [
+            "M1: correct substitution",
+            "A1: correct numeric evaluation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip evaluating the exponential or the resulting fraction"
+            }
+          ],
+          "merged_topics": [
+            "3.4-logistic-growth"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-logistic-growth-long-run-behavior",
+          "difficulty": "medium",
+          "prompt_template": "Determine the long-run (t→∞) behavior of a logistic population and explain why it approaches the carrying capacity rather than growing without bound, contrasting with pure exponential growth.",
+          "example": "Explain why, for logistic growth with 0<y0<L, y(t)→L as t→∞, and contrast this with the unbounded growth of y=y0e^(kt).",
+          "answer": "As t→∞, e^(-kt)→0 (for k>0), so the denominator y0+(L-y0)e^(-kt) → y0, giving y(t)→L·y0/y0=L; pure exponential growth has no such limiting term and grows without bound.",
+          "recognition_cue": "The question asks for a limit as t→∞ or explicitly asks to 'explain the long-run behavior' of a logistic model — a conceptual archetype about the structure of the formula rather than a numeric evaluation.",
+          "method_plan": [
+            "Take the limit of the logistic formula as t→∞, noting e^(-kt)→0 for k>0",
+            "Simplify the resulting limit to L",
+            "Contrast with the unbounded exponential model, explaining the role of the (1-y/L) factor in the ODE"
+          ],
+          "full_mark_rubric": [
+            "M1: correct limit evaluated (denominator →y0)",
+            "A1: correct conclusion y(t)→L",
+            "A1: clear conceptual contrast with unbounded exponential growth"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Believing logistic growth eventually behaves like exponential growth forever, ignoring the carrying-capacity term"
+            },
+            {
+              "type": "presentation",
+              "description": "Stating the limit is L without showing the limiting argument on e^(-kt)"
+            }
+          ],
+          "merged_topics": [
+            "3.4-exponential-growth-decay-basic-setup",
+            "limits at infinity"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.4-growth-rate-comparison-limits",
+      "section": "3.4",
+      "topic": "Transcendental Functions",
+      "subtopic": "Comparing Growth Rates of Exponentials, Powers, and Logs",
+      "micro_skill": "Evaluate limits comparing the relative growth rates of exponential, power, and logarithmic functions",
+      "definitions": [],
+      "theorems": [
+        {
+          "name": "Theorem 5 (growth rates)",
+          "statement": "For any a>0: lim(x→∞) x^a/e^x = 0; lim(x→∞) ln x/x^a = 0; lim(x→-∞) |x|^a e^x = 0; lim(x→0+) x^a ln x = 0.",
+          "conditions": [
+            "a > 0",
+            "appropriate one-sided or infinite limit as specified"
+          ]
+        }
+      ],
+      "formulas": [
+        "Rule of thumb: exponentials beat powers, powers beat logs, as x→∞."
+      ],
+      "prerequisites": [
+        "3.4-exponential-growth-decay-basic-setup"
+      ],
+      "difficulty_levels": [
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.4-growth-rate-comparison-limits-exp-beats-power",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate lim(x→∞) of a power of x divided by e^x (or a similar exponential), directly quoting the growth-rate hierarchy.",
+          "example": "Evaluate lim(x→∞) x^5/e^x.",
+          "answer": "0.",
+          "recognition_cue": "The limit is a polynomial or power of x divided by (or multiplied by, at -∞) an exponential as x→∞ — instant recognition case for Theorem 5, faster than repeated l'Hôpital.",
+          "method_plan": [
+            "Recognize the form x^a/e^x as x→∞",
+            "Cite Theorem 5 (exponentials dominate powers) directly",
+            "State the limit is 0"
+          ],
+          "full_mark_rubric": [
+            "A1: correct limit value with Theorem 5 cited as justification (or repeated l'Hôpital shown to the same conclusion)"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Grinding through five rounds of l'Hôpital's Rule instead of directly citing the known growth-rate result"
+            },
+            {
+              "type": "conceptual",
+              "description": "Believing a high power of x eventually overtakes an exponential"
+            }
+          ],
+          "merged_topics": [
+            "4.3-lhopital-infinity-over-infinity"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-growth-rate-comparison-limits-log-beats-power",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate lim(x→∞) of ln x divided by a power of x, or lim(x→0+) of a power times ln x.",
+          "example": "Evaluate lim(x→∞) (ln x)/sqrt(x) and lim(x→0+) x^2 ln x.",
+          "answer": "Both limits equal 0.",
+          "recognition_cue": "One factor is ln x and the other is a power of x, evaluated either as x→∞ (power in denominator) or x→0+ (power multiplying ln x, an ∞·0 form) — both are direct instances of Theorem 5.",
+          "method_plan": [
+            "For the x→∞ case, recognize ln x/x^a→0 directly from Theorem 5",
+            "For the x→0+ case, recognize x^a ln x→0 directly from Theorem 5 (an indeterminate 0·(-∞) form resolved by the theorem)",
+            "State both limits with justification"
+          ],
+          "full_mark_rubric": [
+            "A1: correct first limit with justification",
+            "A1: correct second limit with justification"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Treating x^2 ln x at x→0+ as automatically 0 without recognizing it is an indeterminate 0·(-∞) form needing this specific result"
+            },
+            {
+              "type": "strategy",
+              "description": "Using l'Hôpital on the x→0+ case without first rewriting it as a quotient"
+            }
+          ],
+          "merged_topics": [
+            "4.3-indeterminate-products-and-differences"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.4-growth-rate-comparison-limits-negative-infinity-power-times-exp",
+          "difficulty": "hard",
+          "prompt_template": "Evaluate lim(x→-∞) of |x|^a·e^x, recognizing that e^x→0 dominates any polynomial growth in |x|^a.",
+          "example": "Evaluate lim(x→-∞) x^4 e^x.",
+          "answer": "0.",
+          "recognition_cue": "The limit is as x→-∞ specifically, with a power of x multiplying e^x (not divided) — a variant of the growth-rate hierarchy that students often mishandle by expecting the answer to blow up.",
+          "method_plan": [
+            "Recognize the form |x|^a e^x as x→-∞ from Theorem 5",
+            "Note that as x→-∞, e^x→0 much faster than any polynomial in x grows",
+            "State the limit is 0"
+          ],
+          "full_mark_rubric": [
+            "A1: correct limit stated with correct justification (Theorem 5, x→-∞ case)"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming the limit diverges because x^4→∞, without accounting for e^x→0 dominating"
+            },
+            {
+              "type": "strategy",
+              "description": "Attempting substitution u=-x and mishandling the resulting sign/form"
+            }
+          ],
+          "merged_topics": [
+            "4.3-lhopital-infinity-over-infinity"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.5-evaluate-inverse-trig-exact-values",
+      "section": "3.5",
+      "topic": "Transcendental Functions",
+      "subtopic": "Inverse Trig Functions: Domains, Ranges, Exact Values",
+      "micro_skill": "Evaluate inverse trig functions at exact values, respecting the restricted range of each",
+      "definitions": [
+        "sin^-1 x (arcsin): restriction of sin to [-π/2,π/2]; domain [-1,1]; range [-π/2,π/2].",
+        "cos^-1 x (arccos): restriction of cos to [0,π]; domain [-1,1]; range [0,π].",
+        "tan^-1 x (arctan): restriction of tan to (-π/2,π/2); domain ℝ; range (-π/2,π/2).",
+        "sec^-1 x: restriction of sec to [0,π/2)∪(π/2,π]; domain |x|≥1; range [0,π/2)∪(π/2,π].",
+        "csc^-1 x = sin^-1(1/x); cot^-1 x = tan^-1(1/x)."
+      ],
+      "theorems": [],
+      "formulas": [
+        "cos^-1 x = π/2 - sin^-1 x"
+      ],
+      "prerequisites": [],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.5-evaluate-inverse-trig-exact-values-standard-angle",
+          "difficulty": "easy",
+          "prompt_template": "Evaluate an inverse trig function at a standard value (e.g. ±1, ±1/2, ±1/√2, ±√3/2), giving the answer in the correct restricted range.",
+          "example": "Evaluate sin^-1(-1/sqrt2).",
+          "answer": "-π/4.",
+          "recognition_cue": "The input is one of the standard trig values (1, 1/2, √2/2, √3/2, etc.) — recall the reference angle, then adjust its sign/quadrant to land inside the specific inverse function's range.",
+          "method_plan": [
+            "Recall the reference angle whose sine/cosine/tangent equals the given value in magnitude",
+            "Determine the correct sign/quadrant using the specific range of the inverse function involved",
+            "State the angle within that range (typically in radians)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct reference angle identified",
+            "A1: correct sign/quadrant chosen to match the function's range",
+            "A1: answer given in the expected units (radians unless told otherwise)"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using the wrong function's range (e.g. picking a cos^-1-range angle for an arcsin problem)"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error when the input is negative"
+            }
+          ],
+          "merged_topics": [
+            "3.5-inverse-trig-composition-triangle-method"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-evaluate-inverse-trig-exact-values-secant-composite-range",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate sec^-1 (or csc^-1, cot^-1) using the reciprocal-relation definitions, being careful with the less-standard restricted range.",
+          "example": "Evaluate sec^-1(-2).",
+          "answer": "2π/3 (since sec(2π/3) = -2 and 2π/3 ∈ [0,π/2)∪(π/2,π]).",
+          "recognition_cue": "The inverse function involved is sec^-1, csc^-1, or cot^-1 rather than the three primary inverses — these have less-memorized, easy-to-misremember restricted ranges.",
+          "method_plan": [
+            "Rewrite in terms of the primary inverse function if needed (e.g. csc^-1x = sin^-1(1/x))",
+            "Recall the specific restricted range for the function involved",
+            "Find the angle within that range whose corresponding trig ratio matches"
+          ],
+          "full_mark_rubric": [
+            "M1: correct rewriting into a primary inverse trig function if applicable",
+            "A1: correct angle found within the correct restricted range"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using the arcsin/arccos range instead of the correct sec^-1/csc^-1/cot^-1 range"
+            },
+            {
+              "type": "procedural",
+              "description": "Sign error converting between the function and its reciprocal"
+            }
+          ],
+          "merged_topics": [
+            "3.5-inverse-trig-composition-triangle-method"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-evaluate-inverse-trig-exact-values-range-restriction-pitfall",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate an inverse trig function composed with itself outside the 'obvious' range (e.g. sin^-1(sin(3π/4))), requiring the supplementary/reference-angle correction rather than naive cancellation.",
+          "example": "Evaluate sin^-1(sin(3π/4)).",
+          "answer": "π/4 (not 3π/4, since 3π/4 ∉ [-π/2,π/2]; use sin(3π/4)=sin(π/4)).",
+          "recognition_cue": "The inner angle given to sin^-1(sin(·)) (or the analogous cos^-1(cos(·)), tan^-1(tan(·))) visibly lies outside that inverse function's range — the identity f^-1(f(θ))=θ only cancels directly when θ is already inside the range.",
+          "method_plan": [
+            "Check whether the inner angle already lies in the inverse function's range",
+            "If not, find an angle in the correct range with the same trig value (using symmetry/supplementary-angle identities)",
+            "State that equivalent angle as the final answer"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies the inner angle is outside the valid range",
+            "M1: correctly finds an equivalent angle within the range using a trig identity",
+            "A1: correct final numeric answer"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Naively canceling sin^-1(sin(θ))=θ without checking θ lies in [-π/2,π/2] first"
+            },
+            {
+              "type": "procedural",
+              "description": "Using the wrong supplementary/reference-angle relationship for the specific function involved"
+            }
+          ],
+          "merged_topics": [
+            "3.5-inverse-trig-composition-triangle-method"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.5-inverse-trig-composition-triangle-method",
+      "section": "3.5",
+      "topic": "Transcendental Functions",
+      "subtopic": "Composing Trig Functions with Inverse Trig Functions",
+      "micro_skill": "Simplify expressions like cos(tan^-1 x) or tan(sin^-1 x) using a reference right triangle",
+      "definitions": [
+        "To simplify trig(inverse-trig(x)), let θ = inverse-trig(x), draw a right triangle matching the definition of θ, label the two given sides, find the third via the Pythagorean theorem, then read off the requested ratio."
+      ],
+      "theorems": [],
+      "formulas": [],
+      "prerequisites": [
+        "3.5-evaluate-inverse-trig-exact-values"
+      ],
+      "difficulty_levels": [
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.5-inverse-trig-composition-triangle-method-numeric",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate a composition like cos(tan^-1 2) where the inner inverse trig function has a specific numeric input, using a reference triangle.",
+          "example": "Evaluate cos(tan^-1 2).",
+          "answer": "1/sqrt(5).",
+          "recognition_cue": "A trig function is applied to an inverse trig function of a specific number (not a variable x) — build a right triangle with the given ratio as two of its sides, then read off the requested trig ratio.",
+          "method_plan": [
+            "Let θ = the inner inverse trig expression",
+            "Draw a right triangle with sides matching the definition of θ (e.g. opposite=2, adjacent=1 for tan θ=2)",
+            "Use the Pythagorean theorem to find the missing side",
+            "Read off the requested outer trig ratio from the triangle"
+          ],
+          "full_mark_rubric": [
+            "M1: correct triangle set up with two correct side labels",
+            "M1: correct third side via Pythagorean theorem",
+            "A1: correct final ratio read from the triangle"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Mislabeling which sides are opposite/adjacent for the given inverse trig function"
+            },
+            {
+              "type": "conceptual",
+              "description": "Not checking whether θ could be in a different quadrant, missing a sign (relevant when the input is negative)"
+            }
+          ],
+          "merged_topics": [
+            "3.5-evaluate-inverse-trig-exact-values"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-inverse-trig-composition-triangle-method-symbolic",
+          "difficulty": "medium",
+          "prompt_template": "Simplify a composition like tan(sin^-1 x) for a general variable x (not a specific number), producing an algebraic expression in x.",
+          "example": "Simplify tan(sin^-1 x) for |x|<1.",
+          "answer": "x/sqrt(1-x^2).",
+          "recognition_cue": "The inner inverse trig function has a variable x as its argument (not a number) — the reference triangle has sides labeled with x and 1, and the answer is an algebraic function of x, valid on a stated domain.",
+          "method_plan": [
+            "Let θ = sin^-1 x (or the relevant inverse function), so the defining ratio equals x/1",
+            "Draw the triangle with opposite=x, hypotenuse=1 (or as appropriate for the given inverse function)",
+            "Find the missing side using Pythagoras, in terms of x",
+            "Read off the requested outer trig ratio as an expression in x, stating the valid domain"
+          ],
+          "full_mark_rubric": [
+            "M1: correct triangle labeled with x as a side/ratio",
+            "M1: correct missing side found in terms of x",
+            "A1: correct final expression with domain noted if relevant"
+          ],
+          "common_errors": [
+            {
+              "type": "presentation",
+              "description": "Omitting the domain restriction (e.g. |x|<1) under which the simplification is valid"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error under the square root when finding the missing side"
+            }
+          ],
+          "merged_topics": [
+            "3.5-derivatives-of-inverse-trig-functions"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-inverse-trig-composition-triangle-method-identity-proof",
+          "difficulty": "hard",
+          "prompt_template": "Prove an identity involving inverse trig functions (e.g. tan^-1((x-1)/(x+1)) = tan^-1 x - π/4) by differentiating both sides and matching a constant via a convenient test value.",
+          "example": "Prove tan^-1((x-1)/(x+1)) = tan^-1 x - π/4 for x>-1.",
+          "answer": "Both sides have equal derivative 1/(1+x^2), so their difference is constant; evaluating at x=0 confirms the constant is 0, proving the identity.",
+          "recognition_cue": "The problem says 'prove' or 'show' an equation between two inverse-trig expressions holds for all x in some domain — the standard technique is to show the derivative of (LHS-RHS) is zero, then pin down the constant with one convenient value.",
+          "method_plan": [
+            "Differentiate both sides of the claimed identity using the chain rule for tan^-1(g(x))",
+            "Show the two derivatives are equal, so LHS-RHS is constant on the domain",
+            "Evaluate both sides at one convenient x-value to determine the constant",
+            "Conclude the constant is 0 (or whatever value matches), proving the identity"
+          ],
+          "full_mark_rubric": [
+            "M1: correct derivative of the LHS",
+            "M1: correct derivative of the RHS",
+            "A1: correctly concludes the derivatives match, so the difference is constant",
+            "A1: correctly evaluates at a test point to pin down the constant and complete the proof"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the chain-rule factor when differentiating tan^-1 of a quotient"
+            },
+            {
+              "type": "presentation",
+              "description": "Omitting the final test-value step, leaving the constant undetermined and the proof incomplete"
+            }
+          ],
+          "merged_topics": [
+            "3.5-derivatives-of-inverse-trig-functions"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.5-derivatives-of-inverse-trig-functions",
+      "section": "3.5",
+      "topic": "Transcendental Functions",
+      "subtopic": "Derivatives of Inverse Trig Functions",
+      "micro_skill": "Differentiate expressions involving the inverse trig functions, with and without the chain rule",
+      "definitions": [],
+      "theorems": [],
+      "formulas": [
+        "d/dx sin^-1 x = 1/sqrt(1-x^2)",
+        "d/dx cos^-1 x = -1/sqrt(1-x^2)",
+        "d/dx tan^-1 x = 1/(1+x^2)",
+        "d/dx sec^-1 x = 1/(|x|sqrt(x^2-1))"
+      ],
+      "prerequisites": [
+        "3.3-derivative-of-ln-and-exponential-composite"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.5-derivatives-of-inverse-trig-functions-arcsin-chain-rule",
+          "difficulty": "easy",
+          "prompt_template": "Differentiate sin^-1(g(x)) or cos^-1(g(x)) for a non-trivial inner function g(x) using the chain rule.",
+          "example": "Differentiate y = sin^-1(3x).",
+          "answer": "y' = 3/sqrt(1-9x^2).",
+          "recognition_cue": "sin^-1 or cos^-1 wraps a linear or otherwise non-x inner function — multiply the base formula by the inner derivative and adjust the expression under the square root accordingly.",
+          "method_plan": [
+            "Identify the inner function g(x)",
+            "Apply d/dx sin^-1(g) = g'(x)/sqrt(1-g(x)^2)",
+            "Simplify the expression under the square root"
+          ],
+          "full_mark_rubric": [
+            "M1: correct base formula recalled",
+            "M1: correct chain-rule inner derivative",
+            "A1: correctly simplified final answer"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting to square the inner function under the square root (writing sqrt(1-3x) instead of sqrt(1-9x^2))"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting the chain-rule multiplier g'(x) entirely"
+            }
+          ],
+          "merged_topics": [
+            "3.5-integrals-yielding-inverse-trig"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-derivatives-of-inverse-trig-functions-arctan-chain-rule",
+          "difficulty": "easy",
+          "prompt_template": "Differentiate tan^-1(g(x)) for a non-trivial inner function using the chain rule, then use the result to identify a corresponding integral.",
+          "example": "Find d/dx tan^-1(3x) and use it to evaluate ∫ dx/(1+9x^2).",
+          "answer": "d/dx tan^-1(3x) = 3/(1+9x^2); hence ∫dx/(1+9x^2) = (1/3)tan^-1(3x) + C.",
+          "recognition_cue": "tan^-1 wraps a linear inner function and the problem explicitly links the derivative to a corresponding indefinite integral — a two-part 'differentiate then integrate the reverse' archetype.",
+          "method_plan": [
+            "Differentiate tan^-1(g(x)) using g'(x)/(1+g(x)^2)",
+            "Simplify",
+            "Recognize the target integral as (1/inner-derivative-constant) times the derivative just found",
+            "State the antiderivative with +C"
+          ],
+          "full_mark_rubric": [
+            "M1: correct derivative of tan^-1(3x)",
+            "M1: correctly relates the derivative to the target integral form",
+            "A1: correct antiderivative with the 1/3 scaling and +C"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting to rescale by 1/3 when going from the derivative back to the integral"
+            },
+            {
+              "type": "presentation",
+              "description": "Omitting +C in the final integral answer"
+            }
+          ],
+          "merged_topics": [
+            "3.5-integrals-yielding-inverse-trig"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-derivatives-of-inverse-trig-functions-secant-abs-value",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate sec^-1(g(x)), carefully including the absolute value in the formula.",
+          "example": "Differentiate y = sec^-1(2x) for x>1/2.",
+          "answer": "y' = 2/(|2x|sqrt(4x^2-1)) = 1/(x·sqrt(4x^2-1)) for x>1/2 (since 2x>0 there).",
+          "recognition_cue": "The function is sec^-1 (or csc^-1) — the only inverse-trig derivative with an absolute value in its formula, easy to drop by analogy with the other three.",
+          "method_plan": [
+            "Recall the formula d/dx sec^-1(g) = g'(x)/(|g(x)|sqrt(g(x)^2-1))",
+            "Apply the chain rule with the specific inner function",
+            "Simplify, using the given domain restriction to resolve the absolute value if possible"
+          ],
+          "full_mark_rubric": [
+            "M1: correct formula recalled including |g(x)|",
+            "M1: correct chain-rule inner derivative",
+            "A1: correctly simplified, with the absolute value resolved using the stated domain if applicable"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Dropping the absolute value bars entirely (writing g(x) instead of |g(x)| in the denominator)"
+            },
+            {
+              "type": "presentation",
+              "description": "Not resolving |2x| using the given domain, leaving an unnecessarily complicated final answer"
+            }
+          ],
+          "merged_topics": [
+            "3.5-integrals-yielding-inverse-trig"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-derivatives-of-inverse-trig-functions-product-rule-combination",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate an expression combining an inverse trig function with another factor via the product or quotient rule.",
+          "example": "Differentiate y = x·tan^-1(x) - (1/2)ln(1+x^2).",
+          "answer": "y' = tan^-1(x) + x/(1+x^2) - x/(1+x^2) = tan^-1(x).",
+          "recognition_cue": "An inverse trig function appears multiplied by (or combined with) another x-dependent factor, and the terms are constructed so that some cancellation occurs — signals both product rule and simplification are needed, and a clean answer is a strong hint the algebra was done correctly.",
+          "method_plan": [
+            "Apply the product rule to the term(s) containing the inverse trig factor",
+            "Differentiate any accompanying ln or other term with the chain rule",
+            "Combine and simplify all terms, watching for cancellation",
+            "State the simplified final derivative"
+          ],
+          "full_mark_rubric": [
+            "M1: correct product rule applied to the inverse-trig term",
+            "M1: correct derivative of the remaining term(s)",
+            "A1: correctly simplified/cancelled final answer"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the product rule and only differentiating the inverse trig factor"
+            },
+            {
+              "type": "algebra",
+              "description": "Missing the cancellation that was meant to simplify the answer, submitting an unsimplified expression"
+            }
+          ],
+          "merged_topics": [
+            "3.3-basic-integrals-ln-exp"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.5-integrals-yielding-inverse-trig",
+      "section": "3.5",
+      "topic": "Transcendental Functions",
+      "subtopic": "Integrals Yielding Inverse Trig Functions",
+      "micro_skill": "Evaluate integrals whose antiderivatives are sin^-1 or tan^-1 expressions, including after algebraic preparation",
+      "definitions": [],
+      "theorems": [],
+      "formulas": [
+        "∫ dx/sqrt(a^2-x^2) = sin^-1(x/a) + C  (a>0)",
+        "∫ dx/(a^2+x^2) = (1/a)tan^-1(x/a) + C  (a>0)"
+      ],
+      "prerequisites": [
+        "3.5-derivatives-of-inverse-trig-functions"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.5-integrals-yielding-inverse-trig-arcsin-form",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate an integral of the form ∫dx/sqrt(a^2-x^2) directly, or after rescaling to identify a and matching the pattern.",
+          "example": "Evaluate ∫ dx/sqrt(9-x^2).",
+          "answer": "sin^-1(x/3) + C.",
+          "recognition_cue": "The integrand has a square root of (constant minus x^2) in the denominator with no other x-dependence — direct match to the arcsin antiderivative pattern with a^2 equal to that constant.",
+          "method_plan": [
+            "Identify a^2 as the constant under the square root, so a=sqrt(constant)",
+            "Apply the formula ∫dx/sqrt(a^2-x^2) = sin^-1(x/a)+C directly",
+            "State the answer with +C"
+          ],
+          "full_mark_rubric": [
+            "M1: correct identification of a",
+            "A1: correct final antiderivative with +C"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Using a instead of a^2 or vice versa when identifying the constant"
+            },
+            {
+              "type": "presentation",
+              "description": "Omitting +C"
+            }
+          ],
+          "merged_topics": [
+            "3.5-derivatives-of-inverse-trig-functions"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-integrals-yielding-inverse-trig-arctan-form-with-a",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate an integral of the form ∫dx/(a^2+x^2), correctly including the 1/a scaling factor outside the tan^-1.",
+          "example": "Evaluate ∫ dx/(4+x^2).",
+          "answer": "(1/2)tan^-1(x/2) + C.",
+          "recognition_cue": "The integrand is a constant over (constant + x^2), matching the tan^-1 antiderivative pattern — the easy-to-forget part is the 1/a multiplier out front, distinct from the arcsin case which has no such factor.",
+          "method_plan": [
+            "Identify a^2 as the constant added to x^2, so a=sqrt(constant)",
+            "Apply ∫dx/(a^2+x^2) = (1/a)tan^-1(x/a)+C",
+            "State the answer with +C, double-checking the 1/a factor is included"
+          ],
+          "full_mark_rubric": [
+            "M1: correct identification of a",
+            "A1: correct final antiderivative including the 1/a factor and +C"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the 1/a scaling factor outside the tan^-1 (a common confusion with the arcsin formula, which has no such factor)"
+            },
+            {
+              "type": "presentation",
+              "description": "Omitting +C"
+            }
+          ],
+          "merged_topics": [
+            "3.5-derivatives-of-inverse-trig-functions"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.5-integrals-yielding-inverse-trig-after-algebraic-prep",
+          "difficulty": "hard",
+          "prompt_template": "Evaluate an integral that requires completing the square, factoring out a constant, or another algebraic manipulation before it matches the sin^-1 or tan^-1 pattern.",
+          "example": "Evaluate ∫ dx/sqrt(8-2x^2) and ∫ dx/(x^2+4x+13).",
+          "answer": "First: (1/sqrt2)sin^-1(x/2)+C; second: (1/3)tan^-1((x+2)/3)+C.",
+          "recognition_cue": "The denominator does not immediately look like a^2±x^2 — a constant needs factoring out from under a root, or the quadratic needs completing the square, before the standard inverse-trig integral formula can be applied.",
+          "method_plan": [
+            "For a square-root denominator, factor out the leading numeric coefficient of x^2 from inside the root",
+            "For a quadratic denominator, complete the square to write it as (x-h)^2 + k^2 or k^2-(x-h)^2",
+            "Substitute u=(x-h) so the integral matches the standard sin^-1 or tan^-1 pattern in u",
+            "Apply the formula and convert back to x"
+          ],
+          "full_mark_rubric": [
+            "M1: correct algebraic preparation (factoring or completing the square)",
+            "M1: correct recognition of a and the substitution u=x-h",
+            "A1: correct antiderivative in terms of u",
+            "A1: correctly converted back to x with +C"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Error completing the square or factoring out the leading coefficient"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting to substitute back from u to x, or dropping the shift (x-h) inside the inverse trig argument"
+            }
+          ],
+          "merged_topics": [
+            "3.5-derivatives-of-inverse-trig-functions",
+            "5.7-completing-the-square-for-integration"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.6-hyperbolic-identities-and-derivatives",
+      "section": "3.6",
+      "topic": "Transcendental Functions",
+      "subtopic": "Hyperbolic Function Identities and Derivatives",
+      "micro_skill": "Use the exponential definitions, fundamental identity, and derivative rules of the hyperbolic functions",
+      "definitions": [
+        "cosh x = (e^x+e^-x)/2, sinh x = (e^x-e^-x)/2.",
+        "Fundamental identity: cosh^2 t - sinh^2 t = 1. cosh is even, sinh is odd; cosh0=1, sinh0=0.",
+        "tanh x = sinh x/cosh x, coth x = 1/tanh x, sech x = 1/cosh x, csch x = 1/sinh x.",
+        "tanh x → ±1 as x → ±∞ (two horizontal asymptotes)."
+      ],
+      "theorems": [],
+      "formulas": [
+        "d/dx cosh x = sinh x, d/dx sinh x = cosh x (no minus sign, unlike circular functions)",
+        "d/dx tanh x = sech^2 x, d/dx coth x = -csch^2 x, d/dx sech x = -sech x·tanh x, d/dx csch x = -csch x·coth x",
+        "cosh(x+y) = cosh x cosh y + sinh x sinh y, sinh(x+y) = sinh x cosh y + cosh x sinh y",
+        "cosh(2x) = cosh^2x + sinh^2x = 2cosh^2x-1, sinh(2x) = 2 sinh x cosh x"
+      ],
+      "prerequisites": [
+        "3.3-derivative-of-ln-and-exponential-composite"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.6-hyperbolic-identities-and-derivatives-verify-identity",
+          "difficulty": "easy",
+          "prompt_template": "Verify a stated hyperbolic identity (e.g. the fundamental identity or a derivative formula) directly from the exponential definitions.",
+          "example": "Show cosh^2 x - sinh^2 x = 1 using the exponential definitions.",
+          "answer": "((e^x+e^-x)/2)^2 - ((e^x-e^-x)/2)^2 = [(e^2x+2+e^-2x)-(e^2x-2+e^-2x)]/4 = 4/4 = 1.",
+          "recognition_cue": "The question says 'verify' or 'show' a hyperbolic identity — expand both cosh and sinh via their exponential definitions and simplify algebraically, rather than treating it as a memorized fact.",
+          "method_plan": [
+            "Write cosh x and sinh x using their e^x, e^-x definitions",
+            "Square each and expand",
+            "Subtract (or combine as required by the identity) and simplify",
+            "Confirm the result matches the claimed identity"
+          ],
+          "full_mark_rubric": [
+            "M1: correct exponential expansion of both terms",
+            "A1: correct algebraic simplification to the claimed result"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign error expanding (e^x-e^-x)^2, particularly the cross term"
+            },
+            {
+              "type": "presentation",
+              "description": "Not showing the full expansion, jumping straight to '=1' without justification"
+            }
+          ],
+          "merged_topics": [
+            "3.6-hyperbolic-simplification-and-proofs"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.6-hyperbolic-identities-and-derivatives-basic-derivative",
+          "difficulty": "easy",
+          "prompt_template": "Differentiate a basic hyperbolic function or simple sum, being careful there is no sign flip (unlike sin/cos).",
+          "example": "Differentiate y = 3cosh x - 5sinh x + tanh x.",
+          "answer": "y' = 3sinh x - 5cosh x + sech^2 x.",
+          "recognition_cue": "A sum of hyperbolic functions is given directly (no composite/chain-rule structure) — the main risk is misapplying the trig sign convention out of habit.",
+          "method_plan": [
+            "Differentiate each term using the hyperbolic derivative rules",
+            "Double check no minus sign is introduced for cosh'=sinh or sinh'=cosh",
+            "Combine with correct signs from the original coefficients"
+          ],
+          "full_mark_rubric": [
+            "A1: correct derivative of each term",
+            "A1: correct overall sign combination"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Using the trigonometric sign convention (writing d/dx cosh x = -sinh x) — the single most common hyperbolic-derivative mistake"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error combining the coefficients of the original sum"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.6-hyperbolic-identities-and-derivatives-composite-chain-rule",
+          "difficulty": "medium",
+          "prompt_template": "Differentiate a composite hyperbolic function, e.g. sinh(g(x)) or tanh(g(x)), using the chain rule.",
+          "example": "Differentiate y = tanh(x^2).",
+          "answer": "y' = 2x·sech^2(x^2).",
+          "recognition_cue": "A hyperbolic function wraps a non-trivial inner function — apply the chain rule exactly as with circular trig functions (the derivative rule itself has no minus-sign trap here, only in the basic sinh/cosh case).",
+          "method_plan": [
+            "Identify the inner function and its derivative",
+            "Apply the appropriate hyperbolic derivative formula to the outer function",
+            "Multiply by the inner derivative"
+          ],
+          "full_mark_rubric": [
+            "M1: correct outer hyperbolic derivative formula used",
+            "M1: correct inner derivative found",
+            "A1: correctly combined final answer"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the chain-rule inner-derivative factor"
+            },
+            {
+              "type": "procedural",
+              "description": "Using the wrong hyperbolic derivative formula, e.g. confusing sech^2 with csch^2 for tanh vs coth"
+            }
+          ],
+          "merged_topics": [
+            "3.6-hyperbolic-simplification-and-proofs"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.6-inverse-hyperbolic-in-terms-of-ln",
+      "section": "3.6",
+      "topic": "Transcendental Functions",
+      "subtopic": "Inverse Hyperbolic Functions",
+      "micro_skill": "Derive and use the logarithmic forms of the inverse hyperbolic functions",
+      "definitions": [
+        "Since cosh is not one-to-one on all of ℝ, its inverse requires restricting to x≥0 (principal value Cosh x)."
+      ],
+      "theorems": [],
+      "formulas": [
+        "sinh^-1 x = ln(x+sqrt(x^2+1))  (all x)",
+        "cosh^-1 x = ln(x+sqrt(x^2-1))  (x ≥ 1)",
+        "tanh^-1 x = (1/2)ln((1+x)/(1-x))  (-1<x<1)"
+      ],
+      "prerequisites": [
+        "3.6-hyperbolic-identities-and-derivatives"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.6-inverse-hyperbolic-in-terms-of-ln-derive-via-quadratic",
+          "difficulty": "hard",
+          "prompt_template": "Derive the ln formula for an inverse hyperbolic function from scratch by solving a quadratic in e^y.",
+          "example": "Express sinh^-1 x in terms of ln by solving the defining equation for y.",
+          "answer": "y = ln(x+sqrt(x^2+1)).",
+          "recognition_cue": "The question says 'derive' or 'express in terms of ln, starting from the definition' — signals the quadratic-in-e^y technique rather than quoting the memorized formula.",
+          "method_plan": [
+            "Let y = sinh^-1 x, so x = (e^y-e^-y)/2",
+            "Multiply both sides by 2e^y to clear the negative exponent, obtaining a quadratic in e^y",
+            "Solve the quadratic using the quadratic formula, keeping only the root with e^y>0",
+            "Take ln of both sides to solve for y"
+          ],
+          "full_mark_rubric": [
+            "M1: correct multiplication by 2e^y producing a quadratic in e^y",
+            "M1: correct application of the quadratic formula",
+            "A1: correct rejection of the extraneous (negative) root",
+            "A1: correct final ln expression"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Keeping both roots of the quadratic instead of rejecting the one that makes e^y negative or undefined"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign/arithmetic error setting up or solving the quadratic"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.6-inverse-hyperbolic-in-terms-of-ln-evaluate-expression",
+          "difficulty": "medium",
+          "prompt_template": "Evaluate a specific inverse hyperbolic expression numerically or symbolically using the ln formula directly.",
+          "example": "Evaluate cosh^-1(2) exactly.",
+          "answer": "ln(2+sqrt3).",
+          "recognition_cue": "A specific numeric value is plugged into an inverse hyperbolic function — direct substitution into the memorized ln formula, no derivation required.",
+          "method_plan": [
+            "Identify which inverse hyperbolic function is involved and recall its ln formula",
+            "Substitute the given value directly",
+            "Simplify under the square root if possible"
+          ],
+          "full_mark_rubric": [
+            "M1: correct formula recalled",
+            "A1: correct substitution and simplification"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using the wrong inverse hyperbolic formula (mixing up sinh^-1, cosh^-1, tanh^-1)"
+            },
+            {
+              "type": "algebra",
+              "description": "Arithmetic error simplifying the value under the square root"
+            }
+          ],
+          "merged_topics": [
+            "3.6-hyperbolic-identities-and-derivatives"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.6-inverse-hyperbolic-in-terms-of-ln-domain-restriction",
+          "difficulty": "medium",
+          "prompt_template": "State and apply the correct domain restriction (x≥1 for cosh^-1, -1<x<1 for tanh^-1) when evaluating or working with an inverse hyperbolic expression, and explain why the restriction is necessary.",
+          "example": "Explain why cosh^-1 requires x≥1, and evaluate tanh^-1(0.5).",
+          "answer": "cosh is not one-to-one on all of ℝ (it's even), so its inverse must restrict to x≥0 to be well-defined; tanh^-1(0.5) = (1/2)ln(1.5/0.5) = (1/2)ln3.",
+          "recognition_cue": "The question explicitly asks about the domain restriction ('why must x≥1', 'for what x is this defined') or gives a value near the edge of a restricted domain — a conceptual check rather than pure computation.",
+          "method_plan": [
+            "Recall which original hyperbolic function is not one-to-one on all of ℝ (cosh, being even) and why restricting to x≥0 is needed",
+            "State the resulting domain of each inverse hyperbolic function",
+            "Evaluate the requested expression using the ln formula, confirming the input lies in the valid domain"
+          ],
+          "full_mark_rubric": [
+            "A1: correct explanation of the domain restriction and its cause",
+            "M1: correct formula applied for the evaluation",
+            "A1: correct final numeric/symbolic value"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Not recognizing that cosh^-1's domain restriction stems from cosh failing to be one-to-one (evenness), rather than an arbitrary convention"
+            },
+            {
+              "type": "presentation",
+              "description": "Evaluating tanh^-1 at a value outside (-1,1) without flagging that it is undefined there"
+            }
+          ],
+          "merged_topics": [
+            "3.1-verify-one-to-one-find-inverse"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.6-hyperbolic-simplification-and-proofs",
+      "section": "3.6",
+      "topic": "Transcendental Functions",
+      "subtopic": "Simplifying and Proving Results with Hyperbolic Functions",
+      "micro_skill": "Simplify composite hyperbolic expressions and use hyperbolic functions to solve/verify second-order ODEs",
+      "definitions": [],
+      "theorems": [],
+      "formulas": [],
+      "prerequisites": [
+        "3.6-hyperbolic-identities-and-derivatives"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.6-hyperbolic-simplification-and-proofs-simplify-composite",
+          "difficulty": "medium",
+          "prompt_template": "Simplify a hyperbolic function evaluated at a logarithmic (or otherwise composite) argument, converting back to an algebraic expression in x.",
+          "example": "Simplify tanh(ln x).",
+          "answer": "(x^2-1)/(x^2+1).",
+          "recognition_cue": "A hyperbolic function is applied to ln x (or another expression that will make e^(that expression) simplify nicely) — expand via the exponential definitions and the e^(ln x)=x cancellation.",
+          "method_plan": [
+            "Write the hyperbolic function using its exponential definition",
+            "Substitute the given argument and use e^(ln x)=x, e^(-ln x)=1/x to simplify each exponential term",
+            "Combine into a single algebraic fraction in x"
+          ],
+          "full_mark_rubric": [
+            "M1: correct exponential-definition expansion",
+            "M1: correct use of the ln/exp cancellation identities",
+            "A1: correctly simplified final algebraic expression"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign or fraction-combination error simplifying (x-1/x)/(x+1/x)-type expressions"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting e^(-ln x)=1/x and instead treating it as -x or another incorrect form"
+            }
+          ],
+          "merged_topics": [
+            "3.3-derivative-of-ln-and-exponential-composite"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.6-hyperbolic-simplification-and-proofs-second-order-ode",
+          "difficulty": "hard",
+          "prompt_template": "Show that a linear combination of e^(kt) and e^(-kt) solves y''-k^2y=0, and re-express the solution using cosh and sinh.",
+          "example": "Show that f(t)=Ae^(kt)+Be^(-kt) solves y''-k^2y=0, and express it using cosh, sinh.",
+          "answer": "f''=Ak^2e^(kt)+Bk^2e^(-kt)=k^2f, confirming f''-k^2f=0; f(t) = (A+B)cosh(kt) + (A-B)sinh(kt).",
+          "recognition_cue": "The problem gives a combination of e^(kt) and e^(-kt) and asks either to verify a second-order ODE or to rewrite it in terms of cosh/sinh — the exponential combination is a strong visual cue for a hyperbolic rewrite.",
+          "method_plan": [
+            "Differentiate the given f(t) twice",
+            "Substitute into y''-k^2y and confirm it equals 0",
+            "Group the e^(kt) and e^(-kt) terms to match the definitions of cosh(kt) and sinh(kt)",
+            "State the equivalent cosh/sinh form with the correct combined coefficients"
+          ],
+          "full_mark_rubric": [
+            "M1: correct second derivative computed",
+            "A1: correct verification that f''-k^2f=0",
+            "M1: correct grouping into cosh(kt), sinh(kt) form",
+            "A1: correct final coefficients (A+B) and (A-B)"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Error identifying which coefficient combination (A+B) vs (A-B) goes with cosh vs sinh"
+            },
+            {
+              "type": "procedural",
+              "description": "Not simplifying k^2 f(t) back in terms of the original f, leaving the ODE verification incomplete"
+            }
+          ],
+          "merged_topics": [
+            "3.7-characteristic-equation-three-cases"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.6-hyperbolic-simplification-and-proofs-addition-formula",
+          "difficulty": "medium",
+          "prompt_template": "Use the hyperbolic addition or double-angle formulas to simplify or prove an identity, analogous to circular trig double-angle work.",
+          "example": "Show that cosh(2x) = 2sinh^2x + 1.",
+          "answer": "Using cosh(2x)=cosh^2x+sinh^2x and cosh^2x-sinh^2x=1 gives cosh^2x=1+sinh^2x, so cosh(2x)=(1+sinh^2x)+sinh^2x=1+2sinh^2x.",
+          "recognition_cue": "The problem gives a hyperbolic double-angle or addition-formula identity to prove — combine the known addition formulas with the fundamental identity cosh^2-sinh^2=1 to substitute one function for the other.",
+          "method_plan": [
+            "Start from the known double-angle formula cosh(2x)=cosh^2x+sinh^2x",
+            "Use the fundamental identity to replace cosh^2x with 1+sinh^2x (or vice versa)",
+            "Simplify to match the target identity"
+          ],
+          "full_mark_rubric": [
+            "M1: correct starting double-angle formula used",
+            "M1: correct substitution using the fundamental identity",
+            "A1: correctly simplified to the target form"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Using the wrong fundamental identity sign (forgetting hyperbolic identity differs from circular trig's sin^2+cos^2=1)"
+            },
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip combining terms after substitution"
+            }
+          ],
+          "merged_topics": [
+            "3.6-hyperbolic-identities-and-derivatives"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.7-characteristic-equation-three-cases",
+      "section": "3.7",
+      "topic": "Transcendental Functions",
+      "subtopic": "Solving ay''+by'+cy=0 via the Characteristic Equation",
+      "micro_skill": "Solve a homogeneous second-order linear ODE with constant coefficients by finding and classifying the roots of the characteristic equation",
+      "definitions": [
+        "Setup: ay''+by'+cy=0 (a≠0). Trying y=e^(rt) gives the auxiliary (characteristic) equation ar^2+br+c=0, with roots r = (-b±sqrt(D))/(2a), D=b^2-4ac."
+      ],
+      "theorems": [
+        {
+          "name": "Case I: D>0 (real distinct roots)",
+          "statement": "General solution y = Ae^(r1 t) + Be^(r2 t) where r1,r2 are the two distinct real roots.",
+          "conditions": [
+            "D = b^2-4ac > 0"
+          ]
+        },
+        {
+          "name": "Case II: D=0 (repeated root)",
+          "statement": "General solution y = Ae^(rt) + Bte^(rt) where r=-b/2a is the repeated root.",
+          "conditions": [
+            "D = b^2-4ac = 0"
+          ]
+        },
+        {
+          "name": "Case III: D<0 (complex roots)",
+          "statement": "General solution y = Ae^(kt)cos(ωt) + Be^(kt)sin(ωt), where r=k±iω, k=-b/2a, ω=sqrt(4ac-b^2)/(2a).",
+          "conditions": [
+            "D = b^2-4ac < 0"
+          ]
+        }
+      ],
+      "formulas": [
+        "r = (-b ± sqrt(b^2-4ac)) / (2a)"
+      ],
+      "prerequisites": [
+        "3.3-derivative-of-ln-and-exponential-composite"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.7-characteristic-equation-three-cases-distinct-real-roots",
+          "difficulty": "easy",
+          "prompt_template": "Solve ay''+by'+cy=0 whose characteristic equation factors into two distinct real roots.",
+          "example": "Solve y''+y'-2y=0.",
+          "answer": "y = Ae^(-2t) + Be^t.",
+          "recognition_cue": "The characteristic quadratic factors (or has a positive discriminant) into two distinct real roots — the most straightforward of the three cases.",
+          "method_plan": [
+            "Write down the characteristic equation ar^2+br+c=0",
+            "Factor or use the quadratic formula to find the two real roots",
+            "Write the general solution as y=Ae^(r1t)+Be^(r2t)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct characteristic equation written",
+            "M1: correct roots found",
+            "A1: correct general solution form with both constants present"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Factoring error on the characteristic quadratic"
+            },
+            {
+              "type": "presentation",
+              "description": "Writing only one exponential term, forgetting the second linearly independent solution"
+            }
+          ],
+          "merged_topics": [
+            "3.7-ivp-solve-for-constants"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-characteristic-equation-three-cases-repeated-root",
+          "difficulty": "medium",
+          "prompt_template": "Solve ay''+by'+cy=0 whose characteristic equation has a repeated (double) real root, requiring the extra factor of t on the second solution.",
+          "example": "Solve y''+6y'+9y=0.",
+          "answer": "y = Ae^(-3t) + Bte^(-3t).",
+          "recognition_cue": "The characteristic equation is a perfect square, i.e. discriminant D=0 — signals the second linearly independent solution needs an extra factor of t, not a second distinct exponential.",
+          "method_plan": [
+            "Write the characteristic equation and recognize it as a perfect square (or compute D=0)",
+            "Find the single repeated root r",
+            "Write the general solution y=Ae^(rt)+Bte^(rt), including the t factor on the second term"
+          ],
+          "full_mark_rubric": [
+            "M1: correct characteristic equation and recognition D=0",
+            "M1: correct repeated root found",
+            "A1: correct general solution including the required te^(rt) term"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Writing y=Ae^(rt)+Be^(rt) (two copies of the same exponential, which is not linearly independent) instead of including the t factor"
+            },
+            {
+              "type": "algebra",
+              "description": "Error recognizing the characteristic equation as a perfect square"
+            }
+          ],
+          "merged_topics": [
+            "3.7-ivp-solve-for-constants"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-characteristic-equation-three-cases-complex-roots",
+          "difficulty": "medium",
+          "prompt_template": "Solve ay''+by'+cy=0 whose characteristic equation has complex conjugate roots, converting to the real oscillatory solution form.",
+          "example": "Solve y''+4y'+13y=0.",
+          "answer": "y = Ae^(-2t)cos(3t) + Be^(-2t)sin(3t).",
+          "recognition_cue": "The discriminant is negative (quadratic formula produces a negative number under the square root) — signals the solution involves oscillation modulated by an exponential envelope, expressed via cos/sin rather than complex exponentials.",
+          "method_plan": [
+            "Write the characteristic equation and compute the discriminant, confirming D<0",
+            "Use the quadratic formula to find r=k±iω",
+            "Write the general solution as y=Ae^(kt)cos(ωt)+Be^(kt)sin(ωt)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct characteristic equation and discriminant check",
+            "M1: correct k and ω extracted from the complex roots",
+            "A1: correct final real-valued general solution"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign error inside the square root when computing ω"
+            },
+            {
+              "type": "presentation",
+              "description": "Leaving the answer in complex-exponential form instead of converting to the real cos/sin form expected at this level"
+            }
+          ],
+          "merged_topics": [
+            "3.7-ivp-solve-for-constants",
+            "3.7-simple-harmonic-motion"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-characteristic-equation-three-cases-classify-without-fully-solving",
+          "difficulty": "easy",
+          "prompt_template": "Determine which of the three cases applies (without necessarily solving completely) by computing only the discriminant.",
+          "example": "Without solving, classify the case for 2y''-3y'+5y=0.",
+          "answer": "D = (-3)^2-4(2)(5) = 9-40 = -31 < 0, so Case III (complex roots, damped oscillation).",
+          "recognition_cue": "The question explicitly asks to 'classify' or 'determine the case' rather than 'solve' — only the discriminant's sign is needed, not the full quadratic formula computation.",
+          "method_plan": [
+            "Identify a, b, c from the ODE",
+            "Compute D=b^2-4ac",
+            "State which of the three cases applies based on the sign of D"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies a,b,c",
+            "A1: correct discriminant computed and case correctly stated"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign error computing D, leading to the wrong case"
+            },
+            {
+              "type": "strategy",
+              "description": "Solving the full characteristic equation unnecessarily when only classification was asked for"
+            }
+          ],
+          "merged_topics": [
+            "4.5-second-derivative-test"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.7-ivp-solve-for-constants",
+      "section": "3.7",
+      "topic": "Transcendental Functions",
+      "subtopic": "Solving Initial Value Problems for Second-Order Linear ODEs",
+      "micro_skill": "Use two initial conditions to solve for the two arbitrary constants in the general solution",
+      "definitions": [
+        "Initial conditions y(t0)=y0, y'(t0)=v0 pin down A,B uniquely once the general solution's case (I, II, or III) has been determined."
+      ],
+      "theorems": [],
+      "formulas": [],
+      "prerequisites": [
+        "3.7-characteristic-equation-three-cases"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.7-ivp-solve-for-constants-complex-roots-ivp",
+          "difficulty": "hard",
+          "prompt_template": "Solve a full IVP where the characteristic equation has complex roots, requiring differentiation of the cos/sin·exponential general solution before applying the second initial condition.",
+          "example": "Solve y''+2y'+2y=0, y(0)=2, y'(0)=-3.",
+          "answer": "y = 2e^-t cos t - e^-t sin t.",
+          "recognition_cue": "Two initial conditions y(0) and y'(0) are given together with a complex-root ODE — the derivative of the general solution requires the product rule on each Ae^(kt)cos(ωt) term before the second condition can be applied.",
+          "method_plan": [
+            "Solve the characteristic equation and write the general solution y=Ae^(kt)cos(ωt)+Be^(kt)sin(ωt)",
+            "Apply y(t0)=y0 to solve for A (usually immediate at t0=0)",
+            "Differentiate the general solution using the product rule on each term",
+            "Apply y'(t0)=v0 to solve for B, then state the particular solution"
+          ],
+          "full_mark_rubric": [
+            "M1: correct general solution form",
+            "A1: correct value of A from the first condition",
+            "M1: correct derivative of the general solution via product rule",
+            "A1: correct value of B and final particular solution"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the product rule when differentiating Ae^(kt)cos(ωt) (missing either the k·exponential term or the -ω·sin term)"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error combining the two product-rule terms in y'(t)"
+            }
+          ],
+          "merged_topics": [
+            "3.7-characteristic-equation-three-cases"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-ivp-solve-for-constants-repeated-root-ivp",
+          "difficulty": "medium",
+          "prompt_template": "Solve a full IVP where the characteristic equation has a repeated root, requiring the product rule on the te^(rt) term.",
+          "example": "Solve y''-4y'+4y=0, y(0)=1, y'(0)=0.",
+          "answer": "y = e^(2t) - 2te^(2t).",
+          "recognition_cue": "Two initial conditions are given for a repeated-root ODE — differentiating the Bte^(rt) term specifically requires the product rule, distinguishing it from the distinct-roots case.",
+          "method_plan": [
+            "Solve the characteristic equation, confirm the repeated root, and write y=Ae^(rt)+Bte^(rt)",
+            "Apply y(t0)=y0 to solve for A",
+            "Differentiate, using the product rule on the Bte^(rt) term",
+            "Apply y'(t0)=v0 to solve for B"
+          ],
+          "full_mark_rubric": [
+            "M1: correct general solution with repeated-root form",
+            "A1: correct A from first condition",
+            "M1: correct product-rule derivative of the te^(rt) term",
+            "A1: correct B and final solution"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Differentiating Bte^(rt) as if it were just Bre^(rt) (forgetting the product rule's extra term from differentiating t)"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign or coefficient slip solving the resulting linear equation for B"
+            }
+          ],
+          "merged_topics": [
+            "3.7-characteristic-equation-three-cases"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-ivp-solve-for-constants-distinct-roots-ivp",
+          "difficulty": "medium",
+          "prompt_template": "Solve a full IVP where the characteristic equation has two distinct real roots, using the two conditions to set up and solve a 2x2 linear system for A and B.",
+          "example": "Solve y''-5y'+6y=0, y(0)=2, y'(0)=1.",
+          "answer": "Roots r=2,3: y=Ae^(2t)+Be^(3t); solving A+B=2, 2A+3B=1 gives A=5, B=-3, so y=5e^(2t)-3e^(3t).",
+          "recognition_cue": "Both initial conditions are given at a common t0 (often t0=0) for a distinct-real-roots ODE, and unlike the single-root or complex cases, applying both conditions produces a genuine 2-equation linear system to solve simultaneously (rather than A falling out immediately).",
+          "method_plan": [
+            "Solve the characteristic equation for the two distinct roots and write the general solution",
+            "Differentiate the general solution",
+            "Substitute t0 into both y and y' to form two linear equations in A and B",
+            "Solve the resulting system simultaneously"
+          ],
+          "full_mark_rubric": [
+            "M1: correct general solution and derivative",
+            "M1: correct system of two equations formed from the initial conditions",
+            "A1: correctly solved system",
+            "A1: correct final particular solution stated"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Error solving the simultaneous linear system for A and B"
+            },
+            {
+              "type": "procedural",
+              "description": "Substituting the initial time into the general solution incorrectly (e.g. plugging into y' before differentiating)"
+            }
+          ],
+          "merged_topics": [
+            "3.7-characteristic-equation-three-cases"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.7-simple-harmonic-motion",
+      "section": "3.7",
+      "topic": "Transcendental Functions",
+      "subtopic": "Simple Harmonic Motion",
+      "micro_skill": "Model and analyze undamped oscillatory motion (mass-spring systems) using amplitude, period, and frequency",
+      "definitions": [
+        "Simple harmonic motion (undamped, b=0): d^2y/dt^2 + ω^2 y = 0 (ω^2=k/m for a mass-spring system via Hooke's Law F=-ky).",
+        "General solution y = Acos(ωt) + Bsin(ωt) = Rcos(ω(t-t0)), where R=sqrt(A^2+B^2) is the amplitude, T=2π/ω is the period, 1/T the frequency (Hz), ω the circular frequency (rad/s), t0 the time-shift.",
+        "Position/velocity at t=0: y0=A, v0=Bω."
+      ],
+      "theorems": [],
+      "formulas": [
+        "R = sqrt(A^2+B^2)",
+        "T = 2π/ω",
+        "frequency = ω/(2π)"
+      ],
+      "prerequisites": [
+        "3.7-ivp-solve-for-constants"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.7-simple-harmonic-motion-find-amplitude-period-frequency",
+          "difficulty": "medium",
+          "prompt_template": "Given an ODE and initial conditions describing SHM, solve for A, B, then compute amplitude, period, and frequency.",
+          "example": "Solve y''+16y=0, y(0)=-6, y'(0)=32. Find amplitude, frequency, period.",
+          "answer": "y=-6cos4t+8sin4t; amplitude R=10; period=π/2≈1.57s; frequency=2/π≈0.637Hz.",
+          "recognition_cue": "The ODE has the pure form y''+ω^2y=0 (no y' term — undamped) with two initial conditions, and the question explicitly asks for amplitude/period/frequency rather than just 'solve the ODE'.",
+          "method_plan": [
+            "Identify ω^2 from the coefficient of y and solve the ODE for A and B using the initial conditions",
+            "Compute the amplitude R=sqrt(A^2+B^2)",
+            "Compute the period T=2π/ω",
+            "Compute the frequency = ω/(2π) = 1/T"
+          ],
+          "full_mark_rubric": [
+            "M1: correct A,B found from initial conditions",
+            "A1: correct amplitude",
+            "A1: correct period",
+            "A1: correct frequency, with correct units (Hz vs rad/s) distinguished"
+          ],
+          "common_errors": [
+            {
+              "type": "presentation",
+              "description": "Reporting frequency (Hz) when circular frequency ω (rad/s) or period was asked for, or vice versa"
+            },
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip computing R=sqrt(A^2+B^2)"
+            }
+          ],
+          "merged_topics": [
+            "3.7-ivp-solve-for-constants"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-simple-harmonic-motion-spring-mass-setup-hookes-law",
+          "difficulty": "hard",
+          "prompt_template": "Set up a spring-mass SHM problem from physical data (mass, spring force/displacement, initial displacement/velocity), including unit conversions, using Hooke's Law to find ω before solving.",
+          "example": "A 100g mass on a spring; a force of 3×10^4 dynes produces displacement 1/3 cm. Pulled down 2cm with initial upward velocity 60cm/s. Find y(t), amplitude, period.",
+          "answer": "ω=30 rad/s; y=-2cos30t+2sin30t (cm); amplitude=2√2≈2.83cm; period=2π/30≈0.209s.",
+          "recognition_cue": "The problem gives physical quantities (mass, a force-and-displacement pair, not ω directly) and asks to model the resulting motion — Hooke's Law F=-ky must first be used to extract the spring constant k, then ω=sqrt(k/m), before the ODE can even be set up.",
+          "method_plan": [
+            "Use Hooke's Law F=ky (force/displacement) to find the spring constant k, keeping units consistent",
+            "Compute ω=sqrt(k/m)",
+            "Translate the initial displacement/velocity into y(0) and y'(0), being careful with sign (e.g. 'pulled down' vs upward velocity)",
+            "Solve y=Acos(ωt)+Bsin(ωt) for A,B using the initial conditions, then compute amplitude and period"
+          ],
+          "full_mark_rubric": [
+            "M1: correct spring constant k from Hooke's Law with consistent units",
+            "M1: correct ω=sqrt(k/m)",
+            "A1: correct signs on y(0), y'(0) from the physical description",
+            "A1: correct final y(t), amplitude, and period"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Not keeping mass/force/displacement in consistent units before computing k or ω"
+            },
+            {
+              "type": "conceptual",
+              "description": "Sign error translating 'pulled down' or 'initial upward velocity' into the correct signed values of y(0), y'(0)"
+            }
+          ],
+          "merged_topics": [
+            "3.7-ivp-solve-for-constants",
+            "3.7-damped-harmonic-motion-classification"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-simple-harmonic-motion-convert-to-phase-shift-form",
+          "difficulty": "medium",
+          "prompt_template": "Convert a solution written as Acos(ωt)+Bsin(ωt) into the equivalent single-cosine phase-shift form Rcos(ω(t-t0)), identifying R and t0.",
+          "example": "Write y = 2sin(3t) as Rcos(3(t-t0)) and identify the amplitude, period, and time-shift.",
+          "answer": "y = 2cos(3t-π/2) = 2cos(3(t-π/6)); R=2, period=2π/3, time-shift t0=π/6.",
+          "recognition_cue": "The solution is presented as a sum of a sine and cosine term (or pure sine/cosine) and the question specifically asks for the phase-shift / single-cosine form, amplitude, or time-shift rather than just A and B.",
+          "method_plan": [
+            "Compute R=sqrt(A^2+B^2)",
+            "Use A=Rcos(ωt0), B=Rsin(ωt0) (or the equivalent tan relation) to solve for t0, checking the correct quadrant",
+            "Write the final answer as Rcos(ω(t-t0))",
+            "State amplitude, period, and time-shift explicitly if asked"
+          ],
+          "full_mark_rubric": [
+            "M1: correct amplitude R",
+            "M1: correct phase/time-shift t0 found with correct quadrant",
+            "A1: correctly assembled Rcos(ω(t-t0)) form",
+            "A1: period and other requested quantities correctly stated"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Quadrant error solving for t0 from tan(ωt0)=B/A (picking the wrong branch)"
+            },
+            {
+              "type": "presentation",
+              "description": "Leaving the answer as Acos+Bsin when the single-cosine form was explicitly requested"
+            }
+          ],
+          "merged_topics": [
+            "3.7-simple-harmonic-motion"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "3.7-damped-harmonic-motion-classification",
+      "section": "3.7",
+      "topic": "Transcendental Functions",
+      "subtopic": "Damped Harmonic Motion",
+      "micro_skill": "Classify and interpret damped harmonic motion using the sign of the discriminant b^2-4ac",
+      "definitions": [
+        "Damped harmonic motion (a,b,c>0): roots have negative real part k=-b/2a.",
+        "b^2<4ac: underdamped — oscillates with exponentially decaying amplitude e^(kt).",
+        "b^2=4ac: critically damped — no oscillation, fastest non-oscillatory return to equilibrium.",
+        "b^2>4ac: overdamped — no oscillation, slower return to equilibrium."
+      ],
+      "theorems": [],
+      "formulas": [],
+      "prerequisites": [
+        "3.7-characteristic-equation-three-cases"
+      ],
+      "difficulty_levels": [
+        "medium"
+      ],
+      "question_archetypes": [
+        {
+          "id": "3.7-damped-harmonic-motion-classification-classify-from-coefficients",
+          "difficulty": "medium",
+          "prompt_template": "Given the coefficients a,b,c of a damped mass-spring ODE (or the physical mass/damping/spring constants), classify the motion as underdamped, critically damped, or overdamped.",
+          "example": "Classify the damping for 2y''+8y'+8y=0.",
+          "answer": "b^2-4ac = 64-64 = 0, so critically damped.",
+          "recognition_cue": "Coefficients (or physical mass/damping-constant/spring-constant values) of a second-order ODE with all-positive a,b,c are given and the question asks to classify the type of damping — compute the discriminant sign only.",
+          "method_plan": [
+            "Identify a, b, c (from the ODE directly, or from mass m, damping constant, spring constant k if given physically)",
+            "Compute the discriminant b^2-4ac",
+            "Classify as underdamped (<0), critically damped (=0), or overdamped (>0)"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies a,b,c",
+            "M1: correct discriminant computed",
+            "A1: correct classification stated"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Arithmetic slip in b^2-4ac leading to the wrong classification"
+            },
+            {
+              "type": "conceptual",
+              "description": "Confusing the damped-motion discriminant condition with the general characteristic-equation case labels (I/II/III) without connecting them to under/critical/overdamped terminology"
+            }
+          ],
+          "merged_topics": [
+            "3.7-characteristic-equation-three-cases"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-damped-harmonic-motion-classification-identify-from-solution-form",
+          "difficulty": "medium",
+          "prompt_template": "Given the general solution already written out (with cos/sin·exponential, te^(rt), or two distinct exponentials), identify which damping regime it represents without recomputing the discriminant from scratch.",
+          "example": "The general solution to a damping ODE is y=Ae^(-2t)cos(5t)+Be^(-2t)sin(5t). What type of damping is this?",
+          "answer": "Underdamped (the cos/sin·exponential form corresponds to complex roots, i.e. b^2<4ac).",
+          "recognition_cue": "A solution is presented already in one of the three characteristic forms (real distinct exponentials, repeated-root te^(rt) term, or cos/sin·exponential) — map the solution's structure directly back to the damping classification rather than re-deriving the ODE.",
+          "method_plan": [
+            "Recognize which of the three characteristic-equation forms the given solution matches",
+            "Map that form to the corresponding damping classification (complex roots↔underdamped, repeated real root↔critically damped, distinct real roots↔overdamped)",
+            "State the classification with brief justification"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies the underlying root structure from the solution form",
+            "A1: correct damping classification stated with justification"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Mapping the solution form to the wrong damping category (e.g. thinking two distinct real exponentials means oscillation)"
+            }
+          ],
+          "merged_topics": [
+            "3.7-characteristic-equation-three-cases"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "3.7-damped-harmonic-motion-classification-physical-interpretation",
+          "difficulty": "easy",
+          "prompt_template": "Explain, in physical terms, what distinguishes the long-term behavior of an underdamped, critically damped, and overdamped system (e.g. a shock absorber or door closer), without necessarily solving an ODE.",
+          "example": "Explain why engineers typically design shock absorbers to be critically damped rather than underdamped or overdamped.",
+          "answer": "Critically damped systems return to equilibrium as fast as possible without oscillating (no overshoot, no unnecessary sluggishness), which is ideal for shock absorbers — underdamped systems oscillate/overshoot, overdamped systems return too slowly.",
+          "recognition_cue": "The question asks for a real-world or conceptual explanation ('why does...', 'which damping type is best for...') rather than a computation — a conceptual archetype testing understanding of the three regimes' physical meaning.",
+          "method_plan": [
+            "State the defining behavior of each damping regime (oscillating vs monotonic, and relative speed of return to equilibrium)",
+            "Connect the mathematical classification to the physical scenario described",
+            "State the conclusion with justification"
+          ],
+          "full_mark_rubric": [
+            "A1: correct description of each regime's qualitative behavior",
+            "A1: correct application to the specific physical scenario with justification"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Believing 'more damping is always better' (missing that critically damped, not overdamped, is optimal for fastest non-oscillatory return)"
+            }
+          ],
+          "merged_topics": [
+            "3.7-damped-harmonic-motion-classification"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    }
+  ]
+}

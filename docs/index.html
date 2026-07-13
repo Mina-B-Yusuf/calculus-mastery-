@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculus Mastery</title>
+<meta name="description" content="Offline-first pattern-recognition drills for Calculus 1 & 2">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="offline-banner">You're offline — everything downloaded still works.</div>
+  <div id="update-banner">
+    <span>A new version is ready.</span>
+    <button id="update-btn">Update</button>
+  </div>
+
+  <header class="topbar">
+    <div>
+      <h1>Calculus Mastery</h1>
+      <div class="subtitle" id="header-subtitle">Calc 1 &amp; 2 · Adams &amp; Essex</div>
+    </div>
+    <button id="theme-toggle" class="btn-secondary" style="width:auto;padding:8px 12px;">◐</button>
+  </header>
+
+  <main id="app">
+    <div class="center-msg">Loading…</div>
+  </main>
+
+  <nav class="tabbar">
+    <a href="#/home" data-route="home"><span class="icon">🏠</span>Home</a>
+    <a href="#/concepts" data-route="concepts"><span class="icon">📖</span>Concepts</a>
+    <a href="#/drill" data-route="drill"><span class="icon">🎯</span>Recognize</a>
+    <a href="#/exam" data-route="exam"><span class="icon">📝</span>Exam</a>
+    <a href="#/more" data-route="more"><span class="icon">⋯</span>More</a>
+  </nav>
+
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="js/mathrender.js"></script>
+  <script src="js/mathkeyboard.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/srs.js"></script>
+  <script src="js/data-loader.js"></script>
+  <script src="js/priority.js"></script>
+  <script src="js/modes/home.js"></script>
+  <script src="js/modes/recognition.js"></script>
+  <script src="js/modes/formula.js"></script>
+  <script src="js/modes/concepts.js"></script>
+  <script src="js/modes/scratchpad.js"></script>
+  <script src="js/modes/exam.js"></script>
+  <script src="js/modes/radar.js"></script>
+  <script src="js/modes/errornotebook.js"></script>
+  <script src="js/modes/settings.js"></script>
+  <script src="js/modes/more.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

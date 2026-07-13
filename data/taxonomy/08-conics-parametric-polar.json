@@ -1,0 +1,3417 @@
+{
+  "chapter": "8",
+  "chapter_title": "Conics, Parametric Curves, and Polar Curves",
+  "course": "calculus-2",
+  "source_file": "study-guide/calculus-2/08-conics-parametric-polar.md",
+  "micro_skills": [
+    {
+      "id": "8.1-parabola-focus-directrix",
+      "section": "8.1",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Conics",
+      "micro_skill": "Parabola: focus-directrix definition and standard equations",
+      "definitions": [
+        "A parabola is the set of points equidistant from a fixed point (focus) and a fixed line (directrix). Its axis passes through the focus perpendicular to the directrix; its vertex is the point on the axis halfway between focus and directrix."
+      ],
+      "theorems": [
+        {
+          "name": "Standard parabola equations (vertex at origin)",
+          "statement": "Focus (a,0), directrix x=-a: y^2=4ax. Focus (-a,0), directrix x=a: y^2=-4ax. Focus (0,a), directrix y=-a: x^2=4ay. Focus (0,-a), directrix y=a: x^2=-4ay.",
+          "conditions": [
+            "a>0 (a is the distance from vertex to focus, and from vertex to directrix)",
+            "vertex at the origin"
+          ]
+        }
+      ],
+      "formulas": [
+        "y^2=4ax (opens right)",
+        "y^2=-4ax (opens left)",
+        "x^2=4ay (opens up)",
+        "x^2=-4ay (opens down)",
+        "distance-equidistance definition: dist(P,focus)=dist(P,directrix)"
+      ],
+      "prerequisites": [],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.1-parabola-focus-directrix-derive",
+          "difficulty": "medium",
+          "prompt_template": "Derive the standard equation of a parabola from its focus and directrix using the distance definition.",
+          "example": "Find the equation of the parabola with focus (a,0) and directrix x=-a.",
+          "answer": "√((x-a)^2+y^2)=x+a ⇒ (x-a)^2+y^2=(x+a)^2 ⇒ y^2=4ax",
+          "recognition_cue": "The problem explicitly asks to derive or re-derive the parabola equation from the focus/directrix definition, rather than just recalling the standard table.",
+          "method_plan": [
+            "Set up the equidistance equation dist(P,focus)=dist(P,directrix)",
+            "Square both sides to remove the square root",
+            "Expand and simplify to isolate y^2 (or x^2)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct equidistance equation set up",
+            "M1: correct squaring/expansion",
+            "A1: correct simplification to standard form"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign errors expanding (x-a)^2 vs (x+a)^2"
+            },
+            {
+              "type": "conceptual",
+              "description": "Using distance to the directrix incorrectly (e.g. as |x+a| without justification of the absolute value in context)"
+            },
+            {
+              "type": "presentation",
+              "description": "Not showing the squaring step explicitly, jumping straight to the answer"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-parabola-focus-directrix-from-equation",
+          "difficulty": "easy",
+          "prompt_template": "Given a standard-form parabola equation, identify the focus, directrix, and axis.",
+          "example": "Find the focus and directrix of y^2=12x.",
+          "answer": "4a=12 ⇒ a=3; focus (3,0), directrix x=-3",
+          "recognition_cue": "A parabola equation already in one of the four standard forms (y^2=±4ax or x^2=±4ay) is given, and focus/directrix/vertex are requested — a direct read-off after identifying a.",
+          "method_plan": [
+            "Match the equation to the correct standard form",
+            "Solve 4a=(coefficient) for a",
+            "State focus and directrix using the matched form's table entry"
+          ],
+          "full_mark_rubric": [
+            "M1: correct standard form identified",
+            "M1: correct value of a",
+            "A1: correct focus and directrix stated"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Matching to the wrong standard form (e.g. treating x^2=4ay as if it were y^2=4ax)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors solving 4a=(coefficient) for a"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving only the focus or only the directrix when both were requested"
+            }
+          ],
+          "merged_topics": [
+            "8.1-parabola-focus-directrix-derive"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-parabola-focus-directrix-shifted-vertex",
+          "difficulty": "medium",
+          "prompt_template": "Find the equation of a parabola whose vertex is not at the origin, given focus and directrix.",
+          "example": "Find the equation of the parabola with focus (0,-3) and directrix y=3.",
+          "answer": "Vertex at origin (halfway between focus and directrix); opens downward with a=3: x^2=-4(3)y=-12y",
+          "recognition_cue": "Focus and directrix are given directly (not a shifted-vertex equation to complete the square on) but the resulting parabola may still need translation reasoning if the vertex isn't obviously the origin.",
+          "method_plan": [
+            "Find the vertex as the midpoint between focus and directrix",
+            "Determine the axis direction and orientation (which way it opens)",
+            "Write the equation using the standard form for that orientation, translating if the vertex isn't the origin"
+          ],
+          "full_mark_rubric": [
+            "M1: correct vertex located",
+            "M1: correct orientation (opens toward focus, away from directrix)",
+            "A1: correct value of a",
+            "A1: correct final equation"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Getting the opening direction backwards (parabola opens toward the focus, not the directrix)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors finding the midpoint (vertex) between focus and directrix"
+            },
+            {
+              "type": "presentation",
+              "description": "Forgetting to translate the equation if the vertex is not at the origin"
+            }
+          ],
+          "merged_topics": [
+            "8.1-parabola-focus-directrix-from-equation"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-parabola-focus-directrix-reflection-property",
+          "difficulty": "hard",
+          "prompt_template": "Apply or explain the reflection property of a parabola (rays from the focus reflect parallel to the axis, and vice versa).",
+          "example": "A satellite dish is shaped like a paraboloid with focus 2 m from the vertex. Explain why signals arriving parallel to the axis all reflect to a single point, and find where a receiver should be placed.",
+          "answer": "By the reflection property, all rays parallel to the axis reflect through the focus; the receiver should be placed at the focus, 2 m from the vertex along the axis",
+          "recognition_cue": "The problem is framed around a physical reflector/antenna/headlight application and asks to explain or use the focus-reflects-parallel-rays property, not just compute algebraic quantities.",
+          "method_plan": [
+            "State the reflection property precisely (rays parallel to the axis reflect through the focus, and vice versa)",
+            "Identify the vertex, axis, and focus from the given physical description",
+            "Apply the property to answer the specific placement/reflection question"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly states the reflection property",
+            "M1: correctly locates the focus from the given geometry",
+            "A1: correct application to the physical scenario",
+            "A1: clear justification connecting the geometric property to the physical answer"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Confusing the reflection property's direction (thinking rays reflect parallel to the axis only when originating from the vertex, not the focus)"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving a location without explicitly invoking/justifying the reflection property"
+            },
+            {
+              "type": "strategy",
+              "description": "Attempting a full ray-tracing calculation instead of directly citing the known reflection property"
+            }
+          ],
+          "merged_topics": [
+            "8.1-parabola-focus-directrix-from-equation"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.1-ellipse-standard-equation",
+      "section": "8.1",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Conics",
+      "micro_skill": "Ellipse: definition, standard equation, eccentricity, and directrices",
+      "definitions": [
+        "An ellipse is the set of points where the sum of distances to two fixed foci is constant (=2a). Standard equation (foci at (±c,0), a>b>0, c=√(a^2-b^2)): x^2/a^2+y^2/b^2=1. Eccentricity ε=c/a<1 (circle when ε=0); directrices x=±a/ε, with dist(P,focus)/dist(P,directrix)=ε for any point P on the ellipse."
+      ],
+      "theorems": [
+        {
+          "name": "Ellipse standard form",
+          "statement": "x^2/a^2+y^2/b^2=1 with a>b>0, foci at (±c,0), c=√(a^2-b^2), eccentricity ε=c/a<1, directrices x=±a/ε.",
+          "conditions": [
+            "a>b>0 for a horizontal major axis (swap roles of x,y if b>a for a vertical major axis)"
+          ]
+        }
+      ],
+      "formulas": [
+        "x^2/a^2+y^2/b^2=1",
+        "c^2=a^2-b^2",
+        "ε=c/a<1",
+        "directrices x=±a/ε",
+        "dist(P,focus)/dist(P,directrix)=ε"
+      ],
+      "prerequisites": [
+        "8.1-parabola-focus-directrix"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.1-ellipse-standard-equation-basic",
+          "difficulty": "easy",
+          "prompt_template": "Given an ellipse equation in standard form, find a, b, c, the foci, and the eccentricity.",
+          "example": "Find a, b, c, foci, and eccentricity of x^2/25+y^2/9=1.",
+          "answer": "a=5, b=3, c=√(25-9)=4; foci (±4,0); ε=4/5",
+          "recognition_cue": "The equation is already in standard form x^2/a^2+y^2/b^2=1 (or the y-major variant) and asks for the standard derived quantities — direct identification and computation of c and ε.",
+          "method_plan": [
+            "Identify a^2 and b^2 as the denominators, with a^2 being the larger",
+            "Compute c=√(a^2-b^2)",
+            "State foci and compute ε=c/a"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies a and b (larger denominator gives a^2)",
+            "M1: correct c=√(a^2-b^2)",
+            "A1: correct foci",
+            "A1: correct eccentricity"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming the x^2 term always corresponds to a (major axis) regardless of which denominator is actually larger"
+            },
+            {
+              "type": "algebra",
+              "description": "Using c^2=a^2+b^2 (the hyperbola relation) instead of a^2-b^2"
+            },
+            {
+              "type": "presentation",
+              "description": "Not stating which axis (x or y) is the major axis"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-ellipse-standard-equation-from-foci-sum",
+          "difficulty": "medium",
+          "prompt_template": "Derive the equation of an ellipse given the foci and the constant sum of distances (2a), or given foci and a point on the ellipse.",
+          "example": "Find the equation of the ellipse with foci (±3,0) and a point on the ellipse at (0,4).",
+          "answer": "c=3; at (0,4), sum of distances=2√(9+16)=10=2a ⇒ a=5; b^2=a^2-c^2=25-9=16; equation x^2/25+y^2/16=1",
+          "recognition_cue": "Foci are given directly along with either the constant sum 2a or a specific point known to lie on the ellipse (from which 2a can be computed), rather than the equation itself.",
+          "method_plan": [
+            "Identify c from the foci",
+            "Compute 2a from the given sum or by computing the sum of distances from the given point to both foci",
+            "Find b^2=a^2-c^2 and write the standard equation"
+          ],
+          "full_mark_rubric": [
+            "M1: correct c from the foci",
+            "M1: correct computation of 2a (from the given data)",
+            "A1: correct b^2=a^2-c^2",
+            "A1: correct final equation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors computing the distance from the given point to each focus"
+            },
+            {
+              "type": "conceptual",
+              "description": "Using c^2=a^2+b^2 instead of a^2-b^2 when solving for b^2"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting that 2a (not a) is the sum of distances, off by a factor of 2"
+            }
+          ],
+          "merged_topics": [
+            "8.1-ellipse-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-ellipse-standard-equation-directrix-ratio",
+          "difficulty": "hard",
+          "prompt_template": "Use the focus/directrix distance-ratio property (=ε) to solve for an unknown point on the ellipse or verify the property.",
+          "example": "For the ellipse x^2/25+y^2/9=1, verify the focus-directrix ratio property at the point (5,0) using the focus (4,0) and directrix x=25/4.",
+          "answer": "ε=4/5; dist(P,focus)=|5-4|=1; dist(P,directrix)=|5-25/4|=5/4; ratio=1/(5/4)=4/5=ε ✓",
+          "recognition_cue": "The problem explicitly invokes the focus/directrix distance-ratio property (dist to focus / dist to directrix = ε) rather than the two-foci-sum definition — a less commonly drilled but equally valid characterization.",
+          "method_plan": [
+            "Identify ε, the relevant focus, and the corresponding directrix",
+            "Compute the distance from the given point to the focus and to the directrix",
+            "Form the ratio and confirm it equals ε"
+          ],
+          "full_mark_rubric": [
+            "M1: correct identification of the matching focus/directrix pair (same side)",
+            "M1: correct distance computations",
+            "A1: correct ratio computed and shown equal to ε",
+            "A1: clear conclusion verifying (or using) the property"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Pairing the wrong focus with the wrong directrix (each focus corresponds to the directrix on the same side)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors computing the directrix location a/ε or the resulting distances"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explicitly stating the ratio equals ε as the concluding step"
+            }
+          ],
+          "merged_topics": [
+            "8.1-ellipse-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-ellipse-standard-equation-eccentricity-shape",
+          "difficulty": "medium",
+          "prompt_template": "Reason about how eccentricity controls an ellipse's shape (how close to circular or elongated it is), without a specific equation.",
+          "example": "Two ellipses have the same semi-major axis a but different eccentricities ε1<ε2. Which is more elongated (less circular)? Justify using c=εa and b^2=a^2-c^2.",
+          "answer": "The ellipse with larger ε2 has larger c=ε2 a, hence smaller b^2=a^2-c^2 (since a is fixed) — a smaller minor axis relative to the major axis makes it more elongated; ε=0 gives a circle (b=a)",
+          "recognition_cue": "The problem asks a conceptual/comparative question about eccentricity's geometric meaning rather than requesting a specific numeric computation from a given equation.",
+          "method_plan": [
+            "Express c in terms of ε and a (c=εa)",
+            "Express b in terms of a and c (b^2=a^2-c^2) and substitute",
+            "Compare b for the two eccentricities, holding a fixed, to conclude about shape"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly relates c to ε and a",
+            "M1: correctly relates b to a and c",
+            "A1: correct qualitative conclusion about which ellipse is more elongated",
+            "A1: connects the reasoning back to the ε=0 circular case as a sanity check"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Believing eccentricity closer to 1 makes an ellipse more circular (it's the reverse — ε near 0 is circular)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors substituting c=εa into b^2=a^2-c^2"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving the correct conclusion without justifying it via the a, b, c, ε relationships"
+            }
+          ],
+          "merged_topics": [
+            "8.1-ellipse-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.1-hyperbola-standard-equation",
+      "section": "8.1",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Conics",
+      "micro_skill": "Hyperbola: definition, standard equation, asymptotes, and eccentricity",
+      "definitions": [
+        "A hyperbola is the set of points where the absolute difference of distances to two fixed foci is constant (=2a). Standard equation (foci (±c,0), c=√(a^2+b^2)): x^2/a^2-y^2/b^2=1, vertices (±a,0), asymptotes y=±(b/a)x. Eccentricity ε=c/a>1; rectangular hyperbola if a=b (asymptotes perpendicular, ε=√2); directrices x=±a/ε; the conjugate hyperbola y^2/b^2-x^2/a^2=1 shares the same asymptotes."
+      ],
+      "theorems": [
+        {
+          "name": "Hyperbola standard form",
+          "statement": "x^2/a^2-y^2/b^2=1, foci (±c,0), c=√(a^2+b^2), vertices (±a,0), asymptotes y=±(b/a)x, ε=c/a>1.",
+          "conditions": [
+            "c^2=a^2+b^2, the opposite sign relation from the ellipse's c^2=a^2-b^2"
+          ]
+        }
+      ],
+      "formulas": [
+        "x^2/a^2-y^2/b^2=1",
+        "c^2=a^2+b^2",
+        "asymptotes y=±(b/a)x",
+        "ε=c/a>1",
+        "conjugate hyperbola: y^2/b^2-x^2/a^2=1"
+      ],
+      "prerequisites": [
+        "8.1-ellipse-standard-equation"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.1-hyperbola-standard-equation-basic",
+          "difficulty": "easy",
+          "prompt_template": "Given a hyperbola equation in standard form, find a, b, c, vertices, foci, and asymptotes.",
+          "example": "Find a, b, c, vertices, foci, and asymptotes of x^2/16-y^2/9=1.",
+          "answer": "a=4, b=3, c=√(16+9)=5; vertices (±4,0); foci (±5,0); asymptotes y=±(3/4)x",
+          "recognition_cue": "The equation is already in standard hyperbola form and the standard derived quantities are requested — direct identification, using c^2=a^2+b^2 (not a^2-b^2).",
+          "method_plan": [
+            "Identify a^2 and b^2 from the denominators (a^2 under the positive term)",
+            "Compute c=√(a^2+b^2)",
+            "State vertices, foci, and asymptotes y=±(b/a)x"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies a^2 (under the positive term) and b^2",
+            "M1: correct c=√(a^2+b^2)",
+            "A1: correct vertices and foci",
+            "A1: correct asymptotes"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Using c^2=a^2-b^2 (the ellipse relation) instead of a^2+b^2 — a very common cross-contamination error"
+            },
+            {
+              "type": "conceptual",
+              "description": "Assuming the vertices are at (0,±a) when the x^2 term is positive (vertices are always on the axis of the positive term)"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving asymptotes in point-slope form instead of the simpler y=±(b/a)x"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-hyperbola-standard-equation-rectangular",
+          "difficulty": "medium",
+          "prompt_template": "Identify or construct a rectangular hyperbola (a=b) and find its eccentricity and asymptote angle.",
+          "example": "Show that the rectangular hyperbola x^2-y^2=a^2 has eccentricity √2 and perpendicular asymptotes.",
+          "answer": "Here a=b, so c=√(a^2+a^2)=a√2, ε=c/a=√2; asymptotes y=±x, which are perpendicular (slopes 1 and -1 multiply to -1)",
+          "recognition_cue": "The hyperbola is explicitly described as 'rectangular' or has equal denominators a=b, cueing the special eccentricity √2 and perpendicular-asymptotes fact.",
+          "method_plan": [
+            "Set a=b in the general relations",
+            "Compute c=a√2 and ε=√2",
+            "Verify the asymptote slopes ±1 are perpendicular"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly sets a=b and computes c",
+            "M1: correct ε=√2",
+            "A1: correct asymptote slopes",
+            "A1: correct verification of perpendicularity"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Not recognizing 'rectangular hyperbola' as shorthand for a=b with these specific consequences"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors computing c=a√2 or simplifying ε"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explicitly checking the perpendicularity (product of slopes = -1)"
+            }
+          ],
+          "merged_topics": [
+            "8.1-hyperbola-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-hyperbola-standard-equation-conjugate",
+          "difficulty": "medium",
+          "prompt_template": "Find and compare a hyperbola's equation with its conjugate hyperbola, noting the shared asymptotes.",
+          "example": "Find the conjugate of x^2/9-y^2/4=1 and verify both share the same asymptotes.",
+          "answer": "Conjugate: y^2/4-x^2/9=1; original asymptotes y=±(2/3)x; conjugate's asymptotes (solving y^2/4=x^2/9) are also y=±(2/3)x — same asymptotes, but the conjugate opens up/down instead of left/right",
+          "recognition_cue": "The problem explicitly asks for the 'conjugate hyperbola' or presents two hyperbolas with swapped signs on the same a, b and asks to relate them.",
+          "method_plan": [
+            "Swap the signs of the x^2 and y^2 terms to form the conjugate",
+            "Find each hyperbola's asymptotes independently",
+            "Confirm both give the same asymptote lines, despite opening in different directions"
+          ],
+          "full_mark_rubric": [
+            "M1: correct conjugate equation formed",
+            "M1: correct asymptotes for the original",
+            "A1: correct asymptotes for the conjugate, matching the original",
+            "A1: correct conceptual note about differing vertex/opening direction despite shared asymptotes"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming the conjugate hyperbola has different asymptotes just because its equation looks different"
+            },
+            {
+              "type": "procedural",
+              "description": "Forming the conjugate incorrectly (e.g. negating both a and b instead of swapping which term is positive)"
+            },
+            {
+              "type": "presentation",
+              "description": "Not distinguishing that the two hyperbolas open in perpendicular directions despite sharing asymptotes"
+            }
+          ],
+          "merged_topics": [
+            "8.1-hyperbola-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-hyperbola-standard-equation-asymptote-limit",
+          "difficulty": "hard",
+          "prompt_template": "Derive why the asymptotes y=±(b/a)x arise as the limiting behaviour of the hyperbola for large |x|.",
+          "example": "Show that y=±(b/a)x are asymptotes of x^2/a^2-y^2/b^2=1 by examining the behaviour as x→±∞.",
+          "answer": "Solving for y: y=±(b/a)√(x^2-a^2)=±(b/a)|x|√(1-a^2/x^2)→±(b/a)|x| as x→±∞ (since √(1-a^2/x^2)→1), so the curve approaches the lines y=±(b/a)x",
+          "recognition_cue": "The problem asks to justify/derive why the asymptotes are what they are (a 'show that' or 'explain' question) rather than simply state them from the standard-form table.",
+          "method_plan": [
+            "Solve the hyperbola's equation explicitly for y in terms of x",
+            "Factor out x from inside the square root and examine the limit as x→±∞",
+            "Conclude the curve approaches the lines y=±(b/a)x asymptotically"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly solves for y in terms of x",
+            "M1: correctly factors and takes the limit as x→±∞",
+            "A1: correct conclusion identifying the asymptotic lines",
+            "A1: clear justification of why the square-root term tends to 1"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors solving for y or factoring x out of the square root"
+            },
+            {
+              "type": "conceptual",
+              "description": "Setting x^2/a^2-y^2/b^2=0 to 'find the asymptotes' without justifying why this shortcut works (it's valid, but the problem here demands the limiting argument)"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explicitly taking a limit, instead asserting the asymptotic behaviour without justification"
+            }
+          ],
+          "merged_topics": [
+            "8.1-hyperbola-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.1-complete-square-identify-conic",
+      "section": "8.1",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Conics",
+      "micro_skill": "Classifying a general conic Ax^2+Cy^2+Dx+Ey+F=0 by completing the square",
+      "definitions": [
+        "When the general second-degree equation Ax^2+Bxy+Cy^2+Dx+Ey+F=0 has B=0, complete the square in x and y separately to convert to one of the standard forms (circle, ellipse, parabola, hyperbola) centered/vertexed away from the origin; also check for degenerate cases (empty set, a single point, or a pair of lines)."
+      ],
+      "theorems": [
+        {
+          "name": "Completing the square for conics",
+          "statement": "For Ax^2+Cy^2+Dx+Ey+F=0 (B=0), group x-terms and y-terms, complete each square, and compare the resulting constant to determine the conic type (or degeneracy).",
+          "conditions": [
+            "B=0 (no xy cross term)",
+            "A, C not both zero"
+          ]
+        }
+      ],
+      "formulas": [
+        "complete the square: A(x-h)^2+C(y-k)^2=constant",
+        "if A,C same sign and constant same sign: ellipse (or circle if A=C)",
+        "if A,C opposite signs: hyperbola",
+        "if exactly one of A,C is zero: parabola"
+      ],
+      "prerequisites": [
+        "8.1-hyperbola-standard-equation"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.1-complete-square-identify-conic-ellipse",
+          "difficulty": "medium",
+          "prompt_template": "Complete the square to identify a shifted-center ellipse and find its key features.",
+          "example": "Identify x^2+2y^2+6x-4y+7=0.",
+          "answer": "(x+3)^2+2(y-1)^2=4 ⇒ (x+3)^2/4+(y-1)^2/2=1 — ellipse centered (-3,1), a=2, b=√2, c=√2, foci (-3±√2,1)",
+          "recognition_cue": "Both x^2 and y^2 terms are present with the same sign and different (or equal) positive coefficients, and there are linear terms (Dx, Ey) indicating the center is shifted from the origin.",
+          "method_plan": [
+            "Group x-terms and y-terms separately",
+            "Complete the square in each group, tracking the constant added (scaled by the outer coefficient)",
+            "Divide to reach standard form and read off center, a, b, c"
+          ],
+          "full_mark_rubric": [
+            "M1: correct grouping and completing the square in x",
+            "M1: correct completing the square in y, correctly scaled",
+            "A1: correct standard form with center identified",
+            "A1: correct a, b, c, foci"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Forgetting to scale the added completing-the-square constant by the outer coefficient (e.g. adding 1 instead of 2·1 for the y-group here)"
+            },
+            {
+              "type": "conceptual",
+              "description": "Misreading which axis is major once in standard form (larger denominator, not first-listed variable)"
+            },
+            {
+              "type": "presentation",
+              "description": "Not fully simplifying to the form (x-h)^2/a^2+(y-k)^2/b^2=1 before reading off values"
+            }
+          ],
+          "merged_topics": [
+            "8.1-ellipse-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-complete-square-identify-conic-hyperbola",
+          "difficulty": "medium",
+          "prompt_template": "Complete the square to identify a shifted-center hyperbola and find its asymptotes.",
+          "example": "Identify x^2-y^2+4x-2y=0.",
+          "answer": "(x+2)^2-(y+1)^2=3 — rectangular hyperbola centered (-2,-1), a=b=√3; asymptotes y=x+1 and y=-x-3",
+          "recognition_cue": "The x^2 and y^2 terms have opposite signs, signalling a hyperbola once the square is completed and linear terms are present indicating a shifted center.",
+          "method_plan": [
+            "Group and complete the square for x-terms and y-terms separately, tracking signs carefully",
+            "Simplify to standard hyperbola form, identifying the center",
+            "Find a, b and write the (shifted) asymptote equations"
+          ],
+          "full_mark_rubric": [
+            "M1: correct completing the square with correct signs for both groups",
+            "M1: correct standard hyperbola form with center",
+            "A1: correct a, b identified",
+            "A1: correct shifted asymptote equations (through the new center)"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign errors completing the square when the y^2 coefficient is negative"
+            },
+            {
+              "type": "conceptual",
+              "description": "Writing the asymptotes through the origin instead of through the shifted center"
+            },
+            {
+              "type": "presentation",
+              "description": "Not simplifying the constant on the right side correctly before dividing to standard form"
+            }
+          ],
+          "merged_topics": [
+            "8.1-hyperbola-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-complete-square-identify-conic-degenerate",
+          "difficulty": "hard",
+          "prompt_template": "Recognize a degenerate case of the general second-degree equation (empty set, single point, or pair of lines) after completing the square.",
+          "example": "Identify x^2+y^2-2x+4y+5=0.",
+          "answer": "(x-1)^2+(y+2)^2=1+4-5=0 — a single point (1,-2), a degenerate 'circle' with radius 0",
+          "recognition_cue": "After completing the square, the resulting constant on the right-hand side is zero or negative (for a sum-of-squares equation) or the equation factors into two linear pieces — signals a degenerate conic, not a genuine ellipse/hyperbola.",
+          "method_plan": [
+            "Complete the square as usual",
+            "Examine the sign of the resulting constant relative to the squared-term signs",
+            "Conclude the correct degenerate interpretation (point, empty set, or pair of lines) instead of assuming a genuine conic"
+          ],
+          "full_mark_rubric": [
+            "M1: correct completing the square",
+            "M1: correctly evaluates the resulting constant's sign",
+            "A1: correct degenerate classification (point / empty set / lines)",
+            "A1: clear justification for why it is degenerate rather than a genuine conic"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Automatically labeling any A(x-h)^2+C(y-k)^2=constant equation as an ellipse/hyperbola without checking whether the constant is actually positive (or has a sign consistent with a real curve)"
+            },
+            {
+              "type": "algebra",
+              "description": "Arithmetic errors computing the final constant after completing both squares"
+            },
+            {
+              "type": "strategy",
+              "description": "Not checking for degeneracy at all — always assuming a 'normal' conic is intended"
+            }
+          ],
+          "merged_topics": [
+            "8.1-complete-square-identify-conic-ellipse",
+            "8.1-complete-square-identify-conic-hyperbola"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.1-rotate-axes-eliminate-cross-term",
+      "section": "8.1",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Conics",
+      "micro_skill": "Rotating axes to eliminate the xy cross term (B≠0)",
+      "definitions": [
+        "When B≠0 in Ax^2+Bxy+Cy^2+Dx+Ey+F=0, rotate axes by angle θ with tan2θ=B/(A-C) (or θ=π/4 if A=C, B≠0) to eliminate the cross term, using x=u cosθ-v sinθ, y=u sinθ+v cosθ, then classify the resulting equation in u,v (no cross term) by completing the square as usual."
+      ],
+      "theorems": [
+        {
+          "name": "Axis rotation to eliminate Bxy",
+          "statement": "Substituting x=u cosθ-v sinθ, y=u sinθ+v cosθ with tan2θ=B/(A-C) (θ=π/4 if A=C) eliminates the uv cross term in the transformed equation.",
+          "conditions": [
+            "B≠0",
+            "θ chosen to satisfy tan2θ=B/(A-C), or θ=π/4 when A=C"
+          ]
+        }
+      ],
+      "formulas": [
+        "x=u cosθ-v sinθ, y=u sinθ+v cosθ",
+        "tan2θ=B/(A-C) (θ=π/4 if A=C)",
+        "after rotation, coefficient of uv is 0"
+      ],
+      "prerequisites": [
+        "8.1-complete-square-identify-conic"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.1-rotate-axes-eliminate-cross-term-45deg",
+          "difficulty": "medium",
+          "prompt_template": "Rotate axes by 45° to identify a conic where A=C (equal x^2, y^2 coefficients or none at all).",
+          "example": "Identify xy=1.",
+          "answer": "A=C=0, B=1, so θ=π/4; x=(u-v)/√2, y=(u+v)/√2, substituting gives u^2-v^2=2 — a rectangular hyperbola with vertices at (1,1) and (-1,-1) in original coordinates",
+          "recognition_cue": "The equation has an xy term but no x^2 or y^2 terms (or A=C if both are present), which is exactly the case where θ=π/4 applies directly without needing to solve tan2θ=B/(A-C).",
+          "method_plan": [
+            "Recognize A=C (or both zero) triggers θ=π/4 directly",
+            "Substitute the rotation formulas for x and y in terms of u,v",
+            "Simplify the resulting equation in u,v and classify it"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies θ=π/4 applies",
+            "M1: correct substitution of rotation formulas",
+            "A1: correct simplified equation in u,v",
+            "A1: correct classification (and translation of key points back to original coordinates if requested)"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Not recognizing A=C as the special case triggering θ=π/4, instead attempting tan2θ=B/(A-C) with a zero denominator"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors substituting and expanding the rotation formulas"
+            },
+            {
+              "type": "presentation",
+              "description": "Leaving the final answer in u,v coordinates without translating key features (vertices) back to x,y if asked"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-rotate-axes-eliminate-cross-term-general-angle",
+          "difficulty": "hard",
+          "prompt_template": "Rotate axes by a general (non-45°) angle found from tan2θ=B/(A-C) to eliminate the cross term and classify the conic.",
+          "example": "Identify 2x^2+xy+y^2=2.",
+          "answer": "A=2,B=1,C=1; tan2θ=1/(2-1)=1 ⇒ 2θ=π/4; after rotation A'=(3+√2)/2, C'=(3-√2)/2, giving (3+√2)u^2+(3-√2)v^2=4 — an ellipse with semi-axes 2/√(3-√2) and 2/√(3+√2)",
+          "recognition_cue": "A, B, C are all nonzero and A≠C, requiring the general formula tan2θ=B/(A-C) rather than the shortcut θ=π/4.",
+          "method_plan": [
+            "Compute tan2θ=B/(A-C) and solve for θ (or 2θ)",
+            "Use the rotation substitution (directly, or via the transformed-coefficient formulas for A', C') to eliminate the cross term",
+            "Simplify and classify the resulting conic in u,v"
+          ],
+          "full_mark_rubric": [
+            "M1: correct tan2θ computed",
+            "M1: correct rotation applied (via substitution or transformed-coefficient formulas)",
+            "A1: correct simplified equation in u,v",
+            "A1: correct classification and identification of semi-axes"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors computing tan2θ or solving for θ"
+            },
+            {
+              "type": "procedural",
+              "description": "Substituting the rotation formulas incorrectly (mixing up sinθ and cosθ signs between the x and y equations)"
+            },
+            {
+              "type": "strategy",
+              "description": "Attempting to guess the classification without actually completing the rotation, missing the correct semi-axis values"
+            }
+          ],
+          "merged_topics": [
+            "8.1-rotate-axes-eliminate-cross-term-45deg"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.1-rotate-axes-eliminate-cross-term-classify-only",
+          "difficulty": "medium",
+          "prompt_template": "Classify (without fully rotating/solving) a general second-degree equation using the discriminant B^2-4AC.",
+          "example": "Without rotating, classify 3x^2-2xy+3y^2-4x+4y-2=0 using the discriminant.",
+          "answer": "B^2-4AC=4-36=-32<0 ⇒ ellipse (or circle/point/empty degenerate case, pending further check)",
+          "recognition_cue": "The problem only asks for the type of conic (ellipse/parabola/hyperbola), not the fully rotated equation — the discriminant B^2-4AC gives this classification without needing to actually perform the rotation.",
+          "method_plan": [
+            "Compute the discriminant B^2-4AC",
+            "Classify: <0 gives ellipse-type, =0 gives parabola-type, >0 gives hyperbola-type (before considering degeneracies)",
+            "Note that full classification (including degeneracy) may still require completing the square/rotating if requested"
+          ],
+          "full_mark_rubric": [
+            "M1: correct discriminant computed",
+            "M1: correct classification rule applied",
+            "A1: correct conclusion",
+            "presentation: notes the possibility of a degenerate case if the problem calls for full rigor"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Performing the full rotation unnecessarily when only the classification (not the equation) was requested"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign errors computing B^2-4AC"
+            },
+            {
+              "type": "conceptual",
+              "description": "Forgetting the discriminant test only tells you the 'type' and doesn't rule out degenerate cases (point, empty set, parallel lines)"
+            }
+          ],
+          "merged_topics": [
+            "8.1-rotate-axes-eliminate-cross-term-general-angle",
+            "8.1-complete-square-identify-conic-degenerate"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.2-eliminate-parameter",
+      "section": "8.2",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Parametric Curves",
+      "micro_skill": "Eliminating the parameter to find the Cartesian equation",
+      "definitions": [
+        "A parametric curve x=f(t), y=g(t) on interval I traces a set of points; eliminating t (solving one equation for t and substituting into the other, or using an identity) gives the Cartesian equation of the same point set — but this may lose information about direction, speed, and can also lose information about which portion of the full Cartesian curve is actually traced if I is restricted."
+      ],
+      "theorems": [
+        {
+          "name": "Parameter elimination",
+          "statement": "Given x=f(t), y=g(t), solving for t in one equation and substituting into the other (or combining via an identity, e.g. cos^2+sin^2=1) yields a Cartesian relation satisfied by every point of the curve; the domain/range of f,g over I may restrict this to only part of the full Cartesian curve.",
+          "conditions": [
+            "f (or g) must be invertible on I to solve explicitly for t, or an identity must directly relate f(t) and g(t)"
+          ]
+        }
+      ],
+      "formulas": [
+        "solve t=f^{-1}(x) (or g^{-1}(y)), substitute into the other equation",
+        "trig identity route: eliminate t using cos^2t+sin^2t=1 when x,y are both expressed via cos t, sin t"
+      ],
+      "prerequisites": [],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.2-eliminate-parameter-solve-for-t",
+          "difficulty": "easy",
+          "prompt_template": "Eliminate the parameter by solving one equation for t and substituting into the other.",
+          "example": "Eliminate the parameter: x=t^2-1, y=t+1.",
+          "answer": "t=y-1 ⇒ x=(y-1)^2-1=y^2-2y",
+          "recognition_cue": "One of the two equations (x=f(t) or y=g(t)) is easily inverted to solve for t explicitly (e.g. linear in t), making direct substitution the natural method.",
+          "method_plan": [
+            "Solve the simpler equation for t",
+            "Substitute into the other equation",
+            "Simplify to a Cartesian equation in x and y"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly solves for t",
+            "M1: correct substitution",
+            "A1: correct simplified Cartesian equation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors substituting or expanding (y-1)^2"
+            },
+            {
+              "type": "conceptual",
+              "description": "Not checking whether the full Cartesian curve is actually traced, or only part of it, given the range of t"
+            },
+            {
+              "type": "presentation",
+              "description": "Leaving the answer partially in terms of t"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.2-eliminate-parameter-trig-identity",
+          "difficulty": "medium",
+          "prompt_template": "Eliminate the parameter using a Pythagorean trig identity when x and y are both given via sine/cosine of the same parameter.",
+          "example": "Eliminate the parameter: x=2+3cos t, y=-1+3sin t.",
+          "answer": "((x-2)/3)^2+((y+1)/3)^2=cos^2t+sin^2t=1 ⇒ (x-2)^2+(y+1)^2=9 — circle radius 3, center (2,-1)",
+          "recognition_cue": "Both x and y are given as (shifted/scaled) cosine and sine of the same parameter — a strong cue to isolate cos t and sin t and use cos^2t+sin^2t=1 rather than solving for t explicitly.",
+          "method_plan": [
+            "Isolate cos t and sin t (undoing any shift/scaling)",
+            "Square both isolated expressions and add them",
+            "Use cos^2t+sin^2t=1 to eliminate t"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly isolates cos t and sin t",
+            "M1: correctly squares and adds",
+            "A1: correct use of the Pythagorean identity",
+            "A1: correct final Cartesian equation"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Attempting to solve explicitly for t (e.g. via arccos) instead of using the identity, unnecessarily complicating the elimination"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors isolating cos t or sin t (forgetting to divide out the scaling factor)"
+            },
+            {
+              "type": "presentation",
+              "description": "Not identifying the resulting curve type (e.g. circle vs. ellipse) after eliminating"
+            }
+          ],
+          "merged_topics": [
+            "8.2-eliminate-parameter-solve-for-t"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.2-eliminate-parameter-restricted-range",
+          "difficulty": "hard",
+          "prompt_template": "Recognize that the parameter's restricted domain means only part of the full Cartesian curve is actually traced, and describe that portion precisely.",
+          "example": "Eliminate the parameter for x=3cos t, y=3sin t, 0≤t≤3π/2, and describe exactly what portion of the resulting circle is traced.",
+          "answer": "x^2+y^2=9 (full circle equation), but only three-quarters of the circle is traced: starting at (3,0) (t=0) and ending at (0,-3) (t=3π/2), moving counterclockwise, omitting the arc from (0,-3) back to (3,0)",
+          "recognition_cue": "The parameter's domain is explicitly restricted (not the 'natural' full range like [0,2π] for a circle), signalling that the eliminated Cartesian equation alone is insufficient — the actual traced portion must be described separately.",
+          "method_plan": [
+            "Eliminate the parameter to get the full Cartesian equation as usual",
+            "Evaluate the parametrization at the endpoints of the given t-range to find the actual start/end points",
+            "Describe which arc/portion of the full curve is traced and in which direction"
+          ],
+          "full_mark_rubric": [
+            "M1: correct Cartesian equation for the full curve",
+            "M1: correct start and end points from the given t-range",
+            "A1: correct identification of which portion (arc/branch) is actually traced",
+            "A1: correct direction of travel stated"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming the eliminated Cartesian equation alone fully describes the curve, ignoring that the parameter range restricts it to a portion"
+            },
+            {
+              "type": "procedural",
+              "description": "Evaluating the parametrization at the wrong t-values for the endpoints"
+            },
+            {
+              "type": "presentation",
+              "description": "Not stating the direction of travel (which requires the parametric form, not the Cartesian equation)"
+            }
+          ],
+          "merged_topics": [
+            "8.2-eliminate-parameter-trig-identity"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.2-named-parametric-curves",
+      "section": "8.2",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Parametric Curves",
+      "micro_skill": "Standard named parametric curves (line, ellipse, cycloid, involute)",
+      "definitions": [
+        "Key parametrizations: line through P0,P1: x=x0+t(x1-x0), y=y0+t(y1-y0); ellipse: x=a cos t, y=b sin t; cycloid (point on a circle of radius a rolling along a line): x=a(t-sin t), y=a(1-cos t), with cusps at t=2nπ; involute of a circle of radius a: x=a cos t+at sin t, y=a sin t-at cos t."
+      ],
+      "theorems": [
+        {
+          "name": "Standard parametrizations",
+          "statement": "Line: x=x0+t(x1-x0), y=y0+t(y1-y0), t=0 gives P0, t=1 gives P1. Ellipse: x=a cos t, y=b sin t, 0≤t≤2π. Cycloid: x=a(t-sin t), y=a(1-cos t). Involute: x=a cos t+at sin t, y=a sin t-at cos t.",
+          "conditions": [
+            "for the cycloid, a is the radius of the rolling circle; cusps occur exactly where the generating point touches the line, at t=2nπ"
+          ]
+        }
+      ],
+      "formulas": [
+        "line: x=x0+t(x1-x0), y=y0+t(y1-y0)",
+        "ellipse: x=a cos t, y=b sin t",
+        "cycloid: x=a(t-sin t), y=a(1-cos t)",
+        "involute: x=a cos t+at sin t, y=a sin t-at cos t"
+      ],
+      "prerequisites": [
+        "8.2-eliminate-parameter"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.2-named-parametric-curves-line-segment",
+          "difficulty": "easy",
+          "prompt_template": "Parametrize the line segment between two given points, and identify what parameter values correspond to specific points on it.",
+          "example": "Parametrize the segment from P0=(1,2) to P1=(4,-3), and find the point at t=1/3.",
+          "answer": "x=1+3t, y=2-5t; at t=1/3: (2, 1/3)",
+          "recognition_cue": "Two specific points are given and a line (segment) parametrization, or a point at a specific parameter value along it, is requested — direct application of the standard line parametrization.",
+          "method_plan": [
+            "Write x=x0+t(x1-x0), y=y0+t(y1-y0) using the given points",
+            "Verify t=0 and t=1 give P0 and P1 respectively",
+            "Substitute the requested t-value to find the corresponding point"
+          ],
+          "full_mark_rubric": [
+            "M1: correct parametrization set up from the two points",
+            "M1: correct verification at t=0,1 (or direct correct substitution)",
+            "A1: correct point at the requested t-value"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Sign errors in (x1-x0) or (y1-y0)"
+            },
+            {
+              "type": "conceptual",
+              "description": "Mixing up which point corresponds to t=0 vs t=1"
+            },
+            {
+              "type": "presentation",
+              "description": "Not simplifying the final coordinates"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.2-named-parametric-curves-cycloid-cusps",
+          "difficulty": "medium",
+          "prompt_template": "Analyze the cycloid's cusps: locate them and explain why they occur (both derivatives vanishing simultaneously, corresponding to the generating point touching the line).",
+          "example": "Show that the cycloid x=a(t-sin t), y=a(1-cos t) has cusps at t=2nπ, and explain the physical meaning.",
+          "answer": "dx/dt=a(1-cos t), dy/dt=a sin t; both vanish only at t=2nπ (where cos t=1, sin t=0); physically this is when the generating point on the rolling circle touches the ground, momentarily at rest before lifting off again",
+          "recognition_cue": "The cycloid is the named curve in question and the problem specifically asks about its cusps (points of non-smoothness), a signature feature worth recognizing on sight.",
+          "method_plan": [
+            "Compute dx/dt and dy/dt",
+            "Find all t where both vanish simultaneously",
+            "Connect the mathematical cusp to the physical rolling-circle interpretation"
+          ],
+          "full_mark_rubric": [
+            "M1: correct derivatives dx/dt, dy/dt",
+            "M1: correctly finds all t where both vanish",
+            "A1: correct identification of the resulting points as cusps",
+            "A1: correct physical interpretation connecting to the rolling-circle motion"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming a cusp automatically exists anywhere dx/dt=0 alone (or dy/dt=0 alone) rather than needing both to vanish simultaneously"
+            },
+            {
+              "type": "procedural",
+              "description": "Errors solving 1-cos t=0 and sin t=0 simultaneously"
+            },
+            {
+              "type": "presentation",
+              "description": "Not connecting the calculus result to the physical meaning when asked to explain"
+            }
+          ],
+          "merged_topics": [
+            "8.2-named-parametric-curves-line-segment"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.2-named-parametric-curves-involute-setup",
+          "difficulty": "hard",
+          "prompt_template": "Set up or interpret the involute-of-a-circle parametrization in an applied or geometric context (e.g. unwinding string, gear tooth profiles).",
+          "example": "Explain why the involute of a circle x=a cos t+at sin t, y=a sin t-at cos t models a string of length at unwinding taut from a circle of radius a, and find the distance from the origin to the curve at parameter t.",
+          "answer": "The term at in each component represents the straight (taut) unwound length of string at angle t, added perpendicular to the radius direction (since the string stays tangent to the circle); distance from origin: √(x^2+y^2)=√(a^2+a^2t^2)=a√(1+t^2) (using the identity that the involute point is always at distance a√(1+t^2) from the center)",
+          "recognition_cue": "The involute is the named curve in question (often introduced with a physical string-unwinding or gear-related description) and the problem asks to interpret the parametrization's construction or compute a derived quantity like distance from center.",
+          "method_plan": [
+            "Recall the geometric construction (taut string unwinding from a circle) underlying the involute's parametrization",
+            "Identify which term in x(t), y(t) represents the tangential unwound length",
+            "Compute the requested derived quantity (e.g. distance from center) using the parametrization directly"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies the roles of a cos t/a sin t (point on the circle) vs. at sin t/at cos t (unwound tangent length)",
+            "M1: correct setup of the distance formula",
+            "A1: correct simplification using x^2+y^2",
+            "A1: correct final expression/interpretation"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Not recognizing which part of the parametrization corresponds to the circle vs. the unwinding tangent length"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors expanding x^2+y^2=(a cos t+at sin t)^2+(a sin t-at cos t)^2 (missing the simplification via cos^2+sin^2=1)"
+            },
+            {
+              "type": "strategy",
+              "description": "Not using the Pythagorean identity to simplify x^2+y^2 efficiently"
+            }
+          ],
+          "merged_topics": [
+            "8.2-named-parametric-curves-cycloid-cusps"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.2-self-intersection-multiple-parametrizations",
+      "section": "8.2",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Parametric Curves",
+      "micro_skill": "Self-intersections and recognizing multiple parametrizations of the same curve",
+      "definitions": [
+        "A parametric curve self-intersects at (x0,y0) if two distinct parameter values t1≠t2 (within the domain) both give f(t1)=f(t2)=x0 and g(t1)=g(t2)=y0. The same plane curve (point set) can be traced by infinitely many different parametrizations, differing in speed, direction, or even how many times a point is retraced."
+      ],
+      "theorems": [
+        {
+          "name": "Self-intersection condition",
+          "statement": "A point (x0,y0) is a self-intersection of x=f(t), y=g(t) on I if there exist t1≠t2 in I with f(t1)=f(t2)=x0 and g(t1)=g(t2)=y0.",
+          "conditions": [
+            "t1, t2 must both lie in the parameter domain I",
+            "must check f and g agree simultaneously at the same pair (t1,t2), not independently"
+          ]
+        }
+      ],
+      "formulas": [
+        "self-intersection: f(t1)=f(t2) AND g(t1)=g(t2) for some t1≠t2 in I",
+        "same curve, different parametrization: same point set, different (f,g,I)"
+      ],
+      "prerequisites": [
+        "8.2-named-parametric-curves"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.2-self-intersection-find",
+          "difficulty": "medium",
+          "prompt_template": "Find the self-intersection point(s) of a given parametric curve by solving for coincident t-values.",
+          "example": "Find the self-intersection of x=t^3-3t, y=t^2, -2≤t≤2.",
+          "answer": "x=0 when t(t-√3)(t+√3)=0, i.e. t=0,±√3; y(0)=0, y(±√3)=3, so t=√3 and t=-√3 both give (0,3) — self-intersection at (0,3)",
+          "recognition_cue": "The problem gives a parametric curve and asks to find where it crosses itself — look for distinct t-values giving the same (x,y).",
+          "method_plan": [
+            "Find all t where x(t) takes a repeated value (or use symmetry to narrow candidates)",
+            "Among those t-values, check which pairs also give the same y(t)",
+            "Report the resulting self-intersection point(s)"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly finds candidate t-values with repeated x (or y)",
+            "M1: correctly checks which pairs also match in y (or x)",
+            "A1: correct self-intersection point identified",
+            "A1: correctly excludes any candidate pairs that don't actually coincide"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Finding repeated x-values but forgetting to also verify the y-values match at the same pair of t's"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors factoring/solving x(t)=x(t') for candidate t-values"
+            },
+            {
+              "type": "strategy",
+              "description": "Not using symmetry (e.g. x odd, y even in t) to narrow the search for candidate t-pairs"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.2-self-intersection-multiple-parametrizations-compare",
+          "difficulty": "hard",
+          "prompt_template": "Compare two different parametrizations of the same underlying curve, and identify what differs (speed, direction) versus what is the same (the point set, tangent lines at shared points).",
+          "example": "Compare (i) x=cos t, y=sin t (0≤t≤2π) and (ii) x=1-t^2, y=t√(2-t^2) (-√2≤t≤√2) as parametrizations of the unit circle. What's the same and what differs?",
+          "answer": "Both trace the same point set (the unit circle), but at different speeds and via different formulas for t; the geometric tangent line at any shared point is identical for both parametrizations (since slope is a curve property), but quantities like dx/dt, dy/dt, or 'the t-value at a given point' differ between them",
+          "recognition_cue": "Two distinct-looking (f,g,I) triples are presented and the problem explicitly asks to compare/contrast them as parametrizations of a claimed common curve — a conceptual, not computational, question.",
+          "method_plan": [
+            "Verify both parametrizations do trace the same point set (e.g. by checking they both satisfy the same Cartesian equation)",
+            "Identify which quantities are parametrization-dependent (speed, the specific t at a given point) versus which are intrinsic to the curve (the point set, the tangent line direction at each point)",
+            "State the comparison explicitly"
+          ],
+          "full_mark_rubric": [
+            "M1: verifies both give the same underlying Cartesian curve",
+            "M1: correctly identifies at least one parametrization-dependent quantity that differs",
+            "A1: correctly identifies at least one intrinsic property that must agree (e.g. tangent slope at a shared point)",
+            "A1: clear, explicit statement of the comparison"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming two different-looking parametrizations must be different curves, or conversely that the same curve implies identical dx/dt, dy/dt"
+            },
+            {
+              "type": "strategy",
+              "description": "Trying to prove they're 'the same curve' by matching parameter ranges or formulas rather than checking the resulting point sets/Cartesian equations"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explicitly distinguishing 'same point set' from 'same parametrization' when asked to compare"
+            }
+          ],
+          "merged_topics": [
+            "8.2-self-intersection-find"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.2-self-intersection-hidden-restricted-domain",
+          "difficulty": "hard",
+          "prompt_template": "Determine whether a candidate self-intersection actually occurs, given the parameter's restricted domain (i.e., the algebraically found t-values might fall outside the allowed range).",
+          "example": "For x=t^3-3t, y=t^2, restricted to -1≤t≤1, does the curve self-intersect at (0,3) as it would on the full range -2≤t≤2?",
+          "answer": "No — the self-intersection at (0,3) requires t=√3≈1.73 and t=-√3≈-1.73, both outside the restricted domain [-1,1], so with this restricted domain the curve does NOT self-intersect at (0,3) (only t=0, giving (0,0), lies in range)",
+          "recognition_cue": "The parameter's domain is explicitly restricted to something narrower than the 'natural' range needed to produce a previously known or algebraically found self-intersection — testing whether the restriction excludes it.",
+          "method_plan": [
+            "Algebraically find the candidate self-intersection t-values as usual, ignoring the domain restriction at first",
+            "Check whether both candidate t-values actually lie within the given restricted domain",
+            "Conclude whether the self-intersection genuinely occurs for this restricted parametrization"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly finds the candidate (unrestricted) self-intersection t-values",
+            "M1: correctly checks both against the given domain restriction",
+            "A1: correct conclusion about whether the self-intersection actually occurs",
+            "A1: clear explanation connecting the domain restriction to the conclusion"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Reporting a self-intersection based on the algebra alone, without checking the actual parameter domain"
+            },
+            {
+              "type": "procedural",
+              "description": "Checking only one of the two required t-values against the domain, missing that both must be included"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explicitly stating why the restricted domain changes the conclusion"
+            }
+          ],
+          "merged_topics": [
+            "8.2-self-intersection-find"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.3-parametric-tangent-slope",
+      "section": "8.3",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Smooth Parametric Curves and Slopes",
+      "micro_skill": "Tangent slope dy/dx for a parametric curve",
+      "definitions": [
+        "For C: x=f(t), y=g(t) with f',g' continuous on I, if f'(t)≠0 then C is smooth there and dy/dx=g'(t)/f'(t). C can fail to be smooth only where f'(t)=g'(t)=0 simultaneously, but need not actually fail there — smoothness must be checked case by case (e.g. x=t^3, y=t^6 is smooth at t=0, since it is just y=x^2, even though both derivatives vanish)."
+      ],
+      "theorems": [
+        {
+          "name": "Parametric tangent slope",
+          "statement": "If f'(t)≠0 on I, C is smooth and dy/dx=g'(t)/f'(t). If g'(t)≠0, the normal has slope -f'(t)/g'(t).",
+          "conditions": [
+            "f', g' continuous on I",
+            "smoothness can fail ONLY where f'(t)=g'(t)=0 simultaneously (a necessary, not sufficient, condition for failure)"
+          ]
+        }
+      ],
+      "formulas": [
+        "dy/dx = g'(t)/f'(t) (where f'(t)≠0)",
+        "normal slope = -f'(t)/g'(t) (where g'(t)≠0)",
+        "possible non-smooth points: f'(t)=g'(t)=0"
+      ],
+      "prerequisites": [
+        "8.2-eliminate-parameter"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.3-parametric-tangent-slope-basic",
+          "difficulty": "easy",
+          "prompt_template": "Find dy/dx for a parametric curve at a given parameter value.",
+          "example": "Find dy/dx for x=t^2-t, y=t^2+t at t=2.",
+          "answer": "dx/dt=2t-1=3, dy/dt=2t+1=5; dy/dx=5/3",
+          "recognition_cue": "The curve is given parametrically and a slope at a specific t-value is requested — direct application of dy/dx=g'(t)/f'(t).",
+          "method_plan": [
+            "Compute f'(t) and g'(t)",
+            "Evaluate both at the given t",
+            "Divide g'(t) by f'(t)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct f'(t) and g'(t)",
+            "M1: correct evaluation at the given t",
+            "A1: correct final slope"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Computing dy/dt / dx/dt as dx/dt / dy/dt (inverted)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors differentiating f(t) or g(t)"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting to evaluate at the specific requested t, leaving the answer as a function of t"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-parametric-tangent-slope-implicit-in-t",
+          "difficulty": "medium",
+          "prompt_template": "Find dy/dx for a parametric curve where f'(t) or g'(t) requires the chain/product rule (e.g. transcendental or product functions of t).",
+          "example": "Find dy/dx for x=e^t cos t, y=e^t sin t.",
+          "answer": "dx/dt=e^t(cos t-sin t), dy/dt=e^t(sin t+cos t); dy/dx=(sin t+cos t)/(cos t-sin t)",
+          "recognition_cue": "f(t) and/or g(t) are products or compositions (exponential times trig, etc.) requiring product/chain rule to differentiate, rather than simple polynomials.",
+          "method_plan": [
+            "Apply the product/chain rule carefully to differentiate f(t) and g(t)",
+            "Form the ratio g'(t)/f'(t)",
+            "Simplify if possible"
+          ],
+          "full_mark_rubric": [
+            "M1: correct f'(t) via product rule",
+            "M1: correct g'(t) via product rule",
+            "A1: correct ratio formed",
+            "A1: correct simplification (if applicable)"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the product rule, differentiating e^t cos t as just -e^t sin t"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign errors in the product rule expansion"
+            },
+            {
+              "type": "presentation",
+              "description": "Not simplifying an easily-simplifiable ratio (e.g. via factoring or a trig identity)"
+            }
+          ],
+          "merged_topics": [
+            "8.3-parametric-tangent-slope-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-parametric-tangent-slope-smoothness-check",
+          "difficulty": "hard",
+          "prompt_template": "Determine whether a curve is smooth at a point where both f'(t) and g'(t) vanish simultaneously, by direct examination rather than assuming failure.",
+          "example": "Is x=t^3, y=t^6 smooth at t=0, given that f'(0)=g'(0)=0?",
+          "answer": "Eliminating t: y=x^2 (since t^3=x ⇒ t^6=x^2=y), a smooth parabola at every point including x=0 — so despite f'(0)=g'(0)=0, the curve IS smooth there; contrast with x=t^2,y=t^3 (a genuine cusp at t=0, y^2=x^3)",
+          "recognition_cue": "Both f'(t) and g'(t) vanish at the point in question — Theorem 1's sufficient condition for smoothness fails, but the problem asks whether the curve is ACTUALLY smooth there, requiring direct investigation (e.g. eliminating the parameter) rather than an automatic 'not smooth' conclusion.",
+          "method_plan": [
+            "Recognize that f'(t0)=g'(t0)=0 only means the theorem's easy sufficient condition doesn't apply — it does not by itself prove non-smoothness",
+            "Eliminate the parameter (or examine the curve directly near t0) to determine the actual local shape",
+            "Conclude smooth or not-smooth based on the direct examination, contrasting with a genuine cusp example if helpful"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies that f'=g'=0 alone does not prove non-smoothness",
+            "M1: correctly eliminates the parameter (or otherwise directly investigates) near the point in question",
+            "A1: correct conclusion about smoothness at that point",
+            "A1: contrasts with a genuine cusp case to demonstrate understanding of the distinction"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Automatically concluding the curve is not smooth whenever both derivatives vanish, misapplying the theorem's sufficient (not necessary) condition"
+            },
+            {
+              "type": "procedural",
+              "description": "Not actually eliminating the parameter or otherwise verifying directly, instead guessing based on the vanishing derivatives alone"
+            },
+            {
+              "type": "strategy",
+              "description": "Not comparing to a known cusp example (like x=t^2,y=t^3) to check understanding of the distinction between the two cases"
+            }
+          ],
+          "merged_topics": [
+            "8.3-parametric-tangent-slope-basic",
+            "8.2-self-intersection-find"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.3-tangent-normal-line-parametrization",
+      "section": "8.3",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Smooth Parametric Curves and Slopes",
+      "micro_skill": "Parametrizing the tangent and normal lines at a point on a parametric curve",
+      "definitions": [
+        "At t=t0 on C: x=f(t), y=g(t), the tangent line is parametrized as x=f(t0)+f'(t0)(t-t0), y=g(t0)+g'(t0)(t-t0); the normal line is x=f(t0)+g'(t0)(t-t0), y=g(t0)-f'(t0)(t-t0) (direction vector rotated 90°)."
+      ],
+      "theorems": [
+        {
+          "name": "Tangent/normal line parametrizations",
+          "statement": "Tangent at t0: (x,y)=(f(t0)+f'(t0)(t-t0), g(t0)+g'(t0)(t-t0)). Normal at t0: (x,y)=(f(t0)+g'(t0)(t-t0), g(t0)-f'(t0)(t-t0)).",
+          "conditions": [
+            "f'(t0), g'(t0) not both zero",
+            "the normal direction vector (g'(t0), -f'(t0)) is perpendicular to the tangent direction (f'(t0), g'(t0))"
+          ]
+        }
+      ],
+      "formulas": [
+        "tangent: x=f(t0)+f'(t0)(t-t0), y=g(t0)+g'(t0)(t-t0)",
+        "normal: x=f(t0)+g'(t0)(t-t0), y=g(t0)-f'(t0)(t-t0)"
+      ],
+      "prerequisites": [
+        "8.3-parametric-tangent-slope"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.3-tangent-normal-line-parametrization-basic",
+          "difficulty": "easy",
+          "prompt_template": "Find the parametrized tangent and normal lines at a given parameter value on a parametric curve.",
+          "example": "Find the tangent and normal line parametrizations at t=2 for x=t^2-t, y=t^2+t.",
+          "answer": "At t=2: (x,y)=(2,6), dx/dt=3, dy/dt=5. Tangent: x=2+3(t-2), y=6+5(t-2). Normal: x=2+5(t-2), y=6-3(t-2)",
+          "recognition_cue": "A specific parameter value t0 is given along with the parametric curve, and the tangent and/or normal line's parametrization is requested — direct substitution into the standard formulas.",
+          "method_plan": [
+            "Evaluate f(t0), g(t0), f'(t0), g'(t0)",
+            "Substitute into the tangent line formula",
+            "Substitute into the normal line formula (swap and negate the derivatives)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct point and derivatives at t0",
+            "M1: correct tangent line parametrization",
+            "A1: correct normal line parametrization",
+            "A1: correctly derived slopes (5/3 tangent, -3/5 normal) as a check if requested"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Using the tangent-line formula's derivative pattern for the normal line (forgetting to swap f' and g' and negate one)"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign error negating f'(t0) in the normal line's y-component"
+            },
+            {
+              "type": "presentation",
+              "description": "Presenting only the Cartesian slope, not the requested parametrized line"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-tangent-normal-line-parametrization-cartesian-form",
+          "difficulty": "medium",
+          "prompt_template": "Convert a parametrized tangent (or normal) line to its Cartesian (y=mx+b) equation.",
+          "example": "Convert the tangent line x=2+3(t-2), y=6+5(t-2) to Cartesian form.",
+          "answer": "From x=2+3(t-2): t-2=(x-2)/3; substitute: y=6+5(x-2)/3=(5/3)x+8/3",
+          "recognition_cue": "A parametrized tangent or normal line is given (or just derived) and the problem asks for the more familiar y=mx+b form, requiring the parameter to be eliminated from the line's own parametrization.",
+          "method_plan": [
+            "Solve the tangent line's x-equation for (t-t0)",
+            "Substitute into the y-equation",
+            "Simplify to y=mx+b form"
+          ],
+          "full_mark_rubric": [
+            "M1: correct elimination of (t-t0) from the x-equation",
+            "M1: correct substitution into the y-equation",
+            "A1: correct simplified Cartesian line equation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors solving for (t-t0) or substituting"
+            },
+            {
+              "type": "procedural",
+              "description": "Re-deriving the slope from scratch instead of recognizing this is the same slope g'(t0)/f'(t0) already computed"
+            },
+            {
+              "type": "presentation",
+              "description": "Leaving the line in point-slope form when explicit y=mx+b was requested"
+            }
+          ],
+          "merged_topics": [
+            "8.3-tangent-normal-line-parametrization-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-tangent-normal-line-parametrization-passes-through-point",
+          "difficulty": "hard",
+          "prompt_template": "Determine the parameter value(s) at which the tangent (or normal) line to a curve passes through a specified external point.",
+          "example": "For x=t^2, y=t^3, find the value(s) of t at which the tangent line passes through the point (0,-2).",
+          "answer": "Tangent at t: x=t^2+2t(s-t), y=t^3+3t^2(s-t) (parametrized in s); requiring it pass through (0,-2) and solving for t and s simultaneously leads to an equation in t alone (e.g. after eliminating s) — solve for the valid t (checking t≠0 to avoid the cusp)",
+          "recognition_cue": "An external point (not necessarily on the curve) is given, and the problem asks to find which point(s) on the curve have a tangent line passing through it — an inverse problem requiring solving for the tangent parameter t as an unknown.",
+          "method_plan": [
+            "Write the general tangent line at an unknown parameter t, using a fresh parameter s for points along that line",
+            "Substitute the target external point's coordinates and solve for the relationship between s and t",
+            "Eliminate s to get an equation purely in t, and solve, excluding any non-smooth points if relevant"
+          ],
+          "full_mark_rubric": [
+            "M1: correct general tangent line parametrization at unknown t",
+            "M1: correctly substitutes the target point's coordinates",
+            "A1: correct elimination of the auxiliary parameter s",
+            "A1: correct solution(s) for t, with any invalid (non-smooth) points excluded"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Confusing the tangent line's own parameter (here called s) with the curve's parameter t at the point of tangency — these must be treated as distinct unknowns"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors eliminating s from the two equations"
+            },
+            {
+              "type": "strategy",
+              "description": "Not checking whether a found t corresponds to an actual smooth point of tangency (e.g. excluding a cusp)"
+            }
+          ],
+          "merged_topics": [
+            "8.3-tangent-normal-line-parametrization-basic",
+            "8.3-parametric-tangent-slope-smoothness-check"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.3-horizontal-vertical-tangents",
+      "section": "8.3",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Smooth Parametric Curves and Slopes",
+      "micro_skill": "Locating horizontal and vertical tangent points on a parametric curve",
+      "definitions": [
+        "A horizontal tangent on C: x=f(t), y=g(t) occurs where dy/dt=0 and dx/dt≠0; a vertical tangent occurs where dx/dt=0 and dy/dt≠0. At points where both vanish simultaneously, the curve may have a cusp, an ordinary smooth point, or another behavior — examine one-sided limits of dy/dx directly."
+      ],
+      "theorems": [
+        {
+          "name": "Horizontal/vertical tangent conditions",
+          "statement": "Horizontal tangent: dy/dt=0, dx/dt≠0. Vertical tangent: dx/dt=0, dy/dt≠0. If both are zero simultaneously, examine the one-sided limits of dy/dx=g'(t)/f'(t) as t→t0 directly.",
+          "conditions": [
+            "f', g' continuous",
+            "the 'both zero' case requires case-by-case analysis, not a blanket rule"
+          ]
+        }
+      ],
+      "formulas": [
+        "horizontal tangent: dy/dt=0, dx/dt≠0",
+        "vertical tangent: dx/dt=0, dy/dt≠0",
+        "both zero: examine lim dy/dx directly"
+      ],
+      "prerequisites": [
+        "8.3-parametric-tangent-slope"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.3-horizontal-vertical-tangents-basic",
+          "difficulty": "easy",
+          "prompt_template": "Find all points with horizontal or vertical tangents on a given parametric curve.",
+          "example": "Find horizontal/vertical tangent points for x=t^3-3t, y=t^2-4.",
+          "answer": "f'(t)=3(t^2-1), g'(t)=2t; horizontal: g'=0,f'≠0 ⇒ t=0 ⇒ (0,-4); vertical: f'=0,g'≠0 ⇒ t=±1 ⇒ (-2,-3) and (2,-3)",
+          "recognition_cue": "The problem asks directly for horizontal and/or vertical tangent points of a parametric curve — compute both derivatives and find where each individually vanishes (checking the other is nonzero).",
+          "method_plan": [
+            "Compute f'(t) and g'(t)",
+            "Solve g'(t)=0 (checking f'(t)≠0 there) for horizontal tangent points",
+            "Solve f'(t)=0 (checking g'(t)≠0 there) for vertical tangent points"
+          ],
+          "full_mark_rubric": [
+            "M1: correct f'(t), g'(t)",
+            "M1: correct horizontal tangent t-values and check f'≠0",
+            "A1: correct vertical tangent t-values and check g'≠0",
+            "A1: correct corresponding (x,y) points"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Swapping the conditions (using dx/dt=0 for horizontal instead of vertical, or vice versa)"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting to verify the OTHER derivative is nonzero at each candidate t (needed to confirm it's genuinely horizontal/vertical, not an indeterminate point)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors solving g'(t)=0 or f'(t)=0"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-horizontal-vertical-tangents-both-zero",
+          "difficulty": "hard",
+          "prompt_template": "Investigate a point where both dx/dt and dy/dt vanish simultaneously, using one-sided limits to determine the tangent behavior.",
+          "example": "For x=t^3, y=t^4, examine the tangent behavior at t=0 where both derivatives vanish.",
+          "answer": "dy/dx=g'/f'=4t^3/3t^2=(4/3)t → 0 as t→0 from both sides, so despite the indeterminate 0/0 form directly, the curve actually has a horizontal tangent at the origin (it's smooth-looking there, resembling y=x^{4/3})",
+          "recognition_cue": "Both dx/dt and dy/dt are given (or found) to vanish at the same t-value, so neither the horizontal nor vertical tangent test applies directly — the one-sided limit of dy/dx as t approaches that value must be examined instead.",
+          "method_plan": [
+            "Form the ratio dy/dx=g'(t)/f'(t) symbolically (before plugging in the problematic t-value)",
+            "Simplify the ratio algebraically to remove the common vanishing factor if possible",
+            "Take the limit as t→t0 from both sides to determine the actual tangent behavior"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly forms the symbolic ratio g'(t)/f'(t)",
+            "M1: correctly simplifies to cancel the common factor causing the 0/0 form",
+            "A1: correct one-sided (or two-sided) limit evaluated",
+            "A1: correct conclusion about the tangent's existence/value at that point"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Giving up at the indeterminate 0/0 form instead of simplifying the ratio algebraically first"
+            },
+            {
+              "type": "conceptual",
+              "description": "Assuming both derivatives vanishing automatically means no tangent exists (a cusp), without checking the limit"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors simplifying the ratio (e.g. not correctly cancelling the common power of t)"
+            }
+          ],
+          "merged_topics": [
+            "8.3-horizontal-vertical-tangents-basic",
+            "8.3-parametric-tangent-slope-smoothness-check"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-horizontal-vertical-tangents-sign-analysis",
+          "difficulty": "medium",
+          "prompt_template": "Determine which direction the curve moves through a horizontal or vertical tangent point by analyzing the sign of the other derivative on either side.",
+          "example": "For x=t^3-3t, y=t^2-4, describe how the curve behaves near its vertical tangent point at t=1 (is it a local max/min in x, or does it pass straight through?).",
+          "answer": "f'(t)=3(t^2-1) changes sign from negative (t<1) to positive (t>1) at t=1, so x has a local minimum there — the curve momentarily reverses its horizontal direction of travel while continuing in y, consistent with a vertical tangent (not a horizontal turning point)",
+          "recognition_cue": "The problem asks not just to locate a horizontal/vertical tangent point but to describe the local behavior of the curve near it (e.g. does the curve 'turn around' in x or y at that point) — requiring a sign analysis of the relevant derivative on both sides.",
+          "method_plan": [
+            "Identify the derivative that vanishes at the point of interest (dx/dt for a vertical tangent, dy/dt for horizontal)",
+            "Determine its sign immediately before and after the critical t-value",
+            "Interpret the sign change (or lack thereof) as a local extremum or inflection-like behavior in the corresponding coordinate"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly identifies which derivative to analyze",
+            "M1: correct sign determination on both sides of the critical t",
+            "A1: correct interpretation of the sign pattern (extremum vs. no extremum)",
+            "A1: clear connection between the sign analysis and the geometric description requested"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Confusing a vertical tangent (dx/dt=0) with an extremum in y, rather than correctly associating it with an extremum in x"
+            },
+            {
+              "type": "procedural",
+              "description": "Checking the sign of the wrong derivative for the coordinate in question"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors evaluating the sign of 3(t^2-1) on either side of t=1"
+            }
+          ],
+          "merged_topics": [
+            "8.3-horizontal-vertical-tangents-basic"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.3-parametric-concavity",
+      "section": "8.3",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Smooth Parametric Curves and Slopes",
+      "micro_skill": "Concavity of a parametric curve",
+      "definitions": [
+        "On an interval where f'(t)≠0, the concavity of C: x=f(t), y=g(t) is given by d^2y/dx^2=[f'(t)g''(t)-g'(t)f''(t)]/[f'(t)]^3 — note the cube (not square) in the denominator, since it comes from differentiating dy/dx=g'(t)/f'(t) with respect to x via d/dt(dy/dx)/(dx/dt)."
+      ],
+      "theorems": [
+        {
+          "name": "Parametric second derivative",
+          "statement": "d^2y/dx^2 = d/dt(dy/dx) / (dx/dt) = [f'(t)g''(t)-g'(t)f''(t)] / [f'(t)]^3, valid where f'(t)≠0.",
+          "conditions": [
+            "f', g' differentiable, f'(t)≠0 on the interval considered"
+          ]
+        }
+      ],
+      "formulas": [
+        "d^2y/dx^2 = [f'(t)g''(t)-g'(t)f''(t)]/[f'(t)]^3",
+        "concave up: d^2y/dx^2>0; concave down: d^2y/dx^2<0"
+      ],
+      "prerequisites": [
+        "8.3-parametric-tangent-slope"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.3-parametric-concavity-basic",
+          "difficulty": "medium",
+          "prompt_template": "Compute d^2y/dx^2 for a given parametric curve and determine intervals of concavity.",
+          "example": "Find d^2y/dx^2 for x=t^3-3t, y=t^2, and determine where the curve is concave up.",
+          "answer": "f'=3(t^2-1), g'=2t, f''=6t, g''=2; d^2y/dx^2=[3(t^2-1)(2)-2t(6t)]/[3(t^2-1)]^3=-2(t^2+1)/(9(t^2-1)^3); concave up where this is positive, i.e. -1<t<1 (since (t^2-1)^3<0 there, making the whole expression positive)",
+          "recognition_cue": "The curve is given parametrically and concavity (or the second derivative d^2y/dx^2) is directly requested — apply the parametric second-derivative formula, being careful with the cubed denominator.",
+          "method_plan": [
+            "Compute f', g', f'', g''",
+            "Substitute into d^2y/dx^2=[f'g''-g'f'']/[f']^3",
+            "Analyze the sign of the resulting expression to determine concave-up/down intervals"
+          ],
+          "full_mark_rubric": [
+            "M1: correct first and second derivatives",
+            "M1: correct substitution into the formula with [f']^3 (not squared) in the denominator",
+            "A1: correct simplification",
+            "A1: correct sign analysis identifying concave-up/down intervals"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Using [f'(t)]^2 instead of [f'(t)]^3 in the denominator — the single most common error in this formula"
+            },
+            {
+              "type": "procedural",
+              "description": "Computing d^2y/dx^2 by naively differentiating dy/dx with respect to t and forgetting to divide by dx/dt again"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign errors in the numerator f'g''-g'f''"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-parametric-concavity-inflection",
+          "difficulty": "medium",
+          "prompt_template": "Find the inflection point(s) of a parametric curve by locating where d^2y/dx^2 changes sign.",
+          "example": "Find any inflection points of x=t^3, y=t^2+t.",
+          "answer": "f'=3t^2, g'=2t+1, f''=6t, g''=2; d^2y/dx^2=[3t^2(2)-(2t+1)(6t)]/(3t^2)^3=(6t^2-12t^2-6t)/(27t^6)=(-6t^2-6t)/(27t^6)=-6t(t+1)/(27t^6); sign changes at t=0 (undefined/excluded, since f'(0)=0) and t=-1, giving an inflection point at (x,y)=(-1,0)",
+          "recognition_cue": "The problem asks specifically for inflection points (not just general concavity), requiring both finding where d^2y/dx^2=0 (or is undefined) and confirming an actual sign change occurs there.",
+          "method_plan": [
+            "Compute d^2y/dx^2 as usual",
+            "Find candidate t-values where the numerator is zero (or the whole expression is undefined)",
+            "Confirm an actual sign change occurs at each candidate before declaring it an inflection point, excluding any points where the curve itself isn't smooth"
+          ],
+          "full_mark_rubric": [
+            "M1: correct d^2y/dx^2 computed",
+            "M1: correct candidate t-values found",
+            "A1: correct sign-change verification excluding non-smooth points",
+            "A1: correct inflection point(s) reported in (x,y) coordinates"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Declaring an inflection point wherever the numerator is zero, without checking that a genuine sign change occurs (or that the point is even on the smooth part of the curve)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors in the second-derivative computation, especially expanding f'g''-g'f''"
+            },
+            {
+              "type": "procedural",
+              "description": "Not excluding t-values where f'(t)=0 (where the formula itself is invalid) from consideration as inflection points"
+            }
+          ],
+          "merged_topics": [
+            "8.3-parametric-concavity-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.3-parametric-concavity-cube-vs-square-mistake",
+          "difficulty": "hard",
+          "prompt_template": "Identify and correct a flawed concavity computation that used the square (rather than cube) of f'(t) in the denominator.",
+          "example": "A student computes d^2y/dx^2 for x=t^2, y=t^3 as [f'g''-g'f'']/[f']^2 instead of [f']^3. Show why this is wrong and give the corrected formula's derivation.",
+          "answer": "d^2y/dx^2 should be d/dt(dy/dx)÷dx/dt = d/dt(g'/f')/f', and since d/dt(g'/f') already has one factor of 1/f' from the quotient-rule-like differentiation... explicitly: (dy/dx)'=[f'g''-g'f'']/[f']^2 (derivative w.r.t. t of g'/f'), then dividing this by dx/dt=f' again gives an overall [f']^3 in the denominator — the extra factor of f' comes from converting the t-derivative into an x-derivative a second time",
+          "recognition_cue": "A worked solution or answer key is presented using [f'(t)]^2 in the concavity denominator, and the task is to identify this as incorrect and explain where the extra factor of f'(t) comes from.",
+          "method_plan": [
+            "Recall that d^2y/dx^2 = d/dx(dy/dx) = [d/dt(dy/dx)] / (dx/dt), a second division by dx/dt beyond what's needed to compute dy/dx itself",
+            "Show that differentiating g'/f' with respect to t via the quotient rule already introduces one factor of [f']^2 in its own denominator",
+            "Explain that dividing by dx/dt=f'(t) once more brings the total to [f'(t)]^3"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly restates the chain d^2y/dx^2=[d/dt(dy/dx)]/(dx/dt)",
+            "M1: correctly shows the quotient rule step introduces [f']^2",
+            "A1: correctly identifies the additional division by f' bringing the total to [f']^3",
+            "A1: clearly identifies the flawed formula's specific error"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Believing d^2y/dx^2 requires only one division by dx/dt, as if it were structurally identical to computing dy/dx from dy/dt and dx/dt"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors in the quotient-rule expansion of d/dt(g'(t)/f'(t))"
+            },
+            {
+              "type": "presentation",
+              "description": "Stating the correct formula from memory without being able to explain/derive where the cube comes from, when explanation was explicitly requested"
+            }
+          ],
+          "merged_topics": [
+            "8.3-parametric-concavity-basic"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.4-parametric-arc-length",
+      "section": "8.4",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Arc Lengths and Areas for Parametric Curves",
+      "micro_skill": "Arc length of a parametric curve",
+      "definitions": [
+        "The arc length element for C: x=f(t), y=g(t) is ds=√((dx/dt)^2+(dy/dt)^2)dt, giving s=∫[a,b]√([f'(t)]^2+[g'(t)]^2)dt. Simplifying the sum of squares under the root (often via a Pythagorean trig identity) is usually the key step that makes the integral tractable."
+      ],
+      "theorems": [
+        {
+          "name": "Parametric arc length",
+          "statement": "s=∫[a,b]√([f'(t)]^2+[g'(t)]^2)dt for C: x=f(t),y=g(t), a≤t≤b.",
+          "conditions": [
+            "f', g' continuous on [a,b]",
+            "curve traversed once over [a,b] (or arc length counted with appropriate multiplicity if retraced)"
+          ]
+        }
+      ],
+      "formulas": [
+        "ds=√((dx/dt)^2+(dy/dt)^2)dt",
+        "s=∫[a,b]√([f'(t)]^2+[g'(t)]^2)dt"
+      ],
+      "prerequisites": [
+        "8.3-parametric-tangent-slope"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.4-parametric-arc-length-basic",
+          "difficulty": "medium",
+          "prompt_template": "Find the arc length of a parametric curve over a given parameter range.",
+          "example": "Find the arc length of x=e^t cos t, y=e^t sin t, 0≤t≤2π.",
+          "answer": "(ds/dt)^2=e^{2t}(cos t-sin t)^2+e^{2t}(sin t+cos t)^2=2e^{2t}; s=∫[0,2π]√2 e^t dt=√2(e^{2π}-1)",
+          "recognition_cue": "The problem gives explicit parametric functions and a parameter range and asks for arc length — set up the standard formula and simplify the radicand before integrating.",
+          "method_plan": [
+            "Compute f'(t) and g'(t)",
+            "Form [f'(t)]^2+[g'(t)]^2 and simplify (often a lot cancels via Pythagorean-type identities)",
+            "Integrate the simplified square root over the given range"
+          ],
+          "full_mark_rubric": [
+            "M1: correct f'(t), g'(t)",
+            "M1: correct simplification of the sum of squares under the root",
+            "A1: correct antiderivative",
+            "A1: correct evaluation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Expanding (cos t-sin t)^2 and (sin t+cos t)^2 incorrectly, missing the cancellation of cross terms"
+            },
+            {
+              "type": "strategy",
+              "description": "Not attempting to simplify the radicand before integrating, leading to an intractable integral"
+            },
+            {
+              "type": "presentation",
+              "description": "Forgetting the square root entirely, integrating [f']^2+[g']^2 directly"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.4-parametric-arc-length-trig-simplification",
+          "difficulty": "medium",
+          "prompt_template": "Find the arc length of a curve whose radicand simplifies dramatically via a specific trig identity (e.g. for an astroid or cycloid).",
+          "example": "Find the arc length of one arch of the cycloid x=a(t-sin t), y=a(1-cos t), 0≤t≤2π.",
+          "answer": "dx/dt=a(1-cos t), dy/dt=a sin t; (ds/dt)^2=a^2[(1-cos t)^2+sin^2t]=a^2[2-2cos t]=2a^2(1-cos t)=4a^2sin^2(t/2); s=∫[0,2π]2a|sin(t/2)|dt=8a",
+          "recognition_cue": "The curve is a classic named curve (cycloid, astroid) whose arc-length radicand simplifies using a half-angle or power-reduction identity (like 1-cos t=2sin^2(t/2)) — recognizing the identity is the key step.",
+          "method_plan": [
+            "Compute f'(t), g'(t) and form the sum of squares",
+            "Recognize and apply the relevant trig identity (e.g. 1-cos t=2sin^2(t/2)) to simplify the radicand into a perfect square",
+            "Integrate, being careful with the absolute value if sin(t/2) or similar changes sign over the range"
+          ],
+          "full_mark_rubric": [
+            "M1: correct derivatives and initial sum of squares",
+            "M1: correct application of the simplifying trig identity",
+            "A1: correct handling of the absolute value/sign over the integration range",
+            "A1: correct final arc length"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Not recognizing the relevant half-angle identity, attempting to integrate an unsimplified square root directly"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors applying the identity 1-cos t=2sin^2(t/2)"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting the absolute value needed when √(sin^2(t/2)) is simplified over a range where sin(t/2) could be negative"
+            }
+          ],
+          "merged_topics": [
+            "8.4-parametric-arc-length-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.4-parametric-arc-length-partial-curve",
+          "difficulty": "hard",
+          "prompt_template": "Find the arc length of only part of a repeated or symmetric curve, using symmetry to reduce the computation.",
+          "example": "Find the arc length of the astroid x=a cos^3t, y=a sin^3t over the full curve 0≤t≤2π, using the arc length of just one quarter (0≤t≤π/2) and symmetry.",
+          "answer": "dx/dt=-3a cos^2t sin t, dy/dt=3a sin^2t cos t; ds=3a|cos t sin t|dt on [0,π/2] (both nonneg there) gives quarter-length=∫[0,π/2]3a cos t sin t dt=3a/2; full curve (4 congruent quarters by symmetry)=6a",
+          "recognition_cue": "The curve has an evident symmetry (astroid, or another curve with repeated congruent sections), making it more efficient to compute arc length over one representative piece and multiply, rather than integrating over the full range directly (where sign changes in the derivatives would otherwise require careful case-splitting).",
+          "method_plan": [
+            "Identify the curve's symmetry and a representative sub-interval where the radicand simplifies without sign ambiguity",
+            "Compute the arc length over that sub-interval",
+            "Multiply by the appropriate symmetry factor to get the total arc length"
+          ],
+          "full_mark_rubric": [
+            "M1: correct identification of the symmetric structure and representative sub-interval",
+            "M1: correct arc length computed over that sub-interval",
+            "A1: correct symmetry factor applied",
+            "A1: correct final total arc length"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Attempting to integrate over the full range directly, mishandling the absolute value sign changes across quadrants"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors simplifying the radicand on the chosen sub-interval"
+            },
+            {
+              "type": "conceptual",
+              "description": "Using the wrong symmetry factor (e.g. doubling instead of quadrupling) for the specific curve's symmetry"
+            }
+          ],
+          "merged_topics": [
+            "8.4-parametric-arc-length-trig-simplification"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.4-parametric-surface-area-revolution",
+      "section": "8.4",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Arc Lengths and Areas for Parametric Curves",
+      "micro_skill": "Surface area of revolution for a parametric curve",
+      "definitions": [
+        "Rotating C: x=f(t), y=g(t), a≤t≤b about the x-axis gives S=2π∫[a,b]|g(t)|√([f'(t)]^2+[g'(t)]^2)dt; about the y-axis, S=2π∫[a,b]|f(t)|√([f'(t)]^2+[g'(t)]^2)dt. The absolute value is essential since the radius of revolution cannot be negative."
+      ],
+      "theorems": [
+        {
+          "name": "Parametric surface area of revolution",
+          "statement": "About x-axis: S=2π∫[a,b]|g(t)|√([f'(t)]^2+[g'(t)]^2)dt. About y-axis: S=2π∫[a,b]|f(t)|√([f'(t)]^2+[g'(t)]^2)dt.",
+          "conditions": [
+            "curve does not cross the axis of rotation within the interval (or the absolute value correctly handles sign but the geometric interpretation needs care if it does)"
+          ]
+        }
+      ],
+      "formulas": [
+        "about x-axis: S=2π∫|g(t)|ds",
+        "about y-axis: S=2π∫|f(t)|ds",
+        "ds=√([f'(t)]^2+[g'(t)]^2)dt"
+      ],
+      "prerequisites": [
+        "8.4-parametric-arc-length"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.4-parametric-surface-area-revolution-basic",
+          "difficulty": "medium",
+          "prompt_template": "Find the surface area generated by rotating a parametric curve about the x-axis.",
+          "example": "Rotate x=t^2, y=2t, 0≤t≤2, about the x-axis; find the surface area.",
+          "answer": "f'=2t, g'=2; ds=√(4t^2+4)dt=2√(t^2+1)dt; S=2π∫[0,2]2t·2√(t^2+1)dt=8π∫[0,2]t√(t^2+1)dt, u=t^2+1 ⇒ S=(8π/3)(5^{3/2}-1)",
+          "recognition_cue": "A parametric curve is rotated about the x-axis and surface area is requested — apply S=2π∫|g(t)|ds with the radius given by |g(t)| (the y-coordinate), not f(t).",
+          "method_plan": [
+            "Compute f'(t), g'(t) and form ds",
+            "Set up S=2π∫|g(t)|ds over the given range",
+            "Integrate, using substitution if needed"
+          ],
+          "full_mark_rubric": [
+            "M1: correct ds",
+            "M1: correct radius |g(t)| identified (rotation about x-axis)",
+            "A1: correct substitution/integration",
+            "A1: correct final surface area"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using f(t) as the radius instead of g(t) when rotating about the x-axis"
+            },
+            {
+              "type": "procedural",
+              "description": "Omitting the absolute value around g(t) (relevant if g(t) could be negative on the interval)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors in the substitution to integrate t√(t^2+1)"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.4-parametric-surface-area-revolution-astroid",
+          "difficulty": "hard",
+          "prompt_template": "Find the surface area generated by rotating a named curve (e.g. the astroid) about an axis, using symmetry to simplify.",
+          "example": "Rotate the astroid x=a cos^3t, y=a sin^3t about the x-axis (upper half, 0≤t≤π, doubled for the full surface); find the surface area.",
+          "answer": "ds=3a cos t sin t dt on [0,π/2] (by symmetry compute the upper-right quarter and combine); S=2·2π∫[0,π/2]a sin^3t·3a cos t sin t dt=12πa^2∫[0,π/2]sin^4t cos t dt=12πa^2/5",
+          "recognition_cue": "The curve is a named symmetric curve (astroid) and the problem requires identifying which portion of the parameter range to integrate over (avoiding double-counting or sign ambiguity) before doubling/multiplying by the appropriate symmetry factor.",
+          "method_plan": [
+            "Identify the curve's symmetry and restrict to a sub-interval where g(t) (or f(t)) doesn't change sign",
+            "Set up and simplify the surface area integral over that sub-interval",
+            "Apply the correct symmetry multiplier to get the total surface area"
+          ],
+          "full_mark_rubric": [
+            "M1: correct restriction to a sign-consistent sub-interval",
+            "M1: correct simplified ds and integrand",
+            "A1: correct integration (e.g. via u=sin t substitution)",
+            "A1: correct final surface area including the correct symmetry factor"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Integrating over the full range without addressing sign changes in g(t), leading to incorrect cancellation instead of the intended doubling"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors in the substitution for ∫sin^4t cos t dt"
+            },
+            {
+              "type": "conceptual",
+              "description": "Using the wrong symmetry multiplier for the specific curve/axis combination"
+            }
+          ],
+          "merged_topics": [
+            "8.4-parametric-surface-area-revolution-basic",
+            "8.4-parametric-arc-length-partial-curve"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.4-parametric-surface-area-revolution-y-axis",
+          "difficulty": "medium",
+          "prompt_template": "Find the surface area generated by rotating a parametric curve about the y-axis.",
+          "example": "Rotate x=t, y=t^2, 0≤t≤1, about the y-axis; find the surface area.",
+          "answer": "f'=1, g'=2t; ds=√(1+4t^2)dt; S=2π∫[0,1]t√(1+4t^2)dt, u=1+4t^2 ⇒ S=(π/6)(5^{3/2}-1)",
+          "recognition_cue": "Rotation is explicitly about the y-axis rather than the x-axis, so the radius in the surface-area formula must be |f(t)| (the x-coordinate), not |g(t)|.",
+          "method_plan": [
+            "Compute f'(t), g'(t) and form ds",
+            "Set up S=2π∫|f(t)|ds (radius = x-coordinate, since rotating about the y-axis)",
+            "Integrate, using substitution as needed"
+          ],
+          "full_mark_rubric": [
+            "M1: correct ds",
+            "M1: correct radius |f(t)| identified for y-axis rotation",
+            "A1: correct substitution/integration",
+            "A1: correct final surface area"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Defaulting to g(t) as the radius (correct for x-axis rotation) even though the axis here is the y-axis"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors in the u-substitution"
+            },
+            {
+              "type": "presentation",
+              "description": "Dropping the factor of 2π"
+            }
+          ],
+          "merged_topics": [
+            "8.4-parametric-surface-area-revolution-basic"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.4-parametric-enclosed-area",
+      "section": "8.4",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Arc Lengths and Areas for Parametric Curves",
+      "micro_skill": "Area enclosed by a parametric curve",
+      "definitions": [
+        "The signed area under a parametric curve x=f(t), y=g(t) is A=∫[a,b]g(t)f'(t)dt; for a non-self-intersecting closed curve, A=∫g(t)f'(t)dt if traversed clockwise, A=-∫g(t)f'(t)dt if traversed counterclockwise (equivalently, using x dy with f(t)g'(t))."
+      ],
+      "theorems": [
+        {
+          "name": "Parametric area formula",
+          "statement": "A=∫[a,b]g(t)f'(t)dt (signed). For a simple closed curve, counterclockwise traversal gives A=-∫g(t)f'(t)dt (a positive result for a region enclosing the origin's usual orientation); clockwise gives A=+∫g(t)f'(t)dt.",
+          "conditions": [
+            "curve does not self-intersect (for the closed-curve sign convention to give the enclosed area directly)"
+          ]
+        }
+      ],
+      "formulas": [
+        "A=∫[a,b]g(t)f'(t)dt (signed, general)",
+        "closed curve, counterclockwise: A=-∫g(t)f'(t)dt",
+        "closed curve, clockwise: A=∫g(t)f'(t)dt"
+      ],
+      "prerequisites": [
+        "8.3-parametric-tangent-slope"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.4-parametric-enclosed-area-ellipse",
+          "difficulty": "easy",
+          "prompt_template": "Find the area enclosed by a parametrized ellipse (or similar simple closed curve), and verify against a known formula.",
+          "example": "Find the area enclosed by x=a cos t, y=b sin t, 0≤t≤2π (counterclockwise), and confirm it matches πab.",
+          "answer": "A=-∫[0,2π]b sin t·(-a sin t)dt=ab∫[0,2π]sin^2t dt=ab·π=πab ✓",
+          "recognition_cue": "A standard closed curve (ellipse, circle) is parametrized with an evident direction of traversal, and the enclosed area is requested, ideally checked against the known geometric formula.",
+          "method_plan": [
+            "Determine the direction of traversal (clockwise or counterclockwise) from how t increases",
+            "Apply the correctly-signed area formula",
+            "Evaluate and compare to the known area formula if available, as a check"
+          ],
+          "full_mark_rubric": [
+            "M1: correct direction of traversal identified",
+            "M1: correctly signed formula applied",
+            "A1: correct integral evaluated",
+            "A1: correct comparison/verification against the known area"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using the wrong sign for the direction of traversal, getting a negative area without catching the error"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors in ∫sin^2t dt (forgetting the power-reduction identity)"
+            },
+            {
+              "type": "strategy",
+              "description": "Not checking the result against the known area formula when one is available, missing a chance to catch a sign error"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.4-parametric-enclosed-area-cycloid-arch",
+          "difficulty": "medium",
+          "prompt_template": "Find the area under one arch of a non-closed parametric curve (like the cycloid) using the direct A=∫g f' dt formula (not the closed-curve sign convention).",
+          "example": "Find the area under one arch of the cycloid x=a(t-sin t), y=a(1-cos t), 0≤t≤2π.",
+          "answer": "A=∫[0,2π]a(1-cos t)·a(1-cos t)dt=a^2∫[0,2π](1-cos t)^2dt=3πa^2",
+          "recognition_cue": "The curve in question is a single arch of an open (non-closed) curve like the cycloid, sitting above the x-axis — the direct formula A=∫g(t)f'(t)dt applies without needing the closed-curve clockwise/counterclockwise sign convention.",
+          "method_plan": [
+            "Confirm the region is simply 'under the curve' (like the standard y=f(x) area, not an enclosed closed-curve region)",
+            "Set up A=∫g(t)f'(t)dt over the given range",
+            "Expand and integrate, using trig identities as needed"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly recognizes this as the direct (non-closed-curve) area formula",
+            "M1: correct integral setup",
+            "A1: correct expansion of (1-cos t)^2",
+            "A1: correct final evaluation"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Applying the closed-curve sign convention (clockwise/counterclockwise) to a curve that is not actually a closed loop"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors expanding (1-cos t)^2 or integrating cos^2t"
+            },
+            {
+              "type": "presentation",
+              "description": "Not verifying dx/dt≥0 (needed to ensure the direct area formula's sign convention matches the usual left-to-right area under a curve)"
+            }
+          ],
+          "merged_topics": [
+            "8.4-parametric-enclosed-area-ellipse"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.4-parametric-enclosed-area-direction-check",
+          "difficulty": "hard",
+          "prompt_template": "Determine the direction of traversal of a closed parametric curve algebraically (rather than by inspection), and apply the correct sign in the area formula.",
+          "example": "For x=cos(2t), y=sin(2t), 0≤t≤π, determine the direction of traversal and find the enclosed area of the unit circle.",
+          "answer": "dx/dt=-2sin2t, dy/dt=2cos2t; at t=0, position (1,0) moving in direction (0,2) i.e. upward — this matches counterclockwise motion; A=-∫[0,π]sin2t·(-2sin2t)dt=2∫[0,π]sin^2(2t)dt=2·(π/2)=π, matching the known area π(1)^2",
+          "recognition_cue": "The direction of traversal is not obviously stated or visually given — it must be determined algebraically (e.g. by checking the velocity direction at a sample point) before choosing the correct sign convention for the closed-curve area formula.",
+          "method_plan": [
+            "Evaluate the position and velocity vector at a sample parameter value",
+            "Use the velocity direction to determine clockwise vs. counterclockwise traversal",
+            "Apply the correctly-signed area formula and verify against the known area"
+          ],
+          "full_mark_rubric": [
+            "M1: correct velocity vector computed at a sample point",
+            "M1: correct determination of traversal direction from that vector",
+            "A1: correctly signed area formula applied",
+            "A1: correct final area matching the known value"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming a default direction (e.g. always counterclockwise) without actually checking via the velocity vector"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors evaluating the sample point's velocity vector"
+            },
+            {
+              "type": "strategy",
+              "description": "Not using the known area (π for a unit circle) as a check on the computed sign"
+            }
+          ],
+          "merged_topics": [
+            "8.4-parametric-enclosed-area-ellipse"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.5-polar-rectangular-conversion",
+      "section": "8.5",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Polar Coordinates and Polar Curves",
+      "micro_skill": "Converting between polar and rectangular coordinates/equations",
+      "definitions": [
+        "A point's polar coordinates [r,θ]: r=distance from the pole, θ=angle from the polar axis. Non-uniqueness: [r,θ]=[r,θ+2nπ]=[-r,θ+π]; the origin is [0,θ] for any θ. Conversion: x=r cosθ, y=r sinθ, x^2+y^2=r^2, tanθ=y/x. Converting a polar equation r=f(θ) to Cartesian often uses multiplying both sides by r to introduce x^2+y^2 and r cosθ=x, r sinθ=y."
+      ],
+      "theorems": [
+        {
+          "name": "Polar-rectangular conversion",
+          "statement": "x=r cosθ, y=r sinθ, x^2+y^2=r^2, tanθ=y/x (for x≠0). [r,θ] and [-r,θ+π] represent the same point; the pole is [0,θ] for every θ.",
+          "conditions": [
+            "conversion of tanθ=y/x requires selecting the correct quadrant, not just the arctan principal value"
+          ]
+        }
+      ],
+      "formulas": [
+        "x=r cosθ, y=r sinθ",
+        "x^2+y^2=r^2",
+        "tanθ=y/x",
+        "[r,θ]=[-r,θ+π]=[r,θ+2nπ]"
+      ],
+      "prerequisites": [],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.5-polar-rectangular-conversion-equation-to-cartesian",
+          "difficulty": "easy",
+          "prompt_template": "Convert a polar equation to Cartesian form and identify the resulting curve.",
+          "example": "Convert r=4 sinθ to Cartesian form and identify the curve.",
+          "answer": "Multiply by r: r^2=4r sinθ ⇒ x^2+y^2=4y ⇒ x^2+(y-2)^2=4 — circle of radius 2 centered at (0,2)",
+          "recognition_cue": "A polar equation r=f(θ) is given directly and Cartesian identification is requested — multiply through by r (or another appropriate factor) to introduce x^2+y^2, x, or y directly.",
+          "method_plan": [
+            "Multiply both sides by r (or another suitable factor) to create x^2+y^2, r cosθ, or r sinθ terms",
+            "Substitute the polar-rectangular relations",
+            "Complete the square if needed and identify the resulting curve"
+          ],
+          "full_mark_rubric": [
+            "M1: correct multiplication step introducing convertible terms",
+            "M1: correct substitution of x=r cosθ, y=r sinθ, x^2+y^2=r^2",
+            "A1: correct completion of the square if needed",
+            "A1: correct identification of the curve"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Attempting to substitute x=r cosθ directly without first multiplying by r, getting stuck with an unconvertible r alone"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors completing the square after substitution"
+            },
+            {
+              "type": "presentation",
+              "description": "Leaving the answer in a partially converted form without stating the curve's identity/type"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-polar-rectangular-conversion-point-nonuniqueness",
+          "difficulty": "medium",
+          "prompt_template": "Find multiple valid polar representations of the same point, using the non-uniqueness relations.",
+          "example": "Give three different polar representations [r,θ] of the rectangular point (0,-2).",
+          "answer": "[2,-π/2] (or [2,3π/2]), [2,3π/2+2π], [-2,π/2] — all represent (0,-2)",
+          "recognition_cue": "The problem explicitly asks for multiple (not just one) valid polar coordinate representations of a single point, testing understanding that polar coordinates are not unique.",
+          "method_plan": [
+            "Find one straightforward representation [r,θ] with r≥0 and θ in a standard range",
+            "Generate additional equivalent representations using [r,θ+2nπ]",
+            "Generate a representation using negative r via [r,θ]=[-r,θ+π]"
+          ],
+          "full_mark_rubric": [
+            "M1: correct primary [r,θ] representation with r≥0",
+            "M1: correct additional representation via added 2nπ",
+            "A1: correct negative-r representation via the θ+π shift",
+            "A1: verifies all three convert back to the same rectangular point"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Believing a point has only one valid polar representation"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors computing r or θ for the initial representation"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting the negative-r convention [r,θ]=[-r,θ+π] as one of the ways to generate an equivalent representation"
+            }
+          ],
+          "merged_topics": [
+            "8.5-polar-rectangular-conversion-equation-to-cartesian"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-polar-rectangular-conversion-cartesian-to-polar",
+          "difficulty": "medium",
+          "prompt_template": "Convert a Cartesian equation to polar form, and simplify to identify the curve type from the polar equation alone.",
+          "example": "Convert x^2+y^2=2x to polar form.",
+          "answer": "r^2=2r cosθ ⇒ r=2cosθ (r≠0 case) — a circle through the origin, center on the polar axis",
+          "recognition_cue": "The problem gives a Cartesian equation first and asks for the polar equivalent, requiring the reverse substitution (x^2+y^2=r^2, x=r cosθ) and simplification, potentially dividing out a common factor of r.",
+          "method_plan": [
+            "Substitute x^2+y^2=r^2 and x=r cosθ (or y=r sinθ) into the Cartesian equation",
+            "Simplify, dividing out any common nonzero factor of r carefully",
+            "Note any special case (like r=0, the origin) separately if division by r was performed"
+          ],
+          "full_mark_rubric": [
+            "M1: correct substitution of polar relations",
+            "M1: correct simplification, tracking any division by r",
+            "A1: correct final simplified polar equation",
+            "A1: notes the r=0 case is not lost/misrepresented by the division"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors substituting x=r cosθ correctly into a mixed x,y expression"
+            },
+            {
+              "type": "procedural",
+              "description": "Dividing by r without acknowledging that r=0 (the origin) is a solution that may or may not still be captured by the simplified equation"
+            },
+            {
+              "type": "conceptual",
+              "description": "Not recognizing the resulting equation's curve type from the standard named-curve list"
+            }
+          ],
+          "merged_topics": [
+            "8.5-polar-rectangular-conversion-equation-to-cartesian"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.5-sketching-polar-curves",
+      "section": "8.5",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Polar Coordinates and Polar Curves",
+      "micro_skill": "Sketching named polar curves using zeros and symmetry",
+      "definitions": [
+        "A polar graph r=f(θ) passes through the origin in direction θ whenever f(θ)=0 — always locate these directions first when sketching. Standard named curves: circle r=a; line θ=β; circle through origin r=2a cosθ (center on polar axis) or r=2a sinθ (center on y-axis); cardioid r=a(1±cosθ) or a(1±sinθ) (cusp at origin); rose r=cos(nθ) or sin(nθ) (n leaves if n odd, 2n leaves if n even); lemniscate r^2=cos(2θ) (figure-eight); spirals r=θ (Archimedean) or r=e^{θ/3} (logarithmic)."
+      ],
+      "theorems": [
+        {
+          "name": "Rotating a polar graph",
+          "statement": "r=f(θ-θ0) is r=f(θ) rotated by angle θ0 about the origin.",
+          "conditions": []
+        }
+      ],
+      "formulas": [
+        "origin-direction: f(θ)=0",
+        "cardioid: r=a(1±cosθ) or a(1±sinθ)",
+        "rose: r=cos(nθ) or sin(nθ), n leaves (n odd) or 2n leaves (n even)",
+        "lemniscate: r^2=cos(2θ)"
+      ],
+      "prerequisites": [
+        "8.5-polar-rectangular-conversion"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.5-sketching-polar-curves-cardioid",
+          "difficulty": "easy",
+          "prompt_template": "Sketch (or describe key features of) a cardioid, locating its cusp direction, maximum r, and axis of symmetry.",
+          "example": "Describe the key features of r=a(1-cosθ) for sketching.",
+          "answer": "Enters origin (cusp) at θ=0 (since f(0)=0); maximum r=2a at θ=π; symmetric about the polar axis (θ=0 line)",
+          "recognition_cue": "The equation is recognizably a cardioid (r=a(1±cosθ) or a(1±sinθ) form) and the problem asks for the key sketching features rather than a full point-by-point plot.",
+          "method_plan": [
+            "Find where f(θ)=0 to locate the cusp direction",
+            "Find the maximum value of r and the θ where it occurs",
+            "Identify the axis of symmetry from the form (cos → polar axis, sin → vertical axis)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct cusp direction from f(θ)=0",
+            "M1: correct maximum r and its direction",
+            "A1: correct axis of symmetry identified",
+            "A1: coherent overall description consistent with all three features"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Not checking f(θ)=0 first, sketching without locating the cusp direction accurately"
+            },
+            {
+              "type": "conceptual",
+              "description": "Confusing which sign/trig function corresponds to which axis of symmetry (cos vs sin, + vs -)"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors finding the θ that maximizes r"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-sketching-polar-curves-rose-leaf-count",
+          "difficulty": "medium",
+          "prompt_template": "Determine the number of leaves (petals) of a rose curve r=cos(nθ) or sin(nθ), and the θ-range needed to trace it exactly once.",
+          "example": "How many leaves does r=cos(3θ) have, and over what θ-range is it traced exactly once?",
+          "answer": "n=3 is odd, so 3 leaves, traced once over θ∈[0,π)",
+          "recognition_cue": "The curve is explicitly a rose r=cos(nθ) or sin(nθ) and the problem asks about leaf count and/or the parameter range for a single full trace — testing the odd/even n distinction.",
+          "method_plan": [
+            "Determine whether n is odd or even",
+            "Apply the corresponding leaf-count rule (n leaves for odd n, 2n for even n)",
+            "State the θ-range needed: [0,π) for odd n, [0,2π) for even n"
+          ],
+          "full_mark_rubric": [
+            "M1: correct determination of odd/even n",
+            "M1: correct leaf count from the appropriate rule",
+            "A1: correct θ-range for a single complete trace"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Applying the wrong rule (e.g. always assuming n leaves regardless of parity)"
+            },
+            {
+              "type": "procedural",
+              "description": "Using the wrong θ-range (e.g. [0,π) for an even n, which would only trace half the curve)"
+            },
+            {
+              "type": "presentation",
+              "description": "Stating leaf count without the corresponding correct θ-range when both were requested"
+            }
+          ],
+          "merged_topics": [
+            "8.5-sketching-polar-curves-cardioid"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-sketching-polar-curves-lemniscate-domain",
+          "difficulty": "hard",
+          "prompt_template": "Determine the valid domain of θ for a lemniscate (or other curve with r^2=g(θ), requiring g(θ)≥0), and sketch accordingly.",
+          "example": "Find the valid θ-values for r^2=cos(2θ), and describe the resulting sketch.",
+          "answer": "Need cos(2θ)≥0: -π/4≤θ≤π/4 or 3π/4≤θ≤5π/4 (mod 2π); the curve is a figure-eight (two loops) along the polar axis, with no points where cos(2θ)<0 (r would be imaginary there)",
+          "recognition_cue": "The polar equation is given implicitly in r^2 (not solved explicitly for r), requiring the domain restriction g(θ)≥0 before r=±√g(θ) makes sense — a key step often skipped when sketching lemniscates.",
+          "method_plan": [
+            "Solve the inequality g(θ)≥0 (here cos(2θ)≥0) to find the valid θ-domain",
+            "Recognize r=±√g(θ) gives two values of r for each valid θ (or interpret via the standard lemniscate shape)",
+            "Sketch only over the valid domain, noting the excluded θ-ranges produce no real points"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly solves the inequality for the valid θ-domain",
+            "M1: correctly interprets the ± ambiguity in r=±√g(θ)",
+            "A1: correct sketch/description restricted to the valid domain",
+            "A1: explicitly notes why the excluded θ-ranges give no real curve points"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Attempting to sketch the curve over all θ∈[0,2π) without first restricting to where cos(2θ)≥0, leading to attempting to take the square root of a negative number"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors solving the inequality cos(2θ)≥0"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explaining why parts of the naive full range are excluded"
+            }
+          ],
+          "merged_topics": [
+            "8.5-sketching-polar-curves-rose-leaf-count"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.5-polar-conic-equation",
+      "section": "8.5",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Polar Coordinates and Polar Curves",
+      "micro_skill": "Polar equation of a conic with focus at the origin",
+      "definitions": [
+        "A conic with focus at the origin, directrix x=-p, eccentricity ε has polar equation r=εp/(1-ε cosθ) — ellipse if ε<1, parabola if ε=1, hyperbola if ε>1 (asymptote directions occur where 1-ε cosθ=0). Analogous forms exist for directrices at x=p, y=-p, y=p (changing the sign and swapping cos/sin)."
+      ],
+      "theorems": [
+        {
+          "name": "Polar conic equation",
+          "statement": "r=εp/(1-ε cosθ) for a conic with focus at the origin, directrix x=-p, eccentricity ε. Ellipse if ε<1, parabola if ε=1, hyperbola if ε>1.",
+          "conditions": [
+            "p>0 is the distance from focus to directrix",
+            "the specific sign/trig function (±cosθ vs ±sinθ) depends on the directrix's location and orientation"
+          ]
+        }
+      ],
+      "formulas": [
+        "r=εp/(1-ε cosθ)  (directrix x=-p)",
+        "r=εp/(1+ε cosθ)  (directrix x=p)",
+        "r=εp/(1±ε sinθ)  (horizontal directrix)",
+        "ε<1: ellipse, ε=1: parabola, ε>1: hyperbola"
+      ],
+      "prerequisites": [
+        "8.5-polar-rectangular-conversion",
+        "8.1-ellipse-standard-equation"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.5-polar-conic-equation-classify",
+          "difficulty": "easy",
+          "prompt_template": "Given a polar conic equation, identify the eccentricity and the type of conic.",
+          "example": "Classify the conic r=6/(2-3cosθ).",
+          "answer": "Rewrite dividing by 2: r=3/(1-1.5cosθ), so ε=1.5>1 — a hyperbola",
+          "recognition_cue": "A polar equation in (or convertible to) the standard conic form r=εp/(1-ε cosθ) is given, and only the classification (ellipse/parabola/hyperbola) is requested.",
+          "method_plan": [
+            "Rewrite the equation so the denominator's constant term is 1 (divide through if necessary)",
+            "Read off ε as the coefficient of cosθ (or sinθ) in the denominator",
+            "Classify based on ε<1, =1, or >1"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly rewrites to standard form with denominator constant 1",
+            "M1: correct ε identified",
+            "A1: correct classification"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Forgetting to divide through so the constant term is exactly 1 before reading off ε"
+            },
+            {
+              "type": "conceptual",
+              "description": "Confusing ε with p, or reading off the wrong coefficient"
+            },
+            {
+              "type": "presentation",
+              "description": "Not showing the rewriting step, jumping to a possibly incorrect ε"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-polar-conic-equation-find-p-directrix",
+          "difficulty": "medium",
+          "prompt_template": "Given a polar conic equation, find the eccentricity, the value of p, and the location/equation of the directrix.",
+          "example": "For r=4/(1-0.5cosθ), find ε, p, and the directrix.",
+          "answer": "ε=0.5, εp=4 ⇒ p=8; directrix x=-p=-8",
+          "recognition_cue": "The equation is already in (or easily rewritten to) standard form, and the problem asks for the underlying geometric data (p and the directrix equation), not just the conic type.",
+          "method_plan": [
+            "Identify ε directly from the denominator",
+            "Use the numerator εp to solve for p",
+            "State the directrix's equation based on the identified form (x=-p for this standard form)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct ε",
+            "M1: correct p from εp=numerator",
+            "A1: correct directrix equation",
+            "A1: correct sign consistent with the specific standard form used (± cosθ or sinθ)"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors solving εp=(numerator) for p"
+            },
+            {
+              "type": "conceptual",
+              "description": "Using the wrong directrix orientation/sign for the specific trig form given (e.g. assuming x=-p when the equation is actually the y-directrix form)"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving p without stating the actual directrix equation when both were requested"
+            }
+          ],
+          "merged_topics": [
+            "8.5-polar-conic-equation-classify"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-polar-conic-equation-asymptote-directions",
+          "difficulty": "hard",
+          "prompt_template": "For a polar conic equation representing a hyperbola, find the asymptote directions (angles) by finding where the denominator vanishes.",
+          "example": "Find the asymptote directions of the hyperbola r=4/(1-2cosθ).",
+          "answer": "ε=2; asymptote directions where 1-2cosθ=0, i.e. cosθ=1/2, so θ=±π/3",
+          "recognition_cue": "The polar conic is classified (or recognizable) as a hyperbola (ε>1), and the problem specifically asks for the asymptote directions, which correspond to the θ-values where r→∞ (denominator → 0).",
+          "method_plan": [
+            "Confirm ε>1 (hyperbola case)",
+            "Set the denominator 1-ε cosθ (or the appropriate variant) equal to 0 and solve for θ",
+            "Interpret these θ-values as the asymptote directions from the origin/focus"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly confirms the hyperbola case (ε>1)",
+            "M1: correctly sets up and solves the denominator-zero equation",
+            "A1: correct θ-values found",
+            "A1: correct interpretation as asymptote directions"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Not recognizing that r→∞ (denominator→0) is exactly the condition defining an asymptote direction"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors solving cosθ=1/ε for θ"
+            },
+            {
+              "type": "procedural",
+              "description": "Attempting this for an ellipse or parabola (ε≤1), where the denominator never vanishes and no such asymptote directions exist"
+            }
+          ],
+          "merged_topics": [
+            "8.5-polar-conic-equation-find-p-directrix",
+            "8.1-hyperbola-standard-equation-basic"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.5-polar-curve-intersections",
+      "section": "8.5",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Polar Coordinates and Polar Curves",
+      "micro_skill": "Finding all intersections of two polar curves (including hidden origin intersections)",
+      "definitions": [
+        "Solving f(θ)=g(θ) finds intersections that occur at the same θ for both curves, but this can miss valid intersection points — in particular, both curves may pass through the origin at different θ-values, making the origin a 'hidden' intersection not caught by the direct equation. Coincidences via [r,θ]=[-r,θ+π] must also be checked."
+      ],
+      "theorems": [
+        {
+          "name": "Complete intersection-finding procedure",
+          "statement": "To find all intersections of r=f(θ) and r=g(θ): (1) solve f(θ)=g(θ) for same-θ intersections; (2) separately check whether f(θ1)=0 for some θ1 and g(θ2)=0 for some θ2 (possibly θ1≠θ2) — if so, the origin is also a common point; (3) check for coincidences using the equivalent representation [r,θ]=[-r,θ+π].",
+          "conditions": [
+            "applies whenever both curves are polar curves through possibly-differing θ ranges"
+          ]
+        }
+      ],
+      "formulas": [
+        "direct: solve f(θ)=g(θ)",
+        "hidden origin check: does f(θ1)=0 and g(θ2)=0 for some θ1,θ2 (possibly different)?",
+        "sign-flip check: [r,θ]=[-r,θ+π]"
+      ],
+      "prerequisites": [
+        "8.5-sketching-polar-curves"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.5-polar-curve-intersections-basic-plus-origin",
+          "difficulty": "medium",
+          "prompt_template": "Find all intersections of two polar curves, explicitly including a check for a hidden intersection at the origin.",
+          "example": "Find all intersections of r=sinθ and r=1-sinθ.",
+          "answer": "sinθ=1-sinθ ⇒ sinθ=1/2 ⇒ θ=π/6,5π/6, giving [1/2,π/6] and [1/2,5π/6]; ALSO both pass through the origin (sinθ=0 at θ=0 for the first; 1-sinθ=0 at θ=π/2 for the second) — the origin is a third intersection",
+          "recognition_cue": "Two polar curves are given and 'find all intersections' is requested — a strong cue to check the origin separately in addition to solving f(θ)=g(θ) directly.",
+          "method_plan": [
+            "Solve f(θ)=g(θ) for same-θ intersections",
+            "Separately check whether each curve passes through the origin (f(θ)=0 or g(θ)=0 for some θ, possibly different for each curve)",
+            "Report the complete list of intersections, including the origin if applicable"
+          ],
+          "full_mark_rubric": [
+            "M1: correct same-θ intersections from solving f(θ)=g(θ)",
+            "M1: correctly checks each curve individually for passing through the origin",
+            "A1: correctly identifies the origin as an additional intersection when applicable",
+            "A1: complete, correctly labeled final list of all intersection points"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Only solving f(θ)=g(θ) and stopping there, missing the separately-checked origin intersection"
+            },
+            {
+              "type": "procedural",
+              "description": "Checking only one curve for passing through the origin instead of both"
+            },
+            {
+              "type": "presentation",
+              "description": "Not clearly explaining why the origin counts as an intersection despite not solving f(θ)=g(θ) at any single θ"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-polar-curve-intersections-negative-r-coincidence",
+          "difficulty": "hard",
+          "prompt_template": "Find an intersection of two polar curves that is only revealed by using the equivalent representation [r,θ]=[-r,θ+π], not by solving f(θ)=g(θ) directly.",
+          "example": "Show that r=cosθ and r=-cos θ... [general framing] find all intersections of r=2cosθ and r=2sinθ, including any found only via the negative-r equivalence, if applicable.",
+          "answer": "Direct: 2cosθ=2sinθ ⇒ tanθ=1 ⇒ θ=π/4,5π/4, giving points [√2,π/4] and [-√2,5π/4] (same point as [√2,π/4] via the sign-flip, so really one point at θ=π/4) plus the origin (each curve passes through it at a different θ: cosθ=0 at θ=π/2, sinθ=0 at θ=0)",
+          "recognition_cue": "The problem explicitly asks to consider the negative-r equivalence [r,θ]=[-r,θ+π] as a potential source of additional intersections not caught by directly solving f(θ)=g(θ), typically flagged when curves involve odd symmetry or sign ambiguity.",
+          "method_plan": [
+            "Solve f(θ)=g(θ) directly for the 'obvious' intersections",
+            "Check whether re-writing one curve's equation using the [-r,θ+π] equivalence produces additional matching solutions not found directly",
+            "Check the origin separately as in the standard procedure, and consolidate the final list without double-counting coincident points"
+          ],
+          "full_mark_rubric": [
+            "M1: correct direct intersections from f(θ)=g(θ)",
+            "M1: correctly explores the negative-r equivalence for additional coincidences",
+            "A1: correctly checks the origin separately",
+            "A1: correctly consolidates the final list, avoiding double-counting of points reached via different θ but representing the same location"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Never considering the [-r,θ+π] equivalence as a possible source of additional (or coincident) intersections"
+            },
+            {
+              "type": "procedural",
+              "description": "Double-counting the same geometric point when it's reached via two different valid θ representations"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors solving tanθ=1 or checking the resulting r values via the sign-flip relation"
+            }
+          ],
+          "merged_topics": [
+            "8.5-polar-curve-intersections-basic-plus-origin"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.5-polar-curve-intersections-verify-count",
+          "difficulty": "hard",
+          "prompt_template": "Given a claimed count of intersection points for two polar curves, verify it is correct (or correct it) by systematically applying the full intersection-finding procedure.",
+          "example": "A student claims r=1+cosθ and r=3cosθ intersect at exactly 2 points. Verify or correct this claim.",
+          "answer": "Direct: 1+cosθ=3cosθ ⇒ cosθ=1/2 ⇒ θ=±π/3, giving [3/2,±π/3] (2 points); origin check: 1+cosθ=0 at θ=π, and 3cosθ=0 at θ=π/2 — both curves DO pass through the origin (at different θ), so the origin is a THIRD intersection point; the student's claim of exactly 2 is incorrect — there are 3",
+          "recognition_cue": "A specific numeric claim about the number of intersections is presented for verification, and the systematic full procedure (direct equation solving, origin check, sign-flip check) must be applied methodically to confirm or refute it.",
+          "method_plan": [
+            "Apply the direct f(θ)=g(θ) solving step and count those solutions",
+            "Apply the origin check step, adding it to the count if both curves pass through the origin",
+            "Apply the sign-flip check if relevant, then compare the total count to the claim and correct if needed"
+          ],
+          "full_mark_rubric": [
+            "M1: correct direct-solution count",
+            "M1: correct origin check performed and correctly incorporated",
+            "A1: correct sign-flip check (if relevant to this pair of curves)",
+            "A1: correct final count with clear identification of any error in the original claim"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Accepting a stated count without independently re-deriving it via the full systematic procedure"
+            },
+            {
+              "type": "conceptual",
+              "description": "Forgetting to check the origin, which is precisely the step most often responsible for undercounting"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explicitly stating which specific intersection point was missing from the original (incorrect) claim"
+            }
+          ],
+          "merged_topics": [
+            "8.5-polar-curve-intersections-basic-plus-origin"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.6-polar-tangent-angle",
+      "section": "8.6",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Slopes, Areas, and Arc Lengths for Polar Curves",
+      "micro_skill": "Tangent-radius angle ψ and tangent slope for a polar curve",
+      "definitions": [
+        "At P=[r,θ] (not the origin) on r=f(θ), if ψ is the angle between the radius OP and the tangent line, tanψ=f(θ)/f'(θ)=r/(dr/dθ); ψ=π/2 (tangent ⟂ radius) when f'(θ)=0. If f(θ0)=0, the tangent line at the origin is simply θ=θ0. To find the actual Cartesian slope dy/dx, convert to x=f(θ)cosθ, y=f(θ)sinθ and use the parametric-curve slope formula."
+      ],
+      "theorems": [
+        {
+          "name": "Tangent-radius angle",
+          "statement": "tanψ=r/(dr/dθ)=f(θ)/f'(θ) for the angle ψ between the radius OP and the tangent line at P=[r,θ] (r≠0).",
+          "conditions": [
+            "P is not the origin (r≠0)",
+            "for the origin itself, the tangent is simply the line θ=θ0 where f(θ0)=0"
+          ]
+        }
+      ],
+      "formulas": [
+        "tanψ=r/(dr/dθ)",
+        "ψ=π/2 when dr/dθ=0",
+        "at the origin (f(θ0)=0): tangent line is θ=θ0",
+        "Cartesian slope: convert to x=f(θ)cosθ, y=f(θ)sinθ, use dy/dx=(dy/dθ)/(dx/dθ)"
+      ],
+      "prerequisites": [
+        "8.5-polar-rectangular-conversion",
+        "8.3-parametric-tangent-slope"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.6-polar-tangent-angle-basic",
+          "difficulty": "medium",
+          "prompt_template": "Find the angle ψ between the radius and tangent line at a specified point on a polar curve.",
+          "example": "Find ψ for r=θ at θ=π/2.",
+          "answer": "f(θ)=θ, f'(θ)=1; tanψ=θ/1=θ; at θ=π/2: tanψ=π/2, so ψ=tan^{-1}(π/2)",
+          "recognition_cue": "The problem asks specifically for the angle ψ between the tangent and the radius (not the Cartesian slope dy/dx) — apply tanψ=r/(dr/dθ) directly.",
+          "method_plan": [
+            "Compute f(θ) and f'(θ)",
+            "Form tanψ=f(θ)/f'(θ)",
+            "Evaluate at the given θ and solve for ψ if a numeric angle is requested"
+          ],
+          "full_mark_rubric": [
+            "M1: correct f(θ), f'(θ)",
+            "M1: correct formula tanψ=f/f' applied",
+            "A1: correct evaluation at the given θ",
+            "A1: correct final ψ (or tanψ) as requested"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Confusing ψ (angle to the radius) with the Cartesian slope angle (angle to the x-axis) — these are generally different quantities"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors evaluating f(θ)/f'(θ) at the specific θ"
+            },
+            {
+              "type": "presentation",
+              "description": "Giving tanψ when ψ itself was explicitly requested, or vice versa"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-tangent-angle-cartesian-slope",
+          "difficulty": "medium",
+          "prompt_template": "Find the actual Cartesian slope dy/dx of the tangent line to a polar curve at a given point, by converting to parametric x(θ), y(θ) form.",
+          "example": "Find the slope of the tangent line to r=θ at θ=π/2.",
+          "answer": "x=θcosθ, y=θsinθ; dx/dθ=cosθ-θsinθ, dy/dθ=sinθ+θcosθ; at θ=π/2: dx/dθ=-π/2, dy/dθ=1; slope=dy/dx=1/(-π/2)=-2/π",
+          "recognition_cue": "The problem asks for the actual slope of the tangent line (dy/dx, as one would graph it in the xy-plane), not the angle ψ relative to the radius — requires converting to x(θ), y(θ) first.",
+          "method_plan": [
+            "Write x=f(θ)cosθ, y=f(θ)sinθ",
+            "Differentiate both with respect to θ using the product rule",
+            "Evaluate dy/dx=(dy/dθ)/(dx/dθ) at the given θ"
+          ],
+          "full_mark_rubric": [
+            "M1: correct x(θ), y(θ) parametrization",
+            "M1: correct derivatives via the product rule",
+            "A1: correct evaluation at the given θ",
+            "A1: correct final Cartesian slope"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using tanψ=r/(dr/dθ) directly as if it were dy/dx (it is not — ψ is measured from the radius, not the x-axis)"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting the product rule when differentiating f(θ)cosθ or f(θ)sinθ"
+            },
+            {
+              "type": "algebra",
+              "description": "Sign errors evaluating the derivatives at the specific θ"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-tangent-angle-basic"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-tangent-angle-at-origin",
+          "difficulty": "hard",
+          "prompt_template": "Find the tangent line direction(s) at the origin for a polar curve, using the directions where f(θ)=0.",
+          "example": "Find the tangent line(s) at the origin for the cardioid r=1+cosθ.",
+          "answer": "f(θ)=0 at θ=π (only solution in [0,2π)); tangent line at the origin is θ=π (the negative x-axis direction)",
+          "recognition_cue": "The point of interest is explicitly the origin (pole), where the general tanψ=r/(dr/dθ) formula doesn't directly apply (since r=0 there) — the tangent direction is instead simply θ=θ0 for any θ0 with f(θ0)=0.",
+          "method_plan": [
+            "Solve f(θ)=0 to find all directions θ0 at which the curve passes through the origin",
+            "State that each such θ0 gives a tangent line direction θ=θ0 at the origin",
+            "If multiple θ0 solutions exist, list all resulting tangent directions (the curve may pass through the origin more than once)"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly solves f(θ)=0 for all θ0 in the relevant range",
+            "M1: correctly identifies the tangent line at the origin as θ=θ0 for each solution",
+            "A1: correct final tangent direction(s)",
+            "A1: notes if multiple distinct tangent directions exist at the origin (curve crosses itself there)"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Attempting to apply tanψ=r/(dr/dθ) at the origin, where r=0 makes the formula meaningless/undefined in the usual sense"
+            },
+            {
+              "type": "procedural",
+              "description": "Finding only one solution to f(θ)=0 when multiple exist within the relevant range, missing additional tangent directions"
+            },
+            {
+              "type": "presentation",
+              "description": "Not stating the tangent line as the simple polar equation θ=θ0"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-tangent-angle-basic"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.6-polar-horizontal-vertical-tangents",
+      "section": "8.6",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Slopes, Areas, and Arc Lengths for Polar Curves",
+      "micro_skill": "Horizontal and vertical tangents of a polar curve",
+      "definitions": [
+        "To find horizontal/vertical tangent points on r=f(θ), convert to x=f(θ)cosθ, y=f(θ)sinθ and find where dy/dθ=0 (horizontal, with dx/dθ≠0) or dx/dθ=0 (vertical, with dy/dθ≠0) — dr/dθ=0 alone does NOT by itself indicate a horizontal tangent, a common trap."
+      ],
+      "theorems": [
+        {
+          "name": "Polar horizontal/vertical tangent conditions",
+          "statement": "With x=f(θ)cosθ, y=f(θ)sinθ: horizontal tangent where dy/dθ=0, dx/dθ≠0; vertical tangent where dx/dθ=0, dy/dθ≠0.",
+          "conditions": [
+            "must differentiate the CONVERTED x(θ), y(θ), not use dr/dθ=0 directly as a proxy for horizontal tangent"
+          ]
+        }
+      ],
+      "formulas": [
+        "y=f(θ)sinθ, horizontal: dy/dθ=0, dx/dθ≠0",
+        "x=f(θ)cosθ, vertical: dx/dθ=0, dy/dθ≠0"
+      ],
+      "prerequisites": [
+        "8.6-polar-tangent-angle"
+      ],
+      "difficulty_levels": [
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.6-polar-horizontal-vertical-tangents-cardioid",
+          "difficulty": "medium",
+          "prompt_template": "Find all horizontal and vertical tangent points of a cardioid.",
+          "example": "Find the horizontal and vertical tangents of r=1+cosθ.",
+          "answer": "y=(1+cosθ)sinθ: dy/dθ=(2cosθ-1)(cosθ+1)=0 ⇒ cosθ=1/2 or -1; horizontal at θ=±π/3 (giving [3/2,±π/3]), θ=π gives r=0 (cusp, no ordinary tangent). x=(1+cosθ)cosθ: dx/dθ=-sinθ(1+2cosθ)=0 ⇒ sinθ=0 or cosθ=-1/2; vertical at θ=0 ([2,0]) and θ=±2π/3 ([1/2,±2π/3])",
+          "recognition_cue": "A specific named polar curve (cardioid or similar) is given and all horizontal/vertical tangent points are requested — convert to x(θ),y(θ), differentiate, factor, and solve.",
+          "method_plan": [
+            "Write y=f(θ)sinθ and differentiate; factor and solve dy/dθ=0",
+            "Write x=f(θ)cosθ and differentiate; factor and solve dx/dθ=0",
+            "Exclude any θ where the curve has a cusp (f(θ)=0 at the same θ), and report the remaining points in [r,θ] or (x,y) form"
+          ],
+          "full_mark_rubric": [
+            "M1: correct dy/dθ, correctly factored and solved",
+            "M1: correct dx/dθ, correctly factored and solved",
+            "A1: correctly excludes the cusp point(s) from the tangent list",
+            "A1: correct final list of horizontal and vertical tangent points"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using dr/dθ=0 directly as the horizontal-tangent condition instead of converting to y=f(θ)sinθ first"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting to check that the OTHER derivative is nonzero at each candidate, or forgetting to exclude the cusp point"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors factoring the resulting trigonometric polynomial in cosθ"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-horizontal-vertical-tangents-dr-trap",
+          "difficulty": "hard",
+          "prompt_template": "Explicitly identify why dr/dθ=0 alone does not indicate a horizontal tangent, using a specific curve as a counterexample.",
+          "example": "For r=1+cosθ, show that dr/dθ=0 at θ=0 does NOT correspond to a horizontal tangent there.",
+          "answer": "dr/dθ=-sinθ=0 at θ=0, but computing dy/dθ at θ=0 (from y=(1+cosθ)sinθ): dy/dθ=(2cos0-1)(cos0+1)=(1)(2)=2≠0 — so the tangent at θ=0 is actually vertical (matches dx/dθ=0 there), not horizontal, despite dr/dθ=0",
+          "recognition_cue": "The problem is explicitly framed as a 'trap' or misconception check — testing whether the student mistakenly equates dr/dθ=0 with a horizontal tangent, a very common but incorrect shortcut in polar curves.",
+          "method_plan": [
+            "Compute dr/dθ and note where it vanishes",
+            "Separately compute dy/dθ (and dx/dθ) at that same θ using the converted x(θ), y(θ) forms",
+            "Show explicitly that dr/dθ=0 does not force dy/dθ=0, resolving the apparent paradox"
+          ],
+          "full_mark_rubric": [
+            "M1: correctly computes dr/dθ and finds where it's zero",
+            "M1: correctly computes dy/dθ (and/or dx/dθ) at that θ from the converted forms",
+            "A1: correctly shows dy/dθ≠0 there, refuting the horizontal-tangent assumption",
+            "A1: clear explanation of why dr/dθ=0 is not equivalent to a horizontal tangent condition"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "This IS the target misconception: equating dr/dθ=0 with dy/dθ=0 (horizontal tangent) — the entire point of the archetype is to catch and correct this"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors differentiating y=f(θ)sinθ via the product rule"
+            },
+            {
+              "type": "presentation",
+              "description": "Not explicitly contrasting the (wrong) dr/dθ=0 conclusion with the (correct) dy/dθ, dx/dθ analysis"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-horizontal-vertical-tangents-cardioid"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-horizontal-vertical-tangents-circle",
+          "difficulty": "medium",
+          "prompt_template": "Find the horizontal and vertical tangent points of a simple polar circle (not through the origin, or through it), as a warm-up case with a clean answer.",
+          "example": "Find the horizontal and vertical tangent points of r=2a cosθ (a circle of radius a centered at (a,0)).",
+          "answer": "x=2a cos^2θ, y=2a cosθ sinθ=a sin2θ; dy/dθ=2a cos2θ=0 ⇒ θ=π/4,3π/4 (horizontal tangents); dx/dθ=-2a sin2θ=0 ⇒ θ=0,π/2 (vertical tangents, with θ=π/2 giving the origin, a degenerate case to examine separately)",
+          "recognition_cue": "The curve is a simple, well-understood shape (a circle) given in polar form, useful for confirming the horizontal/vertical tangent method works correctly on a case whose Cartesian tangent points are already geometrically obvious (top/bottom/left/right of the circle).",
+          "method_plan": [
+            "Convert to x(θ), y(θ) and simplify using double-angle identities if helpful",
+            "Differentiate and solve for horizontal and vertical tangent θ-values",
+            "Cross-check the results against the geometrically obvious top/bottom/left/right points of the circle"
+          ],
+          "full_mark_rubric": [
+            "M1: correct x(θ), y(θ), simplified via double-angle identities",
+            "M1: correct dy/dθ, dx/dθ and correctly solved",
+            "A1: correct tangent points identified",
+            "A1: cross-check against the known geometric circle confirms the results"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors applying double-angle identities to simplify x(θ), y(θ)"
+            },
+            {
+              "type": "procedural",
+              "description": "Not recognizing θ=π/2 corresponds to the origin (a degenerate point) requiring separate treatment"
+            },
+            {
+              "type": "strategy",
+              "description": "Not using the circle's known geometry as a sanity check on the computed tangent points"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-horizontal-vertical-tangents-cardioid"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.6-polar-area",
+      "section": "8.6",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Slopes, Areas, and Arc Lengths for Polar Curves",
+      "micro_skill": "Area in polar coordinates",
+      "definitions": [
+        "The area bounded by r=f(θ) and rays θ=α, θ=β is A=½∫[α,β][f(θ)]^2dθ. The area between two polar curves r=f(θ) (outer) and r=g(θ) (inner) over the same angular range is A=½∫[α,β]([f(θ)]^2-[g(θ)]^2)dθ — which curve is outer can switch across sub-ranges, requiring the integral to be split, exactly as with Cartesian area-between-curves problems."
+      ],
+      "theorems": [
+        {
+          "name": "Polar area formula",
+          "statement": "A=½∫[α,β][f(θ)]^2dθ for the region bounded by r=f(θ) and θ=α,β. For the area between two curves, A=½∫[α,β]([outer]^2-[inner]^2)dθ.",
+          "conditions": [
+            "α<β, and the region is swept out exactly once as θ ranges over [α,β] (no double-counting/retracing)"
+          ]
+        }
+      ],
+      "formulas": [
+        "A=½∫[α,β][f(θ)]^2dθ",
+        "between curves: A=½∫([f(θ)]^2-[g(θ)]^2)dθ"
+      ],
+      "prerequisites": [
+        "8.5-sketching-polar-curves",
+        "8.5-polar-curve-intersections"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.6-polar-area-single-curve",
+          "difficulty": "easy",
+          "prompt_template": "Find the area enclosed by a single polar curve over a given angular range (or its full enclosed area using symmetry).",
+          "example": "Find the area enclosed by the cardioid r=a(1+cosθ).",
+          "answer": "By symmetry, twice the upper half: A=2·½∫[0,π]a^2(1+cosθ)^2dθ=a^2∫[0,π](1+2cosθ+(1+cos2θ)/2)dθ=3πa^2/2",
+          "recognition_cue": "A single named polar curve's total enclosed area is requested — apply the basic polar area formula, using symmetry to reduce to half the range where convenient.",
+          "method_plan": [
+            "Identify the correct angular range that traces the curve exactly once (using symmetry to halve the work if applicable)",
+            "Set up A=½∫[f(θ)]^2dθ, expanding the square and using power-reduction identities as needed",
+            "Integrate and simplify"
+          ],
+          "full_mark_rubric": [
+            "M1: correct angular range identified (with symmetry factor if used)",
+            "M1: correct expansion of [f(θ)]^2 using power-reduction identities",
+            "A1: correct integration",
+            "A1: correct final area"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Forgetting the factor of ½ in the polar area formula"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors expanding (1+cosθ)^2 or applying the power-reduction identity for cos^2θ"
+            },
+            {
+              "type": "strategy",
+              "description": "Not exploiting symmetry, integrating over the full range unnecessarily (not wrong, but more error-prone)"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-area-between-curves-no-swap",
+          "difficulty": "medium",
+          "prompt_template": "Find the area inside one polar curve and outside another, over a range where the outer/inner roles don't switch.",
+          "example": "Find the area inside the circle r=3sinθ and outside the cardioid r=1+sinθ.",
+          "answer": "Intersect where 3sinθ=1+sinθ ⇒ sinθ=1/2 ⇒ θ=π/6,5π/6; on this range the circle is outer (check at θ=π/2: circle gives 3, cardioid gives 2); A=½∫[π/6,5π/6][(3sinθ)^2-(1+sinθ)^2]dθ=π",
+          "recognition_cue": "The area between two curves is requested, and after finding the intersection angles, a spot-check confirms the same curve is outer throughout the relevant range — no splitting needed.",
+          "method_plan": [
+            "Find the intersection angles by solving f(θ)=g(θ)",
+            "Spot-check which curve is outer at a sample angle within the range",
+            "Set up A=½∫([outer]^2-[inner]^2)dθ over the intersection range and evaluate"
+          ],
+          "full_mark_rubric": [
+            "M1: correct intersection angles",
+            "M1: correct outer/inner identification via a spot check",
+            "A1: correct integral setup and expansion",
+            "A1: correct final evaluation"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Assuming which curve is outer without actually checking at a sample point, risking a sign error"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors expanding (3sinθ)^2-(1+sinθ)^2"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting the ½ factor in the polar area-between-curves formula"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-area-single-curve"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-area-outer-inner-swap",
+          "difficulty": "hard",
+          "prompt_template": "Find the area between two polar curves over a range where the outer and inner curves swap partway through, requiring the integral to be split.",
+          "example": "Find the area common to (inside both) r=√2 sinθ and r^2=sin2θ.",
+          "answer": "They intersect (besides the origin) where sinθ=cosθ, i.e. θ=π/4; A=½∫[0,π/4]2sin^2θ dθ+½∫[π/4,π/2]sin2θ dθ=π/8 (the 'common area' requires using whichever curve is the boundary — i.e. smaller r — on each sub-range)",
+          "recognition_cue": "The problem asks for area common to both curves (inside both), or otherwise implies the identity of the bounding curve changes across the angular range — a signal that the integral must be split at the point where the curves' roles switch.",
+          "method_plan": [
+            "Find where the two curves intersect (other than possibly the origin)",
+            "Determine which curve is the relevant boundary (e.g. the smaller r, for 'common to both') on each side of the intersection",
+            "Split the integral at the intersection angle and sum the two pieces"
+          ],
+          "full_mark_rubric": [
+            "M1: correct intersection angle(s) found",
+            "M1: correctly identifies which curve bounds the region on each sub-range",
+            "A1: correct split integral setup",
+            "A1: correct evaluation and sum of both pieces"
+          ],
+          "common_errors": [
+            {
+              "type": "conceptual",
+              "description": "Using a single curve's formula across the entire range without checking whether the relevant boundary actually switches partway through"
+            },
+            {
+              "type": "procedural",
+              "description": "Forgetting to split the integral at the identified switch point"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors evaluating ∫sin^2θ dθ or ∫sin2θ dθ over the respective sub-ranges"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-area-between-curves-no-swap",
+            "8.5-polar-curve-intersections-basic-plus-origin"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    },
+    {
+      "id": "8.6-polar-arc-length",
+      "section": "8.6",
+      "topic": "Conics, Parametric Curves, and Polar Curves",
+      "subtopic": "Slopes, Areas, and Arc Lengths for Polar Curves",
+      "micro_skill": "Arc length of a polar curve",
+      "definitions": [
+        "The arc length element for r=f(θ) is ds=√((dr/dθ)^2+r^2)dθ, giving s=∫[α,β]√([f'(θ)]^2+[f(θ)]^2)dθ. As with parametric arc length, simplifying the radicand (often via a half-angle identity) is usually the key step."
+      ],
+      "theorems": [
+        {
+          "name": "Polar arc length",
+          "statement": "s=∫[α,β]√([f'(θ)]^2+[f(θ)]^2)dθ for r=f(θ), α≤θ≤β.",
+          "conditions": [
+            "f' continuous on [α,β]",
+            "curve traced exactly once over [α,β] for s to represent the actual arc length without double-counting"
+          ]
+        }
+      ],
+      "formulas": [
+        "ds=√((dr/dθ)^2+r^2)dθ",
+        "s=∫[α,β]√([f'(θ)]^2+[f(θ)]^2)dθ"
+      ],
+      "prerequisites": [
+        "8.4-parametric-arc-length",
+        "8.6-polar-tangent-angle"
+      ],
+      "difficulty_levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "question_archetypes": [
+        {
+          "id": "8.6-polar-arc-length-circle-check",
+          "difficulty": "easy",
+          "prompt_template": "Find the arc length of a simple polar circle and check it matches the known circumference formula.",
+          "example": "Find the total arc length of r=2a cosθ using the polar arc-length formula, and check it matches 2πa.",
+          "answer": "f'=-2a sinθ; ds=√(4a^2sin^2θ+4a^2cos^2θ)dθ=2a dθ; traced fully as θ:0→π (period π for this circle, passing through the origin at θ=±π/2): s=∫[0,π]2a dθ=2πa ✓",
+          "recognition_cue": "The curve is a simple named shape (circle) whose known arc length (circumference) provides an immediate check on the polar arc-length computation — useful for verifying correct setup, especially the correct θ-range for one full trace.",
+          "method_plan": [
+            "Compute f'(θ) and form the radicand (df/dθ)^2+f(θ)^2, simplifying using Pythagorean identities",
+            "Determine the correct θ-range that traces the curve exactly once (may be less than 2π for curves passing through the origin)",
+            "Integrate and compare to the known geometric arc length"
+          ],
+          "full_mark_rubric": [
+            "M1: correct radicand simplified via a trig identity",
+            "M1: correct θ-range identified for exactly one full trace",
+            "A1: correct integration",
+            "A1: correct final comparison confirming the known circumference"
+          ],
+          "common_errors": [
+            {
+              "type": "procedural",
+              "description": "Using θ-range [0,2π] when the curve actually closes up (traces fully) over a shorter range like [0,π], causing double-counting"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors simplifying the radicand via sin^2+cos^2=1"
+            },
+            {
+              "type": "strategy",
+              "description": "Not using the known circumference as a check on the final answer"
+            }
+          ],
+          "merged_topics": [],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-arc-length-cardioid",
+          "difficulty": "medium",
+          "prompt_template": "Find the total arc length of a cardioid using a half-angle identity to simplify the radicand.",
+          "example": "Find the total arc length of the cardioid r=a(1+cosθ).",
+          "answer": "f'=-a sinθ; ds=√(a^2sin^2θ+a^2(1+cosθ)^2)dθ=a√(2+2cosθ)dθ=a√(4cos^2(θ/2))dθ=2a|cos(θ/2)|dθ; s=2∫[0,π]2a cos(θ/2)dθ=8a (doubling for symmetry, integrating over [0,π] where cos(θ/2)≥0)",
+          "recognition_cue": "The curve is a named curve (cardioid) whose arc-length radicand simplifies dramatically via the identity 1+cosθ=2cos^2(θ/2) — recognizing this is the crucial simplification step, as with several parametric arc-length problems.",
+          "method_plan": [
+            "Compute f'(θ) and form the radicand",
+            "Apply the half-angle identity 1+cosθ=2cos^2(θ/2) to simplify to a perfect square under the root",
+            "Integrate over the correct range (using symmetry and the correct sign of the resulting cos(θ/2) term)"
+          ],
+          "full_mark_rubric": [
+            "M1: correct radicand formed before simplification",
+            "M1: correct application of the half-angle identity",
+            "A1: correct integration over the appropriate range, with correct sign handling",
+            "A1: correct final arc length, matching the known result 8a"
+          ],
+          "common_errors": [
+            {
+              "type": "strategy",
+              "description": "Not recognizing the half-angle identity, attempting to integrate an unsimplified square root"
+            },
+            {
+              "type": "algebra",
+              "description": "Errors applying 1+cosθ=2cos^2(θ/2)"
+            },
+            {
+              "type": "procedural",
+              "description": "Mishandling the absolute value of cos(θ/2) or the symmetry factor over the full range"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-arc-length-circle-check"
+          ],
+          "similar_past_exam_questions": []
+        },
+        {
+          "id": "8.6-polar-arc-length-partial-arc",
+          "difficulty": "hard",
+          "prompt_template": "Find the arc length of only a portion (not the full closed curve) of a polar curve between two specified angles.",
+          "example": "Find the arc length of the spiral r=e^{θ/3} from θ=0 to θ=2π.",
+          "answer": "f'=(1/3)e^{θ/3}; ds=√((1/9)e^{2θ/3}+e^{2θ/3})dθ=e^{θ/3}√(10)/3 dθ; s=(√10/3)∫[0,2π]e^{θ/3}dθ=√10(e^{2π/3}-1)",
+          "recognition_cue": "The curve is a spiral (or another curve without an obvious closed/repeating structure), and the arc length is requested only between two specific angles rather than over a 'natural' full-trace range — a more open-ended, less formulaic setup than the closed-curve cases.",
+          "method_plan": [
+            "Compute f'(θ) and form the radicand, simplifying algebraically (factoring out common exponential or power terms)",
+            "Set up the arc length integral over exactly the given θ-range (no symmetry shortcut available for a non-repeating spiral)",
+            "Integrate and evaluate"
+          ],
+          "full_mark_rubric": [
+            "M1: correct f'(θ)",
+            "M1: correct simplified radicand (factoring correctly)",
+            "A1: correct integral setup over the specified range",
+            "A1: correct final evaluation"
+          ],
+          "common_errors": [
+            {
+              "type": "algebra",
+              "description": "Errors factoring the exponential terms out of the square root"
+            },
+            {
+              "type": "strategy",
+              "description": "Attempting to apply a symmetry shortcut that doesn't exist for this open (non-closed, non-periodic) spiral"
+            },
+            {
+              "type": "procedural",
+              "description": "Using the wrong range of integration (e.g. assuming a 'natural' period rather than the explicitly given angles)"
+            }
+          ],
+          "merged_topics": [
+            "8.6-polar-arc-length-cardioid"
+          ],
+          "similar_past_exam_questions": []
+        }
+      ]
+    }
+  ]
+}
