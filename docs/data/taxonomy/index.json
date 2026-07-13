@@ -1,0 +1,65 @@
+{
+  "version": "1783929394.5570207",
+  "chapters": [
+    {
+      "file": "00-preliminaries.json",
+      "chapter": "P",
+      "chapter_title": "Preliminaries",
+      "course": "calculus-1"
+    },
+    {
+      "file": "01-limits-and-continuity.json",
+      "chapter": "1",
+      "chapter_title": "Limits and Continuity",
+      "course": "calculus-1"
+    },
+    {
+      "file": "02-differentiation.json",
+      "chapter": "2",
+      "chapter_title": "Differentiation",
+      "course": "calculus-1"
+    },
+    {
+      "file": "03-transcendental-functions.json",
+      "chapter": "3",
+      "chapter_title": "Transcendental Functions",
+      "course": "calculus-1"
+    },
+    {
+      "file": "04-applications-of-differentiation.json",
+      "chapter": "4",
+      "chapter_title": "More Applications of Differentiation",
+      "course": "calculus-1"
+    },
+    {
+      "file": "05-integration.json",
+      "chapter": "5",
+      "chapter_title": "Integration",
+      "course": "calculus-1"
+    },
+    {
+      "file": "06-techniques-of-integration.json",
+      "chapter": "6",
+      "chapter_title": "Techniques of Integration",
+      "course": "calculus-2"
+    },
+    {
+      "file": "07-applications-of-integration.json",
+      "chapter": "7",
+      "chapter_title": "Applications of Integration",
+      "course": "calculus-2"
+    },
+    {
+      "file": "08-conics-parametric-polar.json",
+      "chapter": "8",
+      "chapter_title": "Conics, Parametric Curves, and Polar Curves",
+      "course": "calculus-2"
+    },
+    {
+      "file": "09-sequences-series-power-series.json",
+      "chapter": "9",
+      "chapter_title": "Sequences, Series, and Power Series",
+      "course": "calculus-2"
+    }
+  ]
+}
