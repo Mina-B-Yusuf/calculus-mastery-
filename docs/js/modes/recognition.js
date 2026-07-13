@@ -9,10 +9,16 @@ function shuffle(arr) {
 
 async function buildRecognitionSession(limit = 15) {
   const archetypes = await DB.getAll('archetypes');
-  const allIds = archetypes.map((a) => a.id);
-  const ids = await SRS.getNewOrDueIds('archetype', shuffle(allIds), limit);
-  const byId = Object.fromEntries(archetypes.map((a) => [a.id, a]));
   const microSkills = Object.fromEntries((await DB.getAll('microSkills')).map((m) => [m.id, m]));
+  await Priority.load();
+  // Order candidate ids so exam-priority archetypes are preferred (shuffled within tier).
+  const withSection = shuffle(archetypes).map((a) => ({
+    id: a.id,
+    section: (microSkills[a.microSkillId] || {}).section,
+  }));
+  const orderedIds = Priority.prioritize(withSection).map((x) => x.id);
+  const ids = await SRS.getNewOrDueIds('archetype', orderedIds, limit);
+  const byId = Object.fromEntries(archetypes.map((a) => [a.id, a]));
   return ids.map((id) => byId[id]).filter(Boolean).map((a) => ({
     archetype: a,
     microSkill: microSkills[a.microSkillId],

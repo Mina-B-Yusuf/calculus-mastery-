@@ -55,11 +55,13 @@ window.HomeMode = {
           <div class="stat-tile"><div class="num">${stats.dueFormulaCount}</div><div class="label">formulas due</div></div>
           <div class="stat-tile"><div class="num">${stats.totalAttempts}</div><div class="label">total reps</div></div>
         </div>
+        <p class="small" style="margin:10px 0 0;">🎯 <strong>Exam focus on:</strong> your daily drills front-load the topics your professor tests most (Taylor limits, series &amp; convergence tests, integration techniques, improper integrals).</p>
       </div>
 
       <div class="btn-block-list">
         <a class="btn btn-primary" href="#/drill" style="text-decoration:none;display:block;text-align:center;">Start Recognition Drill</a>
         <a class="btn btn-secondary" href="#/formula" style="text-decoration:none;display:block;text-align:center;">Formula Memory</a>
+        <a class="btn btn-secondary" href="#/exam" style="text-decoration:none;display:block;text-align:center;">📝 Exam Mode &amp; past papers</a>
       </div>
 
       <div class="card" style="margin-top:14px;">

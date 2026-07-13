@@ -14,7 +14,11 @@ async function buildFormulaSession(limit = 15) {
       allFormulas.push({ id: `${ms.id}::${i}`, text: f, microSkill: ms });
     });
   });
-  const ids = await SRS.getNewOrDueIds('formula', shuffle(allFormulas.map((f) => f.id)), limit);
+  await Priority.load();
+  const ordered = Priority.prioritize(
+    shuffle(allFormulas).map((f) => ({ id: f.id, section: f.microSkill.section }))
+  ).map((x) => x.id);
+  const ids = await SRS.getNewOrDueIds('formula', ordered, limit);
   const byId = Object.fromEntries(allFormulas.map((f) => [f.id, f]));
   return ids.map((id) => byId[id]).filter(Boolean);
 }

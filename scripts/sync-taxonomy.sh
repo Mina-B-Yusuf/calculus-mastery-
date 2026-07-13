@@ -5,10 +5,11 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-mkdir -p docs/data/taxonomy
+mkdir -p docs/data/taxonomy docs/data/past-papers
 rm -f docs/data/taxonomy/*.json
 cp data/taxonomy/*.json docs/data/taxonomy/
 rm -f docs/data/taxonomy/schema.md
+cp data/past-papers/past-papers.json docs/data/past-papers/past-papers.json
 
 python3 - <<'PY'
 import json, glob, os

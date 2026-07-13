@@ -6,25 +6,33 @@ const routes = {
   drill: () => window.RecognitionMode.render(appRoot),
   formula: () => window.FormulaMode.render(appRoot),
   scratchpad: () => window.ScratchpadMode.render(appRoot),
+  exam: (sub) => window.ExamMode.render(appRoot, sub),
   radar: () => window.RadarMode.render(appRoot),
   errors: () => window.ErrorNotebookMode.render(appRoot),
   settings: () => window.SettingsMode.render(appRoot),
+  more: () => window.MoreMode.render(appRoot),
 };
 
+// which secondary routes light up the "More" tab
+const MORE_ROUTES = ['scratchpad', 'radar', 'errors', 'settings', 'more'];
+
 function setActiveTab(name) {
+  const tab = MORE_ROUTES.includes(name) ? 'more' : name;
   tabbarLinks.forEach((a) => {
-    a.classList.toggle('active', a.dataset.route === name);
+    a.classList.toggle('active', a.dataset.route === tab);
   });
 }
 
 async function router() {
   const hash = location.hash.replace(/^#\//, '') || 'home';
-  const [name] = hash.split('/');
+  const parts = hash.split('/');
+  const name = parts[0];
+  const sub = parts.slice(1).map(decodeURIComponent);
   const handler = routes[name] || routes.home;
-  setActiveTab(name === 'errors' ? 'radar' : name);
+  setActiveTab(name);
   appRoot.innerHTML = '<div class="center-msg">Loading…</div>';
   try {
-    await handler();
+    await handler(sub);
   } catch (err) {
     console.error(err);
     appRoot.innerHTML = `<div class="card"><h2>Something went wrong</h2><p class="small">${String(err.message || err)}</p></div>`;
