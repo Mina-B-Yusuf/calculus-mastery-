@@ -31,24 +31,26 @@ window.FormulaMode = {
     const renderCard = () => {
       const item = session[idx];
       const { lhs, rhs, hasEq } = splitFormula(item.text);
-      const blankSide = Math.random() < 0.5 ? 'rhs' : 'lhs';
+      const blank = '<span class="blank-box">?</span>';
       const shown = hasEq
-        ? (blankSide === 'rhs' ? `${lhs} = _______` : `_______ = ${rhs}`)
-        : `${item.text.slice(0, Math.floor(item.text.length * 0.6))}_______`;
+        ? (Math.random() < 0.5
+            ? `${MathRender.inline(lhs)} <span class="eq">=</span> ${blank}`
+            : `${blank} <span class="eq">=</span> ${MathRender.inline(rhs)}`)
+        : `${MathRender.inline(item.text.slice(0, Math.floor(item.text.length * 0.6)))} ${blank}`;
 
       root.innerHTML = `
         <div class="progressbar"><div style="width:${(idx / session.length) * 100}%"></div></div>
         <p class="small">Formula ${idx + 1} of ${session.length} · ${escapeHtml(item.microSkill.topic || '')}</p>
         <div class="card">
           <h2>Fill in the blank</h2>
-          <div class="example-block">${escapeHtml(shown)}</div>
+          <div class="example-block">${shown}</div>
           <button class="btn btn-primary" id="reveal-btn">Reveal</button>
           <div id="answer-area"></div>
         </div>
       `;
       document.getElementById('reveal-btn').addEventListener('click', () => {
         document.getElementById('answer-area').innerHTML = `
-          <div class="example-block">${escapeHtml(item.text)}</div>
+          <div class="example-block">${MathRender.inline(item.text)}</div>
           <p class="small">How well did you know it?</p>
           <div class="btn-block-list">
             <button class="btn-choice" data-q="0">Forgot it</button>

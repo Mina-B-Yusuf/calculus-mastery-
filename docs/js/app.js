@@ -5,6 +5,7 @@ const routes = {
   home: () => window.HomeMode.render(appRoot),
   drill: () => window.RecognitionMode.render(appRoot),
   formula: () => window.FormulaMode.render(appRoot),
+  scratchpad: () => window.ScratchpadMode.render(appRoot),
   radar: () => window.RadarMode.render(appRoot),
   errors: () => window.ErrorNotebookMode.render(appRoot),
   settings: () => window.SettingsMode.render(appRoot),

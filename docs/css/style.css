@@ -252,3 +252,100 @@ textarea, input[type=text] {
 .small { font-size: 0.78rem; color: var(--text-dim); }
 .mb0 { margin-bottom: 0; }
 .flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+/* ---- math rendering ---- */
+.katex { font-size: 1.05em; }
+.example-block .katex { font-size: 1.18em; }
+.example-block .katex-display { margin: 0.3em 0; }
+.math-fallback { font-family: ui-monospace, Menlo, monospace; font-size: 0.95em; color: inherit; }
+.math-block { overflow-x: auto; }
+.method-plan .katex, .rubric .katex, .small .katex { font-size: 1em; }
+.blank-box {
+  display: inline-block;
+  min-width: 2.4em;
+  border-bottom: 3px solid var(--accent);
+  color: var(--accent);
+  text-align: center;
+  font-weight: 700;
+  margin: 0 2px;
+}
+.example-block .eq { margin: 0 6px; opacity: 0.8; }
+
+/* ---- calculus keyboard ---- */
+.mk-wrap {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface-2);
+  margin-top: 8px;
+}
+.mk-preview {
+  min-height: 60px;
+  padding: 14px 12px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
+  font-size: 1.1em;
+}
+.mk-placeholder { color: var(--text-dim); font-size: 0.85rem; }
+.mk-caret-strip {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  padding: 4px 10px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-height: 1.4em;
+}
+.mk-tabs { display: flex; gap: 4px; padding: 6px 6px 0; }
+.mk-tab {
+  flex: 1;
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 8px 8px 0 0;
+  padding: 8px 4px;
+  font-size: 0.9rem;
+}
+.mk-tab.active { color: var(--accent); background: var(--surface-2); font-weight: 700; }
+.mk-keys {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  padding: 6px;
+}
+.mk-key {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px 4px;
+  font-size: 1rem;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mk-key:active { background: var(--accent-2); color: #06121d; }
+.mk-key .katex { font-size: 1em; }
+.mk-ctrl { display: flex; gap: 5px; padding: 0 6px 8px; }
+.mk-ctrl-btn {
+  flex: 1;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px 4px;
+  font-size: 1.05rem;
+  min-height: 46px;
+}
+.mk-ctrl-btn.wide { flex: 2; font-size: 0.9rem; }
+.mk-ctrl-btn:active { background: var(--accent-2); color: #06121d; }
+
+/* tab bar gets tighter with 6 items */
+nav.tabbar a { font-size: 0.62rem; }
+nav.tabbar a .icon { font-size: 1.2rem; }

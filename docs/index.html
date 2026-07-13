@@ -11,6 +11,7 @@
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -36,16 +37,21 @@
     <a href="#/home" data-route="home"><span class="icon">🏠</span>Home</a>
     <a href="#/drill" data-route="drill"><span class="icon">🎯</span>Recognize</a>
     <a href="#/formula" data-route="formula"><span class="icon">∑</span>Formulas</a>
+    <a href="#/scratchpad" data-route="scratchpad"><span class="icon">⌨️</span>Scratchpad</a>
     <a href="#/radar" data-route="radar"><span class="icon">📊</span>Radar</a>
-    <a href="#/settings" data-route="settings"><span class="icon">⚙️</span>Settings</a>
+    <a href="#/settings" data-route="settings"><span class="icon">⚙️</span>More</a>
   </nav>
 
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="js/mathrender.js"></script>
+  <script src="js/mathkeyboard.js"></script>
   <script src="js/db.js"></script>
   <script src="js/srs.js"></script>
   <script src="js/data-loader.js"></script>
   <script src="js/modes/home.js"></script>
   <script src="js/modes/recognition.js"></script>
   <script src="js/modes/formula.js"></script>
+  <script src="js/modes/scratchpad.js"></script>
   <script src="js/modes/radar.js"></script>
   <script src="js/modes/errornotebook.js"></script>
   <script src="js/modes/settings.js"></script>

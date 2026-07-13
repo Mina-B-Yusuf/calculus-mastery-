@@ -50,9 +50,9 @@ window.RecognitionMode = {
         <p class="small">Question ${idx + 1} of ${session.length} · <span class="pill chapter">Ch. ${archetype.chapter}</span></p>
         <div class="card">
           <h2>What technique does this need?</h2>
-          <div class="example-block">${escapeHtml(archetype.example)}</div>
+          <div class="example-block">${MathRender.inline(archetype.example)}</div>
           <div class="btn-block-list" id="choices">
-            ${choices.map((c, i) => `<button class="btn-choice" data-choice="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('')}
+            ${choices.map((c) => `<button class="btn-choice" data-choice="${escapeHtml(c)}">${MathRender.inline(c)}</button>`).join('')}
           </div>
         </div>
         <div id="feedback"></div>
@@ -75,10 +75,12 @@ window.RecognitionMode = {
       const fb = document.getElementById('feedback');
       fb.innerHTML = `
         <div class="card">
-          <h3>${correct ? '✅ Correct' : '❌ Not quite'} — ${escapeHtml(correctLabel)}</h3>
-          <p class="small"><strong>Recognition cue:</strong> ${escapeHtml(archetype.recognitionCue || '')}</p>
-          <ol class="method-plan">${(archetype.methodPlan || []).map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ol>
-          ${archetype.answer ? `<p class="small"><strong>Answer:</strong> ${escapeHtml(archetype.answer)}</p>` : ''}
+          <h3>${correct ? '✅ Correct' : '❌ Not quite'} — ${MathRender.inline(correctLabel)}</h3>
+          <p class="small"><strong>Recognition cue:</strong> ${MathRender.inline(archetype.recognitionCue || '')}</p>
+          <ol class="method-plan">${(archetype.methodPlan || []).map((s) => `<li>${MathRender.inline(s)}</li>`).join('')}</ol>
+          ${archetype.answer ? `<p class="small"><strong>Answer:</strong> ${MathRender.inline(archetype.answer)}</p>` : ''}
+          <button class="btn-secondary" id="workout-toggle" style="margin-top:6px;">✍️ Work it out on the keyboard</button>
+          <div id="workout-host"></div>
           ${!correct ? errorTagPickerHtml() : ''}
           <div class="btn-block-list" style="margin-top:12px;">
             ${correct ? `
@@ -89,6 +91,19 @@ window.RecognitionMode = {
           </div>
         </div>
       `;
+
+      const workoutToggle = document.getElementById('workout-toggle');
+      const workoutHost = document.getElementById('workout-host');
+      workoutToggle.addEventListener('click', () => {
+        if (workoutHost.childElementCount) {
+          workoutHost.innerHTML = '';
+          workoutToggle.textContent = '✍️ Work it out on the keyboard';
+        } else {
+          const kb = window.MathKeyboard.create({ initial: '' });
+          workoutHost.appendChild(kb.el);
+          workoutToggle.textContent = '✕ Hide keyboard';
+        }
+      });
 
       let selectedErrorType = null;
       fb.querySelectorAll('.error-tag').forEach((tag) => {
