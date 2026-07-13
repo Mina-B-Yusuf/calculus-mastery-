@@ -5,6 +5,7 @@ const routes = {
   home: () => window.HomeMode.render(appRoot),
   drill: () => window.RecognitionMode.render(appRoot),
   formula: () => window.FormulaMode.render(appRoot),
+  concepts: (sub) => window.ConceptsMode.render(appRoot, sub),
   scratchpad: () => window.ScratchpadMode.render(appRoot),
   exam: (sub) => window.ExamMode.render(appRoot, sub),
   radar: () => window.RadarMode.render(appRoot),
@@ -14,7 +15,7 @@ const routes = {
 };
 
 // which secondary routes light up the "More" tab
-const MORE_ROUTES = ['scratchpad', 'radar', 'errors', 'settings', 'more'];
+const MORE_ROUTES = ['formula', 'scratchpad', 'radar', 'errors', 'settings', 'more'];
 
 function setActiveTab(name) {
   const tab = MORE_ROUTES.includes(name) ? 'more' : name;

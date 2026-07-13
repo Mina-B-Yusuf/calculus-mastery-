@@ -1,7 +1,7 @@
 // Versioned, offline-first service worker.
 // Bump CACHE_VERSION whenever shipped files change so clients pick up updates
 // via the "update available" flow instead of silently going stale.
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const SHELL_CACHE = `calc-mastery-shell-${CACHE_VERSION}`;
 const DATA_CACHE = `calc-mastery-data-${CACHE_VERSION}`;
 
@@ -20,6 +20,7 @@ const SHELL_ASSETS = [
   'js/modes/home.js',
   'js/modes/recognition.js',
   'js/modes/formula.js',
+  'js/modes/concepts.js',
   'js/modes/scratchpad.js',
   'js/modes/exam.js',
   'js/modes/radar.js',

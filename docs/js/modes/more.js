@@ -3,6 +3,7 @@
 window.MoreMode = {
   async render(root) {
     const items = [
+      ['∑', 'Formula Memory', 'Fill-in-the-blank formula recall', '#/formula'],
       ['⌨️', 'Scratchpad', 'Calculus keyboard for writing expressions', '#/scratchpad'],
       ['📊', 'Weakness Radar', 'Mastery per chapter', '#/radar'],
       ['📓', 'Error Notebook', 'Your mistakes, categorized', '#/errors'],
