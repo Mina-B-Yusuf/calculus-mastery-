@@ -1,0 +1,184 @@
+{
+  "note": "Curated 'must memorize' reference for Calc 1 & 2. q = prompt, a = answer. Notation is the same plain-text math the app typesets.",
+  "categories": [
+    {
+      "id": "derivatives", "name": "Derivatives", "icon": "formulas",
+      "blurb": "Every standard derivative you should recall instantly.",
+      "items": [
+        { "q": "d/dx x^n", "a": "n x^(n-1)" },
+        { "q": "d/dx (1/x)", "a": "-1/x^2" },
+        { "q": "d/dx sqrt(x)", "a": "1/(2 sqrt(x))" },
+        { "q": "d/dx e^x", "a": "e^x" },
+        { "q": "d/dx a^x", "a": "a^x ln(a)" },
+        { "q": "d/dx ln(x)", "a": "1/x" },
+        { "q": "d/dx log_a(x)", "a": "1/(x ln(a))" },
+        { "q": "d/dx sin(x)", "a": "cos(x)" },
+        { "q": "d/dx cos(x)", "a": "-sin(x)" },
+        { "q": "d/dx tan(x)", "a": "sec^2(x)" },
+        { "q": "d/dx cot(x)", "a": "-csc^2(x)" },
+        { "q": "d/dx sec(x)", "a": "sec(x) tan(x)" },
+        { "q": "d/dx csc(x)", "a": "-csc(x) cot(x)" },
+        { "q": "d/dx sin^-1(x)", "a": "1/sqrt(1-x^2)" },
+        { "q": "d/dx cos^-1(x)", "a": "-1/sqrt(1-x^2)" },
+        { "q": "d/dx tan^-1(x)", "a": "1/(1+x^2)" },
+        { "q": "d/dx cot^-1(x)", "a": "-1/(1+x^2)" },
+        { "q": "d/dx sec^-1(x)", "a": "1/(|x| sqrt(x^2-1))" },
+        { "q": "d/dx csc^-1(x)", "a": "-1/(|x| sqrt(x^2-1))" },
+        { "q": "d/dx sinh(x)", "a": "cosh(x)" },
+        { "q": "d/dx cosh(x)", "a": "sinh(x)" },
+        { "q": "d/dx tanh(x)", "a": "sech^2(x)" },
+        { "q": "d/dx |x|", "a": "x/|x|  (sgn x, x!=0)" },
+        { "q": "Product rule: d/dx [f g]", "a": "f' g + f g'" },
+        { "q": "Quotient rule: d/dx [f/g]", "a": "(f' g - f g')/g^2" },
+        { "q": "Chain rule: d/dx f(g(x))", "a": "f'(g(x)) g'(x)" }
+      ]
+    },
+    {
+      "id": "integrals", "name": "Integrals", "icon": "integral",
+      "blurb": "Standard antiderivatives (each + C).",
+      "items": [
+        { "q": "integral x^n dx  (n != -1)", "a": "x^(n+1)/(n+1) + C" },
+        { "q": "integral 1/x dx", "a": "ln|x| + C" },
+        { "q": "integral e^x dx", "a": "e^x + C" },
+        { "q": "integral a^x dx", "a": "a^x/ln(a) + C" },
+        { "q": "integral sin(x) dx", "a": "-cos(x) + C" },
+        { "q": "integral cos(x) dx", "a": "sin(x) + C" },
+        { "q": "integral sec^2(x) dx", "a": "tan(x) + C" },
+        { "q": "integral csc^2(x) dx", "a": "-cot(x) + C" },
+        { "q": "integral sec(x) tan(x) dx", "a": "sec(x) + C" },
+        { "q": "integral csc(x) cot(x) dx", "a": "-csc(x) + C" },
+        { "q": "integral tan(x) dx", "a": "ln|sec(x)| + C" },
+        { "q": "integral cot(x) dx", "a": "ln|sin(x)| + C" },
+        { "q": "integral sec(x) dx", "a": "ln|sec(x) + tan(x)| + C" },
+        { "q": "integral csc(x) dx", "a": "-ln|csc(x) + cot(x)| + C" },
+        { "q": "integral 1/(1+x^2) dx", "a": "tan^-1(x) + C" },
+        { "q": "integral 1/sqrt(1-x^2) dx", "a": "sin^-1(x) + C" },
+        { "q": "integral 1/(x sqrt(x^2-1)) dx", "a": "sec^-1|x| + C" },
+        { "q": "integral 1/(a^2+x^2) dx", "a": "(1/a) tan^-1(x/a) + C" },
+        { "q": "integral 1/sqrt(a^2-x^2) dx", "a": "sin^-1(x/a) + C" },
+        { "q": "integral 1/(a^2-x^2) dx", "a": "(1/(2a)) ln|(a+x)/(a-x)| + C" },
+        { "q": "integral sinh(x) dx", "a": "cosh(x) + C" },
+        { "q": "integral cosh(x) dx", "a": "sinh(x) + C" },
+        { "q": "Integration by parts", "a": "integral u dv = u v - integral v du" }
+      ]
+    },
+    {
+      "id": "limits", "name": "Key limits", "icon": "spark",
+      "blurb": "Limits worth memorising outright (they turn up everywhere).",
+      "items": [
+        { "q": "lim(x->0) sin(x)/x", "a": "1" },
+        { "q": "lim(x->0) (1 - cos(x))/x", "a": "0" },
+        { "q": "lim(x->0) (1 - cos(x))/x^2", "a": "1/2" },
+        { "q": "lim(x->0) tan(x)/x", "a": "1" },
+        { "q": "lim(x->0) (e^x - 1)/x", "a": "1" },
+        { "q": "lim(x->0) ln(1+x)/x", "a": "1" },
+        { "q": "lim(x->0) (a^x - 1)/x", "a": "ln(a)" },
+        { "q": "lim(n->infinity) (1 + 1/n)^n", "a": "e" },
+        { "q": "lim(x->infinity) (1 + a/x)^x", "a": "e^a" },
+        { "q": "lim(x->0+) x ln(x)", "a": "0" },
+        { "q": "lim(x->infinity) x^n/e^x", "a": "0  (exponential beats any power)" },
+        { "q": "lim(x->infinity) ln(x)/x^p  (p>0)", "a": "0  (power beats log)" }
+      ]
+    },
+    {
+      "id": "trig", "name": "Trig identities", "icon": "recognize",
+      "blurb": "Pythagorean, double/half-angle, sum & difference.",
+      "items": [
+        { "q": "sin^2(x) + cos^2(x)", "a": "1" },
+        { "q": "1 + tan^2(x)", "a": "sec^2(x)" },
+        { "q": "1 + cot^2(x)", "a": "csc^2(x)" },
+        { "q": "sin(2x)", "a": "2 sin(x) cos(x)" },
+        { "q": "cos(2x)", "a": "cos^2(x) - sin^2(x) = 2cos^2(x) - 1 = 1 - 2sin^2(x)" },
+        { "q": "sin^2(x)  (half-angle)", "a": "(1 - cos(2x))/2" },
+        { "q": "cos^2(x)  (half-angle)", "a": "(1 + cos(2x))/2" },
+        { "q": "sin(x + y)", "a": "sin(x)cos(y) + cos(x)sin(y)" },
+        { "q": "sin(x - y)", "a": "sin(x)cos(y) - cos(x)sin(y)" },
+        { "q": "cos(x + y)", "a": "cos(x)cos(y) - sin(x)sin(y)" },
+        { "q": "cos(x - y)", "a": "cos(x)cos(y) + sin(x)sin(y)" },
+        { "q": "tan(x + y)", "a": "(tan(x) + tan(y))/(1 - tan(x)tan(y))" }
+      ]
+    },
+    {
+      "id": "unit-circle", "name": "Special angles", "icon": "recognize",
+      "blurb": "Exact sin / cos / tan at the common angles.",
+      "items": [
+        { "q": "sin(0), cos(0), tan(0)", "a": "0, 1, 0" },
+        { "q": "sin(pi/6), cos(pi/6), tan(pi/6)", "a": "1/2, sqrt(3)/2, 1/sqrt(3)" },
+        { "q": "sin(pi/4), cos(pi/4), tan(pi/4)", "a": "sqrt(2)/2, sqrt(2)/2, 1" },
+        { "q": "sin(pi/3), cos(pi/3), tan(pi/3)", "a": "sqrt(3)/2, 1/2, sqrt(3)" },
+        { "q": "sin(pi/2), cos(pi/2), tan(pi/2)", "a": "1, 0, undefined" },
+        { "q": "sin(pi), cos(pi)", "a": "0, -1" }
+      ]
+    },
+    {
+      "id": "series", "name": "Maclaurin series", "icon": "spark",
+      "blurb": "Standard power series and their radius of convergence.",
+      "items": [
+        { "q": "e^x", "a": "sum x^n/n! = 1 + x + x^2/2! + x^3/3! + ...   (all x)" },
+        { "q": "sin(x)", "a": "sum (-1)^n x^(2n+1)/(2n+1)! = x - x^3/3! + x^5/5! - ...   (all x)" },
+        { "q": "cos(x)", "a": "sum (-1)^n x^(2n)/(2n)! = 1 - x^2/2! + x^4/4! - ...   (all x)" },
+        { "q": "1/(1-x)", "a": "sum x^n = 1 + x + x^2 + ...   (|x|<1)" },
+        { "q": "ln(1+x)", "a": "sum (-1)^(n+1) x^n/n = x - x^2/2 + x^3/3 - ...   (-1 < x <= 1)" },
+        { "q": "arctan(x)", "a": "sum (-1)^n x^(2n+1)/(2n+1) = x - x^3/3 + x^5/5 - ...   (|x| <= 1)" },
+        { "q": "(1+x)^k  (binomial)", "a": "sum C(k,n) x^n = 1 + kx + k(k-1)/2! x^2 + ...   (|x|<1)" }
+      ]
+    },
+    {
+      "id": "tests", "name": "Convergence tests", "icon": "theorem",
+      "blurb": "Each test — what it says and when to reach for it.",
+      "items": [
+        { "q": "nth-term (divergence) test", "a": "If a_n does not -> 0, then sum a_n diverges. (Can only prove divergence.)" },
+        { "q": "Geometric series", "a": "sum a r^n converges iff |r|<1, with sum a/(1-r)." },
+        { "q": "p-series", "a": "sum 1/n^p converges iff p > 1." },
+        { "q": "Integral test", "a": "f positive, decreasing: sum f(n) and integral_1^inf f(x)dx converge or diverge together." },
+        { "q": "Comparison test", "a": "0 <= a_n <= b_n: if sum b_n converges so does sum a_n; if sum a_n diverges so does sum b_n." },
+        { "q": "Limit comparison test", "a": "If lim a_n/b_n = L (0<L<inf), then sum a_n and sum b_n share behaviour." },
+        { "q": "Ratio test", "a": "L = lim |a_(n+1)/a_n|: converges if L<1, diverges if L>1, inconclusive if L=1." },
+        { "q": "Root test", "a": "L = lim |a_n|^(1/n): converges if L<1, diverges if L>1, inconclusive if L=1." },
+        { "q": "Alternating series test", "a": "sum (-1)^n b_n converges if b_n decreases to 0." },
+        { "q": "Absolute convergence", "a": "If sum |a_n| converges, then sum a_n converges." }
+      ]
+    },
+    {
+      "id": "theorems", "name": "Theorems & conditions", "icon": "theorem",
+      "blurb": "The big theorems — and the hypotheses you must state.",
+      "items": [
+        { "q": "Intermediate Value Theorem", "a": "f continuous on [a,b], y between f(a),f(b) => exists c in (a,b) with f(c)=y." },
+        { "q": "Extreme Value Theorem", "a": "f continuous on a closed bounded [a,b] => f attains a max and a min on [a,b]." },
+        { "q": "Rolle's Theorem", "a": "f continuous on [a,b], differentiable on (a,b), f(a)=f(b) => exists c with f'(c)=0." },
+        { "q": "Mean Value Theorem", "a": "f continuous on [a,b], differentiable on (a,b) => exists c with f'(c) = (f(b)-f(a))/(b-a)." },
+        { "q": "Fundamental Theorem of Calculus, Part 1", "a": "d/dx integral_a^x f(t)dt = f(x)  (f continuous)." },
+        { "q": "Fundamental Theorem of Calculus, Part 2", "a": "integral_a^b f(x)dx = F(b) - F(a), where F' = f." },
+        { "q": "Mean Value Theorem for Integrals", "a": "f continuous on [a,b] => exists c with f(c) = (1/(b-a)) integral_a^b f dx." },
+        { "q": "Squeeze Theorem", "a": "g <= f <= h near a and lim g = lim h = L => lim f = L." },
+        { "q": "l'Hopital's Rule", "a": "For 0/0 or inf/inf: lim f/g = lim f'/g'  (when the RHS exists)." }
+      ]
+    },
+    {
+      "id": "applications", "name": "Application formulas", "icon": "integral",
+      "blurb": "Volumes, arc length, surface area, averages, work.",
+      "items": [
+        { "q": "Disk method volume", "a": "V = integral_a^b pi R(x)^2 dx" },
+        { "q": "Washer method volume", "a": "V = integral_a^b pi (R^2 - r^2) dx" },
+        { "q": "Cylindrical shell volume", "a": "V = integral_a^b 2 pi (radius)(height) dx" },
+        { "q": "Arc length", "a": "L = integral_a^b sqrt(1 + (f'(x))^2) dx" },
+        { "q": "Surface area of revolution", "a": "S = integral_a^b 2 pi (radius) sqrt(1 + (f')^2) dx" },
+        { "q": "Average value of f on [a,b]", "a": "(1/(b-a)) integral_a^b f(x) dx" },
+        { "q": "Work from a variable force", "a": "W = integral_a^b F(x) dx" }
+      ]
+    },
+    {
+      "id": "algebra", "name": "Algebra & pre-calc", "icon": "formulas",
+      "blurb": "The algebra that trips people up mid-problem.",
+      "items": [
+        { "q": "Quadratic formula", "a": "x = (-b +- sqrt(b^2 - 4ac))/(2a)" },
+        { "q": "ln(ab), ln(a/b), ln(a^b)", "a": "ln(a)+ln(b),  ln(a)-ln(b),  b ln(a)" },
+        { "q": "a^m a^n,  (a^m)^n,  a^(-n)", "a": "a^(m+n),  a^(mn),  1/a^n" },
+        { "q": "Difference of squares", "a": "a^2 - b^2 = (a-b)(a+b)" },
+        { "q": "Sum / difference of cubes", "a": "a^3 +- b^3 = (a +- b)(a^2 -+ ab + b^2)" },
+        { "q": "Completing the square", "a": "x^2 + bx = (x + b/2)^2 - (b/2)^2" },
+        { "q": "e^(ln x),  ln(e^x)", "a": "x,  x" }
+      ]
+    }
+  ]
+}

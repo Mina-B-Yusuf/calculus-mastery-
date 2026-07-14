@@ -1,7 +1,7 @@
 // Versioned, offline-first service worker.
 // Bump CACHE_VERSION whenever shipped files change so clients pick up updates
 // via the "update available" flow instead of silently going stale.
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v26';
 const SHELL_CACHE = `calc-mastery-shell-${CACHE_VERSION}`;
 const DATA_CACHE = `calc-mastery-data-${CACHE_VERSION}`;
 
@@ -10,24 +10,40 @@ const SHELL_ASSETS = [
   'index.html',
   'manifest.webmanifest',
   'css/style.css',
+  'js/icons.js',
+  'vendor/three/three.min.js',
+  'js/geography.js',
+  'js/world.js',
+  'js/halls.js',
+  'js/mathhero.js',
+  'js/sculptures.js',
+  'js/companion.js',
   'js/mathrender.js',
   'js/mathkeyboard.js',
   'js/db.js',
   'js/srs.js',
+  'js/progress.js',
   'js/data-loader.js',
   'js/priority.js',
+  'js/observatory.js',
   'js/app.js',
   'js/modes/home.js',
   'js/modes/recognition.js',
+  'js/modes/hall.js',
+  'js/modes/speed.js',
+  'js/modes/flashcards.js',
   'js/modes/formula.js',
   'js/modes/concepts.js',
   'js/modes/scratchpad.js',
+  'js/modes/notes.js',
+  'js/modes/memorize.js',
   'js/modes/exam.js',
   'js/modes/radar.js',
   'js/modes/errornotebook.js',
   'js/modes/settings.js',
   'js/modes/more.js',
   'data/past-papers/past-papers.json',
+  'data/memorize/memorize.json',
   'icons/icon-192.png',
   'icons/icon-512.png',
   'vendor/katex/katex.min.css',

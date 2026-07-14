@@ -27,7 +27,7 @@ window.FormulaMode = {
   async render(root) {
     const session = await buildFormulaSession(15);
     if (!session.length) {
-      root.innerHTML = `<div class="card"><h2>All caught up 🎉</h2><p class="small">No formulas due for review right now.</p></div>`;
+      root.innerHTML = `<div class="card"><h2>All caught up</h2><p class="small mb0">No formulas due for review right now.</p></div>`;
       return;
     }
     let idx = 0;

@@ -2,7 +2,7 @@
 // localStorage is used only for tiny UI preferences (theme, last screen), never as primary storage.
 
 const DB_NAME = 'calc-mastery';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 let dbPromise = null;
 
@@ -34,6 +34,10 @@ function openDB() {
       }
       if (!db.objectStoreNames.contains('meta')) {
         db.createObjectStore('meta', { keyPath: 'key' });
+      }
+      if (!db.objectStoreNames.contains('notes')) {
+        const store = db.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
+        store.createIndex('created', 'created', { unique: false });
       }
     };
     req.onsuccess = (e) => resolve(e.target.result);
@@ -154,8 +158,22 @@ const DB = {
   async resetEverything() {
     await Promise.all([
       clearStore('attempts'), clearStore('srs'), clearStore('microSkills'),
-      clearStore('archetypes'), clearStore('meta'),
+      clearStore('archetypes'), clearStore('meta'), clearStore('notes'),
     ]);
+  },
+
+  async addNote(note) {
+    note.created = note.created || Date.now();
+    return put('notes', note);
+  },
+  async getNotes() {
+    const all = await getAll('notes');
+    return all.sort((a, b) => b.created - a.created);
+  },
+  async deleteNote(id) {
+    const db = await openDB();
+    const t = db.transaction(['notes'], 'readwrite');
+    return reqToPromise(t.objectStore('notes').delete(id));
   },
 };
 

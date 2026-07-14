@@ -3,19 +3,24 @@
 window.MoreMode = {
   async render(root) {
     const items = [
-      ['∑', 'Formula Memory', 'Fill-in-the-blank formula recall', '#/formula'],
-      ['⌨️', 'Scratchpad', 'Calculus keyboard for writing expressions', '#/scratchpad'],
-      ['📊', 'Weakness Radar', 'Mastery per chapter', '#/radar'],
-      ['📓', 'Error Notebook', 'Your mistakes, categorized', '#/errors'],
-      ['⚙️', 'Settings', 'Offline content, backup, reset', '#/settings'],
+      ['bolt', 'Speed round', '60-second rapid-fire recognition', '#/speed'],
+      ['cards', 'Flashcards', 'Swipe through concepts & formulas', '#/flashcards'],
+      ['star', 'Memorize', 'Must-know derivatives, theorems, series…', '#/memorize'],
+      ['notebook', 'My Notes', 'Questions & ideas you saved', '#/notes'],
+      ['formulas', 'Formula Memory', 'Fill-in-the-blank formula recall', '#/formula'],
+      ['keyboard', 'Scratchpad', 'Calculus keyboard for writing expressions', '#/scratchpad'],
+      ['chart', 'Observatory Status', 'Structural integrity of each hall', '#/radar'],
+      ['notebook', 'Error Notebook', 'Recurring cracks, categorized', '#/errors'],
+      ['settings', 'Settings', 'Offline content, backup, reset', '#/settings'],
     ];
     root.innerHTML = `
       <div class="card"><h2>More</h2></div>
       <div class="btn-block-list">
         ${items.map(([icon, title, sub, href]) => `
-          <a class="card" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;margin-bottom:0;" href="${href}">
-            <span style="font-size:1.6rem;">${icon}</span>
-            <span><strong>${title}</strong><br><span class="small">${sub}</span></span>
+          <a class="card menu-row" href="${href}">
+            <span class="menu-ico">${Icon(icon)}</span>
+            <span style="flex:1;"><strong>${title}</strong><br><span class="small">${sub}</span></span>
+            <span class="leaf-chevron">${Icon('chevron')}</span>
           </a>
         `).join('')}
       </div>

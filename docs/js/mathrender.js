@@ -11,6 +11,38 @@
   // Names with no built-in command — render via \operatorname{}.
   const OPNAMES = ['sgn', 'erf', 'erfc', 'Var', 'Cov', 'Pr', 'arg', 'Re', 'Im'];
 
+  // The question bank spells greek letters as words ("Delta y/Delta t", "epsilon-delta").
+  // Map them to glyphs first so they read as symbols and bind to their operand.
+  const GREEK = { Delta: 'Δ', Sigma: 'Σ', Omega: 'Ω', Theta: 'Θ', Lambda: 'Λ', Gamma: 'Γ', Phi: 'Φ', Psi: 'Ψ', Pi: 'Π', Xi: 'Ξ',
+    alpha: 'α', beta: 'β', gamma: 'γ', delta: 'δ', epsilon: 'ε', zeta: 'ζ', eta: 'η', theta: 'θ', iota: 'ι', kappa: 'κ',
+    lambda: 'λ', mu: 'μ', nu: 'ν', xi: 'ξ', pi: 'π', rho: 'ρ', sigma: 'σ', tau: 'τ', upsilon: 'υ', phi: 'φ', chi: 'χ', psi: 'ψ', omega: 'ω' };
+  const GREEK_TEX = { 'Δ': '\\Delta', 'Σ': '\\Sigma', 'Ω': '\\Omega', 'Θ': '\\Theta', 'Λ': '\\Lambda', 'Γ': '\\Gamma', 'Φ': '\\Phi', 'Ψ': '\\Psi', 'Π': '\\Pi', 'Ξ': '\\Xi',
+    'α': '\\alpha', 'β': '\\beta', 'γ': '\\gamma', 'δ': '\\delta', 'ε': '\\epsilon', 'ζ': '\\zeta', 'η': '\\eta', 'θ': '\\theta', 'ι': '\\iota', 'κ': '\\kappa',
+    'λ': '\\lambda', 'μ': '\\mu', 'ν': '\\nu', 'ξ': '\\xi', 'π': '\\pi', 'ρ': '\\rho', 'ς': '\\varsigma', 'σ': '\\sigma', 'τ': '\\tau', 'υ': '\\upsilon', 'φ': '\\phi', 'χ': '\\chi', 'ψ': '\\psi', 'ω': '\\omega' };
+  const GLYPHS = 'ΔΣΩΘΛΓΦΨΠΞαβγδεζηθικλμνξπρσςτυφχψω';
+  const GREEK_WORD = 'Delta|Sigma|Omega|Theta|Lambda|Gamma|Phi|Psi|Pi|Xi|alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega';
+
+  function greekify(s) {
+    // "Delta y" -> "Δy": drop one space so the letter binds to a *lone* variable
+    // (so a following "/" builds a stacked fraction). The lookahead requires the
+    // next token to be a single variable/digit — never a word, so "theta between"
+    // stays "θ between", not "θbetween".
+    s = s.replace(new RegExp('\\b(' + GREEK_WORD + ')\\b[ ]?(?=[A-Za-z0-9](?![A-Za-z]))', 'g'), (m, w) => GREEK[w]);
+    // any remaining standalone greek word -> glyph
+    return s.replace(new RegExp('\\b(' + GREEK_WORD + ')\\b', 'g'), (m, w) => GREEK[w]);
+  }
+
+  // "sum" is Σ as an operator/notation but also an English noun ("sum of sines",
+  // "sum identities"). Convert the notation form (sum_a^b) and the operator form
+  // (sum followed by a summand: a paren, |…|, a function, or a lone variable) and
+  // leave prose untouched.
+  const FUNC_ALT = 'arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|cot|sec|csc|ln|log|exp';
+  function opsify(s) {
+    s = s.replace(/\bsum(?=[_^])/g, '∑');
+    s = s.replace(new RegExp('\\bsum\\b[ ]?(?=[(|]|(?:' + FUNC_ALT + ')\\b|[A-Za-z](?![A-Za-z]))', 'g'), '∑');
+    return s;
+  }
+
   function escapeText(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
@@ -70,7 +102,7 @@
         j--;
         continue;
       }
-      if (/[A-Za-z0-9._'^!\\]/.test(c)) { j--; continue; }
+      if (/[A-Za-z0-9._'^!\\]/.test(c) || GLYPHS.indexOf(c) !== -1) { j--; continue; }
       break; // stop at + - = , < > space \cdot or an opening bracket
     }
     return j + 1;
@@ -91,7 +123,7 @@
       }
       if (c === '(' || c === '[' || c === '{') { k = skipGroup(s, k); continue; }
       if (c === '|') { k++; while (k < s.length && s[k] !== '|') k++; k++; continue; }
-      if (/[A-Za-z0-9._'!]/.test(c)) { k++; continue; }
+      if (/[A-Za-z0-9._'!]/.test(c) || GLYPHS.indexOf(c) !== -1) { k++; continue; }
       if (c === '^' || c === '_') {
         k++;
         if (s[k] === '{' || s[k] === '(') k = skipGroup(s, k);
@@ -144,15 +176,19 @@
   }
 
   function toLatex(s) {
-    let t = ' ' + s + ' ';
+    let t = ' ' + greekify(opsify(s)) + ' ';
 
     // strip $-delimiters and normalize vulgar fractions (KaTeX has no glyph for ½, ¾, …)
     t = t.replace(/\$/g, ' ');
     t = t.replace(/[½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]/g, (m) => VULGAR[m] + ' ');
 
-    // word forms -> symbols
-    t = t.replace(/\bintegral\b/g, '∫');
+    // word forms -> symbols. "integral" is both the operator and an English noun;
+    // convert the notation form (integral_a^b, integral(...)) and the operator form
+    // (integral <integrand>), but leave a noun that is immediately followed by an
+    // integral symbol — e.g. "the integral integral_1^∞ …" -> "the integral ∫_1^∞ …".
+    t = t.replace(/\bintegral(?=[_^(])/g, '∫');
     t = t.replace(/\binfinity\b/gi, '∞');
+    t = t.replace(/\bintegral\b(?!\s*∫)/g, '∫');
 
     // sqrt(...) -> \sqrt{...} (recurse into the argument)
     t = replaceBalanced(t, 'sqrt', (arg) => '\\sqrt{' + toLatex(arg) + '}');
@@ -189,6 +225,9 @@
     t = t.replace(/\*/g, '\\cdot ');
     t = t.replace(/%/g, '\\%');
 
+    // greek glyphs -> commands (last, so the added space can't split earlier operand grabs)
+    t = t.replace(new RegExp('[' + GLYPHS + ']', 'g'), (m) => (GREEK_TEX[m] || m) + ' ');
+
     return t.trim();
   }
 
@@ -222,7 +261,7 @@
   // Render mixed prose+math: typeset only the math runs.
   function inline(str) {
     if (str === undefined || str === null) return '';
-    const tokens = String(str).split(/(\s+)/); // keep whitespace
+    const tokens = greekify(opsify(String(str))).split(/(\s+)/); // normalize operators/greek, keep whitespace
     let out = '';
     let run = [];
     const flush = () => {

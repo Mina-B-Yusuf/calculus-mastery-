@@ -1,65 +1,46 @@
-function masteryColor(m) {
-  if (m === null) return 'var(--border)';
-  if (m < 0.5) return 'var(--bad)';
-  if (m < 0.75) return 'var(--warn)';
-  return 'var(--good)';
-}
-
-async function computeTopicMastery() {
-  const [microSkills, attempts] = await Promise.all([DB.getAll('microSkills'), DB.getAllAttempts()]);
-  const bySkill = {};
-  attempts.forEach((a) => {
-    bySkill[a.microSkillId] = bySkill[a.microSkillId] || { total: 0, correct: 0 };
-    bySkill[a.microSkillId].total += 1;
-    if (a.correct) bySkill[a.microSkillId].correct += 1;
-  });
-
-  const byChapter = {};
-  microSkills.forEach((ms) => {
-    const key = `${ms.chapter}·${ms.chapterTitle}`;
-    byChapter[key] = byChapter[key] || { total: 0, correct: 0, attempted: 0, skillCount: 0 };
-    byChapter[key].skillCount += 1;
-    const s = bySkill[ms.id];
-    if (s) {
-      byChapter[key].total += s.total;
-      byChapter[key].correct += s.correct;
-      byChapter[key].attempted += 1;
-    }
-  });
-
-  return Object.entries(byChapter)
-    .map(([key, v]) => ({
-      key,
-      mastery: v.total > 0 ? v.correct / v.total : null,
-      coverage: v.skillCount ? v.attempted / v.skillCount : 0,
-      reps: v.total,
-    }))
-    .sort((a, b) => a.key.localeCompare(b.key, undefined, { numeric: true }));
-}
+// Observatory Status — a maintenance report. This view is a CLIENT of the
+// Observatory simulation: it reads state, it does not compute it.
 
 window.RadarMode = {
   async render(root) {
-    const topics = await computeTopicMastery();
-    const rows = topics.map((t) => {
-      const pct = t.mastery === null ? 0 : Math.round(t.mastery * 100);
-      const label = t.key.split('·')[1] || t.key;
-      return `
-        <div class="radar-row">
-          <div class="radar-label"><span>${escapeHtml(label)}</span><span class="small">${t.mastery === null ? 'not started' : `${pct}% (${t.reps} reps)`}</span></div>
-          <div class="radar-bar"><div style="width:${pct}%;background:${masteryColor(t.mastery)}"></div></div>
-        </div>
-      `;
-    }).join('');
+    const st = await Observatory.state();
+    const integ = st.integrity;
+
+    const list = (arr) => arr.map((n) => `<li>${escapeHtml(n)}</li>`).join('');
+    const stateCls = { Sound: 'st-sound', Settling: 'st-settling', Unstable: 'st-unstable', Unbuilt: 'st-unbuilt' };
+
+    const rows = Object.keys(st.halls)
+      .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }))
+      .map((c) => {
+        const h = st.halls[c];
+        const place = Geography.placeName(c);
+        const note = h.introduced === 0
+          ? 'not yet visited'
+          : `${Math.round(h.accumulationCompleteness * 100)}% restored${h.unresolvedCracks ? ` · ${h.unresolvedCracks} crack${h.unresolvedCracks === 1 ? '' : 's'}` : ''}`;
+        return `<div class="os-row">
+          <span class="os-place">${escapeHtml(place)}</span>
+          <span class="os-note">${note}</span>
+          <span class="os-state ${stateCls[h.word]}">${h.word}</span>
+        </div>`;
+      }).join('');
 
     root.innerHTML = `
-      <div class="card">
-        <h2>Weakness radar</h2>
-        <p class="small">Mastery per chapter, based on your recognition &amp; formula reps. Red = focus here first.</p>
-        ${rows || '<p class="small">No attempts yet — do a drill to populate this.</p>'}
+      <div class="editorial">
+        <div class="ghost-word">status</div>
+        <div class="fg">
+          <div class="kicker">Observatory status · ${escapeHtml(st.presence)}</div>
+          <div class="display">Structural integrity ${integ.pct}%</div>
+          <div class="lede">${integ.held} of ${integ.total} skills hold the structure${st.bridges ? ` · ${st.bridges} bridge${st.bridges === 1 ? '' : 's'} formed` : ''}. The observatory is restored by understanding, not by points.</div>
+        </div>
       </div>
-      <div class="card">
-        <a href="#/errors" class="small" style="color:var(--accent);">Open Error Notebook →</a>
-      </div>
+
+      ${integ.stabilized.length ? `<div class="kicker os-head">Recently stabilised</div><ul class="os-tags os-good">${list(integ.stabilized)}</ul>` : ''}
+      ${integ.inspect.length ? `<div class="kicker os-head">Inspection recommended</div><ul class="os-tags os-bad">${list(integ.inspect)}</ul>` : ''}
+
+      <div class="kicker os-head">The halls</div>
+      <div class="os-list">${rows}</div>
+
+      <a class="os-link" href="#/errors">${Icon('notebook')} Recurring cracks — the error notebook</a>
     `;
   },
 };

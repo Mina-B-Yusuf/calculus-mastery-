@@ -11,29 +11,28 @@ async function loadPapers() {
   META = data;
 }
 
-function templateBadge(t) {
-  const label = (META && META.templates && META.templates[t]) || t;
-  return `<span class="pill">${escapeHtml(t)} · ${escapeHtml(label)}</span>`;
+function templateLabel(t) {
+  const label = (META && META.templates && META.templates[t]) || '';
+  return label ? `${t} · ${label}` : t;
 }
 
+// De-boxed problem: number + template kicker, floating statement, hairline
+// reveal row that expands to the answer/solution (matches Recognize's reveals).
 function problemCard(prob, paperId) {
   const cueId = `sol-${paperId}-${prob.num}`;
   const drill = (prob.sections || []).length
-    ? `<a class="small" style="color:var(--accent);" href="#/drill">▶ Drill this skill</a>`
+    ? `<a class="ex-drill" href="#/drill">${Icon('drill')} Drill this skill</a>`
     : '';
   return `
-    <div class="card">
-      <div class="flex-between">
-        <strong>${escapeHtml(prob.num)}</strong>
-        ${prob.template ? templateBadge(prob.template) : ''}
-      </div>
-      <div class="example-block">${MathRender.inline(prob.statement)}</div>
-      <button class="btn-secondary reveal-sol" data-target="${cueId}">Reveal solution</button>
-      <div id="${cueId}" class="sol-area" style="display:none;">
-        ${prob.answer ? `<p class="small"><strong>Answer:</strong> ${MathRender.inline(prob.answer)}</p>` : ''}
-        ${prob.solution ? `<p class="small">${MathRender.inline(prob.solution)}</p>` : ''}
+    <div class="ex-prob">
+      <div class="ex-phead"><span class="ex-pnum">${escapeHtml(prob.num)}</span>${prob.template ? `<span class="ex-ptag">${escapeHtml(templateLabel(prob.template))}</span>` : ''}</div>
+      <div class="ex-stmt">${MathRender.inline(prob.statement)}</div>
+      <button class="rc-reveal reveal-sol" data-target="${cueId}" aria-expanded="false">${Icon('gist')}<span>Reveal solution</span><span class="rc-chev">${Icon('chevron')}</span></button>
+      <div class="reveal-wrap" id="${cueId}"><div class="reveal-inner"><div class="rc-rbody">
+        ${prob.answer ? `<div class="callout ex tint" style="margin:2px 0 8px;"><div class="callout-head"><span class="callout-icon">${Icon('check')}</span>Answer</div><div class="callout-body">${MathRender.inline(prob.answer)}</div></div>` : ''}
+        ${prob.solution ? `<p style="margin:0 0 8px;">${MathRender.inline(prob.solution)}</p>` : ''}
         ${drill}
-      </div>
+      </div></div></div>
     </div>
   `;
 }
@@ -42,9 +41,10 @@ function wireReveals(root) {
   root.querySelectorAll('.reveal-sol').forEach((btn) => {
     btn.addEventListener('click', () => {
       const el = document.getElementById(btn.dataset.target);
-      const open = el.style.display !== 'none';
-      el.style.display = open ? 'none' : 'block';
-      btn.textContent = open ? 'Reveal solution' : 'Hide solution';
+      const open = el.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const lbl = btn.querySelector('span:not(.rc-chev)');
+      if (lbl) lbl.textContent = open ? 'Hide solution' : 'Reveal solution';
     });
   });
 }
@@ -61,21 +61,35 @@ window.ExamMode = {
       return this.renderMock(root);
     }
 
-    const list = PAPERS.map((p) => `
-      <a class="card" style="display:block;text-decoration:none;color:inherit;" href="#/exam/paper/${encodeURIComponent(p.id)}">
-        <strong>${escapeHtml(p.title)}</strong>
-        <div class="small">${p.problems.filter((x) => x.part === 'A').length} computational · ${p.problems.filter((x) => x.part !== 'A').length} theory</div>
-      </a>
-    `).join('');
+    const row = (p) => {
+      const yr = (p.title.match(/(\d{4})/) || [])[1];
+      const badge = yr ? `’${yr.slice(2)}` : Icon('exam');
+      const comp = p.problems.filter((x) => x.part === 'A').length;
+      const thy = p.problems.filter((x) => x.part !== 'A').length;
+      return `<a class="cx-row" href="#/exam/paper/${encodeURIComponent(p.id)}">
+        <span class="cx-num ex-yr">${badge}</span>
+        <span class="cx-main"><span class="cx-title">${escapeHtml(p.title)}</span><span class="cx-sub">${comp} computational · ${thy} theory</span></span>
+        <span class="cx-chev">${Icon('chevron')}</span></a>`;
+    };
+    // group by course code (e.g. 1MA404, 1MA104), newest code first
+    const groups = {};
+    PAPERS.forEach((p) => { const c = (p.title.match(/\((1MA\d+)\)/) || [])[1] || 'Papers'; (groups[c] = groups[c] || []).push(p); });
+    const codes = Object.keys(groups).sort().reverse();
 
     root.innerHTML = `
-      <div class="card">
-        <h2>Exam Mode</h2>
-        <p class="small">${escapeHtml(META.course)}. Every past paper reuses the same ~8 problem templates — see the Professor Playbook. Browse a real paper, or generate one in your professor's style.</p>
-        <a class="btn btn-primary" href="#/exam/mock" style="text-decoration:none;display:block;text-align:center;">🎲 Generate a professor-style mock exam</a>
+      <div class="editorial">
+        <div class="ghost-word">exam</div>
+        <div class="fg">
+          <div class="kicker">Exam Mode · Linnéuniversitetet</div>
+          <div class="display">Sit the real thing</div>
+          <div class="lede">Eight real past papers, all built from the same ~8 problem templates. Browse one, or generate a fresh paper in your professor's style.</div>
+        </div>
       </div>
-      <h3 style="margin:6px 4px;">Past papers</h3>
-      ${list}
+      <a class="begin" href="#/exam/mock">Generate a mock exam<small>Professor style · assembled from the real template</small></a>
+      ${codes.map((c) => `
+        <div class="kicker" style="margin:26px 2px 4px;">${escapeHtml(c)}</div>
+        <div class="cx-list">${groups[c].map(row).join('')}</div>
+      `).join('')}
     `;
   },
 
@@ -85,13 +99,19 @@ window.ExamMode = {
     const partA = paper.problems.filter((p) => p.part === 'A');
     const theory = paper.problems.filter((p) => p.part !== 'A');
     root.innerHTML = `
-      <a class="small" href="#/exam" style="color:var(--accent);">← All papers</a>
-      <div class="card"><h2>${escapeHtml(paper.title)}</h2>
-        <p class="small">Part A: 6 problems (5 credits each, need 15 to pass). Part B/C: theory proofs.</p></div>
-      <h3 style="margin:6px 4px;">A · Computational</h3>
-      ${partA.map((p) => problemCard(p, paper.id)).join('')}
-      <h3 style="margin:6px 4px;">B/C · Theory</h3>
-      ${theory.map((p) => problemCard(p, paper.id)).join('')}
+      <a class="crumb" href="#/exam">${Icon('back')} All papers</a>
+      <div class="editorial">
+        <div class="ghost-word">${escapeHtml((paper.title.match(/(\d{4})/) || [''])[0])}</div>
+        <div class="fg">
+          <div class="kicker">Past paper</div>
+          <div class="display">${escapeHtml(paper.title)}</div>
+          <div class="lede">Part A — 6 problems, 5 credits each (15 to pass). Part B/C — theory proofs. Try it closed-book, then reveal each solution.</div>
+        </div>
+      </div>
+      <div class="kicker ex-part">A · Computational</div>
+      <div class="ex-list">${partA.map((p) => problemCard(p, paper.id)).join('')}</div>
+      <div class="kicker ex-part">B / C · Theory</div>
+      <div class="ex-list">${theory.map((p) => problemCard(p, paper.id)).join('')}</div>
     `;
     wireReveals(root);
   },
@@ -132,16 +152,20 @@ window.ExamMode = {
     };
 
     root.innerHTML = `
-      <a class="small" href="#/exam" style="color:var(--accent);">← Exam Mode</a>
-      <div class="card">
-        <h2>Mock exam · professor style</h2>
-        <p class="small">Assembled from the real template. Try it closed-book (5 h, no calculator), then reveal each solution. Regenerate for a fresh set.</p>
-        <a class="btn btn-secondary" href="#/exam/mock" onclick="location.reload&&0" style="text-decoration:none;display:block;text-align:center;" id="regen">🎲 Regenerate</a>
+      <a class="crumb" href="#/exam">${Icon('back')} Exam Mode</a>
+      <div class="editorial">
+        <div class="ghost-word">mock</div>
+        <div class="fg">
+          <div class="kicker">Professor style</div>
+          <div class="display">Your mock exam</div>
+          <div class="lede">Assembled from the real template. Try it closed-book (5 h, no calculator), then reveal each solution.</div>
+        </div>
       </div>
-      <h3 style="margin:6px 4px;">A · Computational (5 credits each)</h3>
-      ${partA.map(renderProb).join('')}
-      <h3 style="margin:6px 4px;">B · Theory</h3>
-      ${theory.map((p) => problemCard(p, 'mock-th')).join('')}
+      <button class="ex-regen" id="regen">${Icon('dice')} Regenerate</button>
+      <div class="kicker ex-part">A · Computational · 5 credits each</div>
+      <div class="ex-list">${partA.map(renderProb).join('')}</div>
+      <div class="kicker ex-part">B · Theory</div>
+      <div class="ex-list">${theory.map((p) => problemCard(p, 'mock-th')).join('')}</div>
     `;
     wireReveals(root);
     const regen = document.getElementById('regen');

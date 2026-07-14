@@ -36,15 +36,19 @@ function pickDistractors(pool, correctMicroSkillId, correctLabel, n) {
 }
 
 window.RecognitionMode = {
-  async render(root) {
+  async render(root, opts) {
+    opts = opts || {};
     const session = await buildRecognitionSession(15);
     if (!session.length) {
-      root.innerHTML = `<div class="card"><h2>All caught up 🎉</h2><p class="small">No recognition drills due right now. Check back later, or study a chapter's review problems.</p></div>`;
+      root.innerHTML = `<div class="card"><h2>All caught up</h2><p class="small mb0">No recognition drills due right now. Come back later, or explore the Concepts tab.</p></div>`;
       return;
     }
     const microSkills = await DB.getAll('microSkills');
     let idx = 0;
     let sessionCorrect = 0;
+    // Discoveries — what changed in you this session (not XP).
+    const strengthened = new Set(), corrected = new Set(), slipped = new Set();
+    const priorWrong = new Set((await DB.getAllAttempts()).filter((a) => !a.correct).map((a) => a.microSkillId));
 
     const renderQuestion = () => {
       const { archetype, microSkill } = session[idx];
@@ -52,13 +56,20 @@ window.RecognitionMode = {
       const choices = pickDistractors(sameCourse, microSkill.id, microSkill.microSkill, 3);
 
       root.innerHTML = `
-        <div class="progressbar"><div style="width:${(idx / session.length) * 100}%"></div></div>
-        <p class="small">Question ${idx + 1} of ${session.length} · <span class="pill chapter">Ch. ${archetype.chapter}</span></p>
-        <div class="card">
-          <h2>What technique does this need?</h2>
-          <div class="example-block">${MathRender.inline(archetype.example)}</div>
-          <div class="btn-block-list" id="choices">
-            ${choices.map((c) => `<button class="btn-choice" data-choice="${escapeHtml(c)}">${MathRender.inline(c)}</button>`).join('')}
+        <div class="rc">
+          <div class="rc-prog"><span style="width:${(idx / session.length) * 100}%"></span></div>
+          <div class="rc-kick kicker">Recognize · ${escapeHtml(Geography.placeName(archetype.chapter))} · ${idx + 1} of ${session.length}</div>
+
+          <div class="rc-stage">
+            <div class="rc-ask">What technique does this need?</div>
+            <div class="rc-hero">${MathRender.inline(archetype.example)}</div>
+          </div>
+
+          <div class="rc-choices" id="choices">
+            ${choices.map((c) => `
+              <button class="rc-choice" data-choice="${escapeHtml(c)}">
+                <span class="rc-mark"></span><span class="rc-ctext">${MathRender.inline(c)}</span>
+              </button>`).join('')}
           </div>
         </div>
         <div id="feedback"></div>
@@ -72,43 +83,56 @@ window.RecognitionMode = {
     const onAnswer = (chosen, correctLabel, archetype, microSkill) => {
       const correct = chosen === correctLabel;
       if (correct) sessionCorrect += 1;
+      const sid = microSkill.id;
+      if (correct) { if (priorWrong.has(sid)) corrected.add(sid); else strengthened.add(sid); }
+      else { slipped.add(sid); priorWrong.add(sid); }
       root.querySelectorAll('#choices button').forEach((btn) => {
         btn.disabled = true;
         if (btn.dataset.choice === correctLabel) btn.classList.add('correct');
         else if (btn.dataset.choice === chosen) btn.classList.add('incorrect');
       });
 
+      Companion.react(correct ? 'correct' : 'wrong');
+
       const fb = document.getElementById('feedback');
+      const reveal = (id, icon, label, inner) => `
+        <button class="rc-reveal reveal-sol" data-target="${id}" aria-expanded="false">${Icon(icon)}<span>${label}</span><span class="rc-chev">${Icon('chevron')}</span></button>
+        <div class="reveal-wrap" id="${id}"><div class="reveal-inner"><div class="rc-rbody">${inner}</div></div></div>`;
       fb.innerHTML = `
-        <div class="card">
-          <h3>${correct ? '✅ Correct' : '❌ Not quite'} — ${MathRender.inline(correctLabel)}</h3>
-          <p class="small"><strong>Recognition cue:</strong> ${MathRender.inline(archetype.recognitionCue || '')}</p>
-          <ol class="method-plan">${(archetype.methodPlan || []).map((s) => `<li>${MathRender.inline(s)}</li>`).join('')}</ol>
-          ${archetype.answer ? `<p class="small"><strong>Answer:</strong> ${MathRender.inline(archetype.answer)}</p>` : ''}
-          <button class="btn-secondary" id="workout-toggle" style="margin-top:6px;">✍️ Work it out on the keyboard</button>
-          <div id="workout-host"></div>
-          ${!correct ? errorTagPickerHtml() : ''}
-          <div class="btn-block-list" style="margin-top:12px;">
-            ${correct ? `
-              <button class="btn-choice" data-q="1">Hard</button>
-              <button class="btn-choice" data-q="2">Good</button>
-              <button class="btn-choice" data-q="3">Easy</button>
-            ` : `<button class="btn btn-primary" id="continue-btn">Continue</button>`}
+        <div class="rc-fb">
+          <div class="rc-verdict ${correct ? 'ok' : 'no'}">${Icon(correct ? 'check' : 'x')}<span>${correct ? 'Correct' : 'Not quite'} — <em>${MathRender.inline(correctLabel)}</em></span></div>
+
+          <div class="rc-reveals">
+            ${reveal('rv-cue', 'gist', 'Why this one', `${MathRender.inline(archetype.recognitionCue || '')}`)}
+            ${(archetype.methodPlan || []).length ? reveal('rv-method', 'example', 'Steps', `<ol class="method-plan" style="margin:0;padding-left:18px;">${archetype.methodPlan.map((s) => `<li>${MathRender.inline(s)}</li>`).join('')}</ol>`) : ''}
+            ${archetype.answer ? reveal('rv-ans', 'check', 'Answer', `${MathRender.inline(archetype.answer)}`) : ''}
+            ${reveal('rv-kb', 'keyboard', 'Work it out', '<div id="workout-host"></div>')}
           </div>
+
+          ${!correct ? errorTagPickerHtml() : ''}
+
+          <div class="rc-actions">
+            ${correct ? `
+              <div class="rc-rate">
+                <button data-q="1">Hard</button>
+                <button data-q="2">Good</button>
+                <button data-q="3">Easy</button>
+              </div>` : `<button class="rc-go" id="continue-btn">Continue</button>`}
+          </div>
+          <div class="rc-sub"><button id="note-q">${Icon('plus')} Save to notes</button></div>
         </div>
       `;
 
-      const workoutToggle = document.getElementById('workout-toggle');
-      const workoutHost = document.getElementById('workout-host');
-      workoutToggle.addEventListener('click', () => {
-        if (workoutHost.childElementCount) {
-          workoutHost.innerHTML = '';
-          workoutToggle.textContent = '✍️ Work it out on the keyboard';
-        } else {
-          const kb = window.MathKeyboard.create({ initial: '' });
-          workoutHost.appendChild(kb.el);
-          workoutToggle.textContent = '✕ Hide keyboard';
+      fb.querySelectorAll('.reveal-sol').forEach((btn) => btn.addEventListener('click', () => {
+        const el = document.getElementById(btn.dataset.target);
+        const open = el.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (btn.dataset.target === 'rv-kb' && open && !document.querySelector('#workout-host .mk-wrap')) {
+          document.getElementById('workout-host').appendChild(window.MathKeyboard.create({ initial: '' }).el);
         }
+      }));
+      document.getElementById('note-q').addEventListener('click', () => {
+        window.saveToNotes(`Q: ${archetype.example}`, correctLabel);
       });
 
       let selectedErrorType = null;
@@ -129,6 +153,7 @@ window.RecognitionMode = {
           correct,
           errorType: correct ? null : selectedErrorType,
         });
+        await Progress.award(correct);   // keeps internal counters; no XP shown
         idx += 1;
         if (idx >= session.length) {
           renderSummary();
@@ -146,15 +171,22 @@ window.RecognitionMode = {
       }
     };
 
-    const renderSummary = () => {
+    const renderSummary = async () => {
+      if (opts.onComplete) { try { opts.onComplete(); } catch (e) {} }   // hall enters Reflection
+      const integ = (await Observatory.state()).integrity;
+      const rows = [
+        strengthened.size ? `<div class="rc-disc-row"><span class="rc-disc-n">${strengthened.size}</span><span>concept${strengthened.size === 1 ? '' : 's'} strengthened</span></div>` : '',
+        corrected.size ? `<div class="rc-disc-row"><span class="rc-disc-n">${corrected.size}</span><span>misconception${corrected.size === 1 ? '' : 's'} corrected</span></div>` : '',
+        slipped.size ? `<div class="rc-disc-row"><span class="rc-disc-n">${slipped.size}</span><span>noted to revisit</span></div>` : '',
+      ].join('');
       root.innerHTML = `
-        <div class="card">
-          <h2>Session complete</h2>
-          <p>${sessionCorrect} / ${session.length} recognized correctly on the first try.</p>
-          <div class="btn-block-list">
-            <a class="btn btn-primary" href="#/drill" style="text-decoration:none;display:block;text-align:center;">Go again</a>
-            <a class="btn btn-secondary" href="#/home" style="text-decoration:none;display:block;text-align:center;">Back home</a>
-          </div>
+        <div class="rc-done">
+          <div class="rc-kick kicker">Today's discoveries</div>
+          <div class="rc-disc">${rows || `<div class="rc-disc-row"><span class="rc-disc-n">${sessionCorrect}</span><span>recognized</span></div>`}</div>
+          <div class="rc-ask" style="margin-top:18px;">Structural integrity ${integ.pct}% · ${integ.held} skills held solid</div>
+
+          <a class="rc-go" href="#/drill" style="margin-top:26px;">Continue</a>
+          <div class="rc-sub" style="justify-content:center;"><a href="#/home" style="color:var(--ink-faint);text-decoration:none;">Back to the observatory</a></div>
         </div>
       `;
     };
@@ -172,9 +204,11 @@ function errorTagPickerHtml() {
     ['strategy', 'Overthought it / ran out of time'],
   ];
   return `
-    <p class="small" style="margin-bottom:0;">What kind of mistake was it? (optional, helps your Error Notebook)</p>
-    <div class="error-tag-row">
-      ${types.map(([v, l]) => `<button type="button" class="error-tag" data-type="${v}">${l}</button>`).join('')}
+    <div class="rc-slip">
+      <div class="kicker" style="margin-bottom:10px;">What kind of slip?</div>
+      <div class="error-tag-row">
+        ${types.map(([v, l]) => `<button type="button" class="error-tag" data-type="${v}">${l}</button>`).join('')}
+      </div>
     </div>
   `;
 }

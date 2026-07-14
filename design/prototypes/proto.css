@@ -1,0 +1,59 @@
+/* Home prototype styles — derived directly from the design bible (dark primary). */
+:root{
+  --bg:#15121b; --bg-elev:#1c1826; --surface:#211b2b; --surface-2:#2a2338;
+  --ink:#ece6f3; --ink-soft:#b1a6c1; --ink-faint:#7f7591; --hair:#2b2438;
+  --a:#b79af0; --b:#eaa6cb; --grad:linear-gradient(135deg,#b79af0,#eaa6cb);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style",Palatino,Georgia,ui-serif,serif;
+  --ease:cubic-bezier(.4,0,.2,1); --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
+body{
+  background:
+    radial-gradient(900px 500px at 100% -8%, color-mix(in srgb,var(--a) 12%,transparent), transparent 60%),
+    radial-gradient(800px 460px at -10% 4%, color-mix(in srgb,var(--b) 10%,transparent), transparent 55%),
+    var(--bg);
+  color:var(--ink); font-family:var(--font); -webkit-font-smoothing:antialiased;
+  display:flex; flex-direction:column; min-height:100vh;
+}
+.wrap{max-width:720px; width:100%; margin:0 auto; padding:0 16px 130px; flex:1; display:flex; flex-direction:column;}
+.kicker{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.22em;color:var(--a);}
+.display{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;line-height:1.04;}
+.hair{height:1px;background:var(--hair);border:0;opacity:.8;margin:0;}
+.muted{color:var(--ink-soft);} .faint{color:var(--ink-faint);}
+
+/* sculpture well */
+.sculpt{position:relative;}
+.sculpt canvas{display:block;width:100%;height:100%;}
+.sculpt .vignette{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 60% at 50% 45%, transparent 40%, color-mix(in srgb,var(--bg) 70%,transparent) 100%);}
+
+/* mission rows */
+.mission{display:flex;flex-direction:column;}
+.mrow{display:flex;align-items:center;gap:12px;padding:14px 2px;}
+.mrow + .mrow{border-top:1px solid var(--hair);}
+.mrow .dot{width:8px;height:8px;border-radius:999px;background:var(--grad);flex:none;}
+.mrow .lbl{flex:1;color:var(--ink-soft);font-size:14px;}
+.mrow .val{font-family:var(--serif);font-size:15px;}
+
+/* begin button */
+.begin{height:56px;border:none;border-radius:14px;background:var(--grad);color:#0f0a17;
+  font-family:inherit;font-weight:700;font-size:16px;width:100%;letter-spacing:.01em;
+  box-shadow:0 12px 30px -14px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05) inset;
+  transition:transform .16s var(--ease),filter .2s var(--ease);}
+.begin:active{transform:scale(.99);filter:brightness(.97);}
+.begin small{display:block;font-weight:500;font-size:11px;opacity:.7;letter-spacing:.02em;}
+
+/* glass nav */
+.nav{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:9;
+  max-width:696px;margin:0 auto;display:flex;justify-content:space-around;
+  padding:10px 8px;border-radius:22px;border:1px solid var(--hair);
+  background:color-mix(in srgb,var(--surface) 82%,transparent);
+  backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);
+  box-shadow:0 2px 8px rgba(0,0,0,.4),0 24px 56px -22px rgba(0,0,0,.7);}
+.nav a{color:var(--ink-faint);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;}
+.nav a.on{color:var(--a);}
+.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;}
+.nav .pill{padding:5px 14px;border-radius:999px;}
+.nav a.on .pill{background:color-mix(in srgb,var(--a) 16%,transparent);}

@@ -22,11 +22,14 @@
   </div>
 
   <header class="topbar">
-    <div>
-      <h1>Calculus Mastery</h1>
-      <div class="subtitle" id="header-subtitle">Calc 1 &amp; 2 · Adams &amp; Essex</div>
+    <div class="brand-wrap">
+      <div class="brand-mark" id="brand-mark"></div>
+      <div>
+        <h1>Calculus Mastery</h1>
+        <div class="subtitle" id="header-subtitle">Calc 1 &amp; 2 · exam prep</div>
+      </div>
     </div>
-    <button id="theme-toggle" class="btn-secondary" style="width:auto;padding:8px 12px;">◐</button>
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
   </header>
 
   <main id="app">
@@ -34,25 +37,40 @@
   </main>
 
   <nav class="tabbar">
-    <a href="#/home" data-route="home"><span class="icon">🏠</span>Home</a>
-    <a href="#/concepts" data-route="concepts"><span class="icon">📖</span>Concepts</a>
-    <a href="#/drill" data-route="drill"><span class="icon">🎯</span>Recognize</a>
-    <a href="#/exam" data-route="exam"><span class="icon">📝</span>Exam</a>
-    <a href="#/more" data-route="more"><span class="icon">⋯</span>More</a>
+    <a href="#/home" data-route="home"><span class="tab-ico" data-ico="home"></span>Home</a>
+    <a href="#/concepts" data-route="concepts"><span class="tab-ico" data-ico="concepts"></span>Concepts</a>
+    <a href="#/drill" data-route="drill"><span class="tab-ico" data-ico="recognize"></span>Recognize</a>
+    <a href="#/exam" data-route="exam"><span class="tab-ico" data-ico="exam"></span>Exam</a>
+    <a href="#/more" data-route="more"><span class="tab-ico" data-ico="more"></span>More</a>
   </nav>
 
   <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/three/three.min.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/geography.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/halls.js"></script>
+  <script src="js/mathhero.js"></script>
+  <script src="js/sculptures.js"></script>
+  <script src="js/companion.js"></script>
   <script src="js/mathrender.js"></script>
   <script src="js/mathkeyboard.js"></script>
   <script src="js/db.js"></script>
   <script src="js/srs.js"></script>
+  <script src="js/progress.js"></script>
   <script src="js/data-loader.js"></script>
   <script src="js/priority.js"></script>
+  <script src="js/observatory.js"></script>
   <script src="js/modes/home.js"></script>
   <script src="js/modes/recognition.js"></script>
+  <script src="js/modes/hall.js"></script>
+  <script src="js/modes/speed.js"></script>
+  <script src="js/modes/flashcards.js"></script>
   <script src="js/modes/formula.js"></script>
   <script src="js/modes/concepts.js"></script>
   <script src="js/modes/scratchpad.js"></script>
+  <script src="js/modes/notes.js"></script>
+  <script src="js/modes/memorize.js"></script>
   <script src="js/modes/exam.js"></script>
   <script src="js/modes/radar.js"></script>
   <script src="js/modes/errornotebook.js"></script>
