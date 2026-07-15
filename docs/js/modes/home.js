@@ -23,6 +23,31 @@ function terse(s, max = 34) {
   return (sp > max * 0.6 ? cut.slice(0, sp) : cut).trimEnd() + '…';
 }
 
+// The observatory reads its own state back to you — so opening the app feels
+// like entering a place that changed while you were gone, not a fresh render.
+function timeLight() {
+  const h = new Date().getHours();
+  if (h < 5) return 'The observatory keeps one lamp against the dark.';
+  if (h < 12) return 'Morning light reaches into the halls.';
+  if (h < 17) return 'Afternoon light lies long across the floor.';
+  if (h < 21) return 'The halls settle into evening.';
+  return 'The observatory holds its night-quiet.';
+}
+function observatoryLog(world) {
+  const lines = [{ t: timeLight() }];
+  const halls = Object.values(world.halls || {});
+  const settled = halls
+    .filter((h) => h.introduced && h.daysSinceVisit != null && h.daysSinceVisit >= 1 && (h.word === 'Settling' || h.word === 'Sound'))
+    .sort((a, b) => b.structuralIntegrity - a.structuralIntegrity)[0];
+  if (settled) lines.push({ t: `${Geography.placeName(settled.chapter)} has settled since you were away.` });
+  const weak = (world.integrity.inspect || [])[0];
+  if (weak) lines.push({ t: `One idea still stands unsettled — ${terse(weak, 30)}.`, dim: true });
+  const steady = (world.integrity.stabilized || [])[0];
+  if (steady && lines.length < 4) lines.push({ t: `Your last steadied idea: ${terse(steady, 30)}.`, dim: true });
+  if (lines.length === 1) lines.push({ t: 'The halls are newly restored, and quiet. Nothing has been disturbed yet.', dim: true });
+  return lines;
+}
+
 // Master (weakest) + Challenge (an exam-priority skill) for Today's Journey.
 async function journeyPicks() {
   const [microSkills, attempts] = await Promise.all([DB.getAll('microSkills'), DB.getAllAttempts()]);
@@ -54,16 +79,18 @@ window.HomeMode = {
     const days = examDays();
     const integ = world.integrity;
     const presence = world.presence;
-    if (window.World && World.available()) return this.renderArrival(root, { prog, due, picks, days, integ, presence });
-    return this.renderClassic(root, { prog, due, master: picks.master, days, integ, presence });
+    const log = observatoryLog(world);
+    if (window.World && World.available()) return this.renderArrival(root, { prog, due, picks, days, integ, presence, log });
+    return this.renderClassic(root, { prog, due, master: picks.master, days, integ, presence, log });
   },
 
   // The Arrival — you enter the observatory. DOM composites over the 3D world.
-  renderArrival(root, { prog, due, picks, days, integ, presence }) {
+  renderArrival(root, { prog, due, picks, days, integ, presence, log }) {
     const countdown = days != null
       ? `<button class="arr-exam" id="exam-set">${days} day${days === 1 ? '' : 's'} until your exam</button>`
       : `<button class="arr-exam" id="exam-set">Set your exam date</button>`;
-    const reviewWhat = due > 0 ? `${due} skill${due === 1 ? '' : 's'} to review` : 'You’re all caught up';
+    const last = localStorage.getItem('lastPlace') || '#/journey/2';
+    const contSub = due > 0 ? `${due} idea${due === 1 ? '' : 's'} waiting to be revisited` : `Structural integrity ${integ.pct}% · ${presence}`;
 
     root.innerHTML = `
       <div class="arrival" id="arrival">
@@ -73,12 +100,11 @@ window.HomeMode = {
         </div>
         <div class="arr-mid"></div>
         <div class="arr-journey">
-          <div class="kicker">Today’s journey</div>
-          <div class="arr-line"><span class="arr-role">Review</span><span class="arr-what">${escapeHtml(terse(reviewWhat, 30))}</span></div>
-          <div class="arr-line"><span class="arr-role">Master</span><span class="arr-what">${escapeHtml(terse(picks.master, 30))}</span></div>
-          <div class="arr-line"><span class="arr-role">Challenge</span><span class="arr-what">${escapeHtml(terse(picks.challenge, 30))}</span></div>
-          <a class="arr-continue" id="arr-continue" href="#/hall">Continue<span class="arr-cont-sub">Structural integrity ${integ.pct}% · ${presence}</span></a>
-          <a class="arr-more" href="#/more">More ways to study</a>
+          <div class="arr-log">
+            ${log.map((l) => `<div class="arr-log-line${l.dim ? ' dim' : ''}">${escapeHtml(l.t)}</div>`).join('')}
+          </div>
+          <a class="arr-continue" id="arr-continue" href="${last}">Continue where you stopped<span class="arr-cont-sub">${escapeHtml(contSub)}</span></a>
+          <a class="arr-more" href="#/journey">Walk a chapter from the start</a>
         </div>
       </div>
     `;
@@ -103,36 +129,28 @@ window.HomeMode = {
   },
 
   // Classic 2D home — fallback when WebGL/THREE is unavailable.
-  renderClassic(root, { prog, due, master, days, integ, presence }) {
+  renderClassic(root, { prog, due, master, days, integ, presence, log }) {
+    const last = localStorage.getItem('lastPlace') || '#/journey/2';
     root.innerHTML = `
       <div class="hm">
       <div class="hm-hero">
-        <div class="kicker">Today</div>
+        <div class="kicker">The observatory</div>
         <div class="display hm-greet">${greeting()}</div>
       </div>
 
       <div class="hm-sculpt"><div class="hm-canvas" id="math-hero"></div><div class="hm-vignette"></div></div>
 
-      <div class="kicker" style="margin:6px 2px 2px;">Today's mission</div>
-      <div class="hm-mission">
-        <a class="hm-row" href="#/drill">
-          <span class="hm-dot"></span><span class="hm-lbl">Review due skills</span><span class="hm-val">${due}</span>
-        </a>
-        <a class="hm-row" href="#/drill">
-          <span class="hm-dot"></span><span class="hm-lbl">Master</span><span class="hm-val" title="${escapeHtml(master)}">${escapeHtml(terse(master))}</span>
-        </a>
-        <button class="hm-row" id="exam-row">
-          <span class="hm-dot"></span><span class="hm-lbl">Exam in</span><span class="hm-val">${days != null ? `${days} day${days === 1 ? '' : 's'}` : 'Set date'}</span>
-        </button>
+      <div class="arr-log hm-log">
+        ${(log || []).map((l) => `<div class="arr-log-line${l.dim ? ' dim' : ''}">${escapeHtml(l.t)}</div>`).join('')}
       </div>
 
       <div style="flex:1;min-height:12px;"></div>
 
-      <a class="begin" href="#/drill">Begin<small>${due > 0 ? `${due} due · ~${Math.max(3, Math.round(due * 0.8))} min` : 'A fresh set · ~10 min'}</small></a>
+      <a class="begin" href="${last}">Continue where you stopped<small>${due > 0 ? `${due} idea${due === 1 ? '' : 's'} waiting · ~${Math.max(3, Math.round(due * 0.8))} min` : `Structural integrity ${integ.pct}%`}</small></a>
       <div class="hm-foot">
-        <span>Structural integrity ${integ.pct}%</span><span class="hm-sep">·</span>
+        <button class="hm-foot-btn" id="exam-row">${days != null ? `${days} day${days === 1 ? '' : 's'} until your exam` : 'Set your exam date'}</button><span class="hm-sep">·</span>
         <span>${presence}</span><span class="hm-sep">·</span>
-        <a href="#/more" style="color:inherit;">More ways to study</a>
+        <a href="#/journey" style="color:inherit;">Walk a chapter</a>
       </div>
       </div>
     `;

@@ -3,6 +3,7 @@ const tabbarLinks = document.querySelectorAll('nav.tabbar a');
 
 const routes = {
   home: () => window.HomeMode.render(appRoot),
+  journey: (sub) => window.JourneyMode.render(appRoot, sub),
   drill: () => window.RecognitionMode.render(appRoot),
   hall: () => window.HallMode.render(appRoot),
   speed: () => window.SpeedMode.render(appRoot),
@@ -22,10 +23,14 @@ const routes = {
 // which routes light up which tab
 const HOME_ROUTES = ['home', 'speed', 'flashcards', 'memorize'];
 const MORE_ROUTES = ['formula', 'scratchpad', 'notes', 'radar', 'errors', 'settings', 'more'];
+// The Journey is where understanding is born; Concepts is now its reference,
+// so both live under the Journey tab.
+const JOURNEY_ROUTES = ['journey', 'concepts'];
 
 function setActiveTab(name) {
   let tab = name;
   if (MORE_ROUTES.includes(name)) tab = 'more';
+  else if (JOURNEY_ROUTES.includes(name)) tab = 'journey';
   else if (HOME_ROUTES.includes(name)) tab = 'home';
   else if (name === 'hall') tab = 'drill';
   tabbarLinks.forEach((a) => {
@@ -43,10 +48,15 @@ async function router() {
   if (window.__mathHero) { window.__mathHero.destroy(); window.__mathHero = null; }
   if (window.__sculpture) { window.__sculpture.destroy(); window.__sculpture = null; }
   if (window.__ferret) { window.__ferret.destroy(); window.__ferret = null; }
+  if (window.__journeyFigs) { window.__journeyFigs.forEach((f) => { try { f && f.destroy(); } catch (e) {} }); window.__journeyFigs = null; }
   if (window.__world && name !== 'home' && name !== 'hall') { window.__world.destroy(); window.__world = null; }
   appRoot.innerHTML = '';   // handlers paint immediately; no spinner
   try {
     await handler(sub);
+    // remember where the learner was, so Home can offer to resume it honestly
+    if (!['home', 'journey'].includes(name) || parts.length > 1) {
+      localStorage.setItem('lastPlace', location.hash);
+    }
     // retrigger route entrance animation
     appRoot.classList.remove('route-anim');
     void appRoot.offsetWidth;

@@ -193,12 +193,14 @@
     // sqrt(...) -> \sqrt{...} (recurse into the argument)
     t = replaceBalanced(t, 'sqrt', (arg) => '\\sqrt{' + toLatex(arg) + '}');
 
-    // upright function names
+    // upright function names — boundary must count "_", digits and "(" as
+    // delimiters (so "lim_(h->0)" and "max{...}" convert), and must not fire
+    // after a backslash (so an existing command isn't doubled).
     OPNAMES.forEach((fn) => {
-      t = t.replace(new RegExp('\\b' + fn + '\\b', 'g'), '\\operatorname{' + fn + '}');
+      t = t.replace(new RegExp('(^|[^A-Za-z\\\\])' + fn + '(?![A-Za-z])', 'g'), '$1\\operatorname{' + fn + '}');
     });
     FUNCS.forEach((fn) => {
-      t = t.replace(new RegExp('\\b' + fn + '\\b', 'g'), '\\' + fn + ' ');
+      t = t.replace(new RegExp('(^|[^A-Za-z\\\\])' + fn + '(?![A-Za-z])', 'g'), '$1\\' + fn + ' ');
     });
 
     // superscripts: ^(...) grabs the whole parenthesized exponent; a bare ^ grabs

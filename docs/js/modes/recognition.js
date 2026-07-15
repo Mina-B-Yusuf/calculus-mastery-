@@ -25,14 +25,53 @@ async function buildRecognitionSession(limit = 15) {
   }));
 }
 
-function pickDistractors(pool, correctMicroSkillId, correctLabel, n) {
-  const labels = new Set([correctLabel]);
-  const candidates = shuffle(pool.filter((m) => m.id !== correctMicroSkillId && m.microSkill !== correctLabel));
-  for (const m of candidates) {
-    if (labels.size >= n + 1) break;
-    labels.add(m.microSkill);
-  }
-  return shuffle([...labels]);
+// Distractors must be plausible near-misses, not absurd cross-topic options: a
+// student who half-knows the material should feel the pull of each wrong choice.
+// Two sources, in order of pedagogical value:
+//   1. the techniques THIS archetype is commonly confused with (merged_topics),
+//      mapped onto real skill labels so every option reads consistently;
+//   2. the nearest taxonomic neighbours — same subtopic, then topic, then
+//      chapter — because confusion lives between adjacent ideas.
+function pickDistractors(microSkills, correctMs, archetype, n) {
+  const correctLabel = correctMs.microSkill;
+  const chosen = [];
+  const used = new Set([correctLabel.trim().toLowerCase()]);
+  const add = (label) => {
+    const key = String(label || '').trim().toLowerCase();
+    if (!key || used.has(key)) return;
+    used.add(key);
+    chosen.push(label);
+  };
+
+  // 1) Commonly-confused techniques for this specific archetype.
+  shuffle(archetype.mergedTopics || []).forEach((mt) => {
+    if (chosen.length >= n) return;
+    const q = String(mt).trim().toLowerCase();
+    if (!q) return;
+    const match = microSkills.find((m) => {
+      const label = m.microSkill.toLowerCase();
+      return m.id !== correctMs.id && (label.includes(q) || q.includes(label));
+    });
+    if (match) add(match.microSkill);
+  });
+
+  // 2) Nearest taxonomic neighbours within the same course, ranked by closeness.
+  const scored = microSkills
+    .filter((m) => m.course === correctMs.course && m.id !== correctMs.id)
+    .map((m) => {
+      let score = 0;
+      if (String(m.chapter) === String(correctMs.chapter)) score += 2;
+      if (m.topic && m.topic === correctMs.topic) score += 3;
+      if (m.subtopic && m.subtopic === correctMs.subtopic) score += 4;
+      return { m, score };
+    });
+  const tiers = {};
+  scored.forEach((r) => (tiers[r.score] = tiers[r.score] || []).push(r.m));
+  Object.keys(tiers).sort((a, b) => b - a).forEach((score) => {
+    shuffle(tiers[score]).forEach((m) => { if (chosen.length < n) add(m.microSkill); });
+  });
+
+  return shuffle([correctLabel, ...chosen.slice(0, n)]);
 }
 
 window.RecognitionMode = {
@@ -52,8 +91,7 @@ window.RecognitionMode = {
 
     const renderQuestion = () => {
       const { archetype, microSkill } = session[idx];
-      const sameCourse = microSkills.filter((m) => m.course === microSkill.course);
-      const choices = pickDistractors(sameCourse, microSkill.id, microSkill.microSkill, 3);
+      const choices = pickDistractors(microSkills, microSkill, archetype, 3);
 
       root.innerHTML = `
         <div class="rc">

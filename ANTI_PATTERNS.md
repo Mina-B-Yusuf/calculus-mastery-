@@ -42,6 +42,42 @@ observatory, a cathedral, a museum, a research library, a conservatory.** Not
 interfaces — *institutions.* Nobody believes an old university was designed
 yesterday; it feels *discovered.* Build for that feeling.
 
+## The Design Review Board
+
+Foundational decisions are over; what remains are product decisions. Every new
+feature must survive **five reviews** before a line of code is written. Fail any
+one, and it does not ship.
+
+1. **Mathematical** — *Is it mathematically honest?* (Does The Vessel truly
+   represent accumulation? Is the metaphor sound? Are we teaching intuition, or a
+   misconception?) — not "does it look cool?"
+2. **Learning** — *Does it make learning easier?* (retrieval, transfer, fewer
+   careless mistakes, help under exam pressure) — not "is it engaging?"
+3. **Architectural** — *Does it belong? Is it inevitable? Could another
+   observatory exist without it?* If it could, don't build it.
+4. **Technical** — *Will it survive three years?* (Does it violate the
+   simulation architecture? Duplicate state? Hurt offline reliability? Add
+   maintenance weight?) — not "can I code it?"
+5. **Emotional** — *What should the learner feel?* If you cannot answer in **one
+   sentence**, the feature is not ready.
+
+## The forbidden sentence
+
+If anyone ever says **"it would be cool if…"** — stop, immediately. Replace it
+with **"the observatory needs…"**. That one shift changes the motivation from
+decoration to necessity.
+
+## The ten-minute test
+
+Before shipping anything that claims to be *a place*: close every tool, open the
+app, and sit in the observatory for ten minutes doing nothing. Ask — *would I
+stay here if there were no calculus questions?* If yes, it is a place. If no, it
+is software with beautiful assets. Those are different achievements.
+
+The only outcome that judges success: a student who, seeing an integration
+problem in an exam, thinks *"I remember The Vessel"* — and chooses the right
+approach because of it.
+
 ---
 
 *Read alongside [`CANON.md`](CANON.md). When the Canon says what the world is,

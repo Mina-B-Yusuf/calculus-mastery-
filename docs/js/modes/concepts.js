@@ -15,6 +15,28 @@ async function ensureData() {
 function chapterKey(ms) { return `${ms.course}|${ms.chapter}|${ms.chapterTitle}`; }
 const TOPIC_HUES = ['var(--thm)', 'var(--fml)', 'var(--def)', 'var(--ex)', 'var(--gist)', 'var(--trap)', 'var(--brand)'];
 
+// Publication rule: a pure expression becomes its own centred display equation
+// (it dominates); mixed prose+maths is typeset inline. No maths is ever left as
+// plain text. Heuristic: a string with ≤2 long English words is an equation.
+function isEquation(s) {
+  const words = (String(s).match(/[A-Za-z]{4,}/g) || [])
+    .filter((w) => !/^(sqrt|arcsin|arccos|arctan|sinh|cosh|tanh|frac|infty|lim|max|min|sec|csc|cot|log|exp|Delta|delta|theta|alpha|beta|gamma|lambda|sigma|omega|epsilon|pi)$/i.test(w));
+  return String(s).length > 0 && words.length <= 2;
+}
+function eqOrProse(s) {
+  return isEquation(s) ? MathRender.block(s) : `<p class="mono-p">${MathRender.inline(s)}</p>`;
+}
+// A worked-example prompt usually opens with an imperative ("Differentiate
+// y = …"). Keep the instruction as upright prose and promote the expression to
+// its own display equation, so the verb never gets italicised into the maths.
+function renderPrompt(s) {
+  const m = String(s).match(/^\s*(Differentiate|Integrate|Evaluate|Compute|Calculate|Find|Determine|Solve|Simplify|Sketch|Express|Verify|Show(?: that)?|Prove|State)\b[:.]?\s+(.*)$/i);
+  if (m && m[2] && /[=^_/\\]|\\frac|\bx\b/.test(m[2])) {
+    return `<p class="mono-p mono-prompt">${escapeHtml(m[1])}</p>${MathRender.block(m[2])}`;
+  }
+  return eqOrProse(s);
+}
+
 window.ConceptsMode = {
   async render(root, sub) {
     await ensureData();
@@ -121,62 +143,68 @@ window.ConceptsMode = {
     const worked = arch[0];
     const cues = [...new Set(arch.map((a) => a.recognitionCue).filter(Boolean))];
 
-    const callout = (variant, icon, label, chip, inner) => `
-      <div class="callout ${variant} tint">
-        <div class="callout-head"><span class="callout-icon">${Icon(icon)}</span>${label}${chip ? `<span class="chip">${escapeHtml(chip)}</span>` : ''}</div>
-        <div class="callout-body">${inner}</div>
-      </div>`;
+    // A monograph, not a stack of equal cards: a titled section with its own
+    // accent, the equations dominating as centred display objects.
+    const sec = (label, cls, inner) => inner
+      ? `<section class="mono-sec"><h3 class="mono-h ${cls}">${escapeHtml(label)}</h3>${inner}</section>` : '';
 
     let html = `
-      <a class="crumb" href="#/concepts/ch/${encodeURIComponent(chapterKey(ms))}">${Icon('back')} ${escapeHtml(ms.chapterTitle)}</a>
+      <a class="crumb" href="#/concepts/ch/${encodeURIComponent(chapterKey(ms))}">${Icon('back')} ${escapeHtml(Geography.placeName(ms.chapter))}</a>
       <div class="editorial">
         <div class="ghost-word">${escapeHtml(ms.section)}</div>
         <div class="fg">
           <div class="kicker">${escapeHtml(ms.topic || '')}${ms.subtopic ? ' · ' + escapeHtml(ms.subtopic) : ''}</div>
           <div class="display">${escapeHtml(ms.microSkill)}</div>
+          ${cues.length ? `<p class="lede mono-lede">${MathRender.inline(cues[0])}</p>` : ''}
         </div>
       </div>`;
 
-    if (cues.length) html += callout('gist', 'gist', 'The gist', '', `<p style="margin:0;">${MathRender.inline(cues[0])}</p>`);
-
+    // Definition — the equation is the hero
     if ((ms.definitions || []).length) {
-      const inner = `<ul>${ms.definitions.map((d) => `<li>${MathRender.inline(d)}</li>`).join('')}</ul>`;
-      html += callout('def', 'definition', 'Definition', '', inner);
+      html += sec('Definition', 'def', ms.definitions.map(eqOrProse).join(''));
     }
 
+    // Theorem(s)
     if ((ms.theorems || []).length) {
       const inner = ms.theorems.map((t) => `
-        <div class="theorem-item">
-          <span class="thm-name">${escapeHtml(t.name || 'Theorem')}.</span> ${MathRender.inline(t.statement || '')}
-          ${(t.conditions && t.conditions.length) ? `<div class="thm-cond">Requires: ${t.conditions.map((c) => MathRender.inline(c)).join('; ')}</div>` : ''}
-        </div>`).join('');
-      html += callout('thm', 'theorem', 'Theorems', '', inner);
+        ${t.name ? `<div class="mono-thm-name">${escapeHtml(t.name)}</div>` : ''}
+        ${eqOrProse(t.statement || '')}
+        ${(t.conditions && t.conditions.length) ? `<p class="mono-cond">Provided ${t.conditions.map((c) => MathRender.inline(c)).join(', ')}.</p>` : ''}
+      `).join('<div class="mono-rule"></div>');
+      html += sec(ms.theorems.length > 1 ? 'Theorems' : 'Theorem', 'thm', inner);
     }
 
+    // Key formulas
     if ((ms.formulas || []).length) {
-      const inner = ms.formulas.map((f) => `<div class="example-block" style="font-size:1em;margin:8px 0;">${MathRender.inline(f)}</div>`).join('');
-      html += callout('fml', 'formula', 'Key formulas', '', inner);
+      html += sec('Key formulas', 'fml', ms.formulas.map(eqOrProse).join(''));
     }
 
-    if (worked) {
-      const inner = `
-        <div class="example-block">${MathRender.inline(worked.example || worked.promptTemplate || '')}</div>
-        ${(worked.methodPlan || []).length ? `<ol class="method-plan">${worked.methodPlan.map((s) => `<li>${MathRender.inline(s)}</li>`).join('')}</ol>` : ''}
-        ${worked.answer ? `<p class="small" style="margin:6px 0 0;"><strong>Answer:</strong> ${MathRender.inline(worked.answer)}</p>` : ''}`;
-      html += callout('ex', 'example', 'Worked example', worked.difficulty || '', inner);
+    // How to recognise it (remaining cues beyond the lede)
+    const moreCues = cues.slice(1);
+    if (moreCues.length) {
+      html += sec('How to recognise it', 'cue', `<ul class="mono-list">${moreCues.map((c) => `<li>${MathRender.inline(c)}</li>`).join('')}</ul>`);
     }
 
+    // Common mistakes
     const traps = []; const seen = new Set();
     arch.forEach((a) => (a.commonErrors || []).forEach((e) => {
       const k = (e.description || '').slice(0, 60);
       if (e.description && !seen.has(k)) { seen.add(k); traps.push(e); }
     }));
     if (traps.length) {
-      const inner = `<ul>${traps.slice(0, 6).map((e) => `<li><span class="pill" style="color:var(--trap);background:color-mix(in srgb,var(--trap) 14%,transparent);">${escapeHtml(e.type || '')}</span> ${MathRender.inline(e.description || '')}</li>`).join('')}</ul>`;
-      html += callout('trap', 'trap', 'Common traps', '', inner);
+      html += sec('Common mistakes', 'trap', `<ul class="mono-list mono-traps">${traps.slice(0, 6).map((e) => `<li><span class="mono-tag">${escapeHtml(e.type || '')}</span> ${MathRender.inline(e.description || '')}</li>`).join('')}</ul>`);
     }
 
-    html += `<a class="btn btn-primary" href="#/drill" style="margin-top:4px;">${Icon('drill')} Drill this</a>`;
+    // Worked example — statement, method, answer
+    if (worked) {
+      const inner = `
+        ${renderPrompt(worked.example || worked.promptTemplate || '')}
+        ${(worked.methodPlan || []).length ? `<ol class="mono-steps">${worked.methodPlan.map((s) => `<li>${MathRender.inline(s)}</li>`).join('')}</ol>` : ''}
+        ${worked.answer ? `<div class="mono-answer"><span class="mono-answer-lbl">Answer</span>${eqOrProse(worked.answer)}</div>` : ''}`;
+      html += sec('Worked example', 'ex', inner);
+    }
+
+    html += `<a class="rc-go" href="#/hall" style="margin-top:26px;">${Icon('drill')}&nbsp; Study this in the hall</a>`;
     root.innerHTML = html;
   },
 };

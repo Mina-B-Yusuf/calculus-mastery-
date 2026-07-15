@@ -1,0 +1,6 @@
+{
+  "note": "Authored guided journeys — the narrative path through a chapter. Each chapter that has no file here is walkable only as reference (Concepts).",
+  "journeys": [
+    { "chapter": "2", "file": "02-differentiation.json" }
+  ]
+}

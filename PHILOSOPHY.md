@@ -51,6 +51,69 @@ An element that satisfies only one or two is **redesigned or removed**. No excep
 
 ---
 
+## Two modes of understanding
+
+Learning is not one activity. Computers organise information as *concept →
+memorise → recognise → practise*; humans build understanding differently, and
+the observatory must respect the human order, not the machine's.
+
+There are two distinct modes, and conflating them was the app's deepest flaw:
+
+- **The Journey — where understanding is *born*.** Linear, narrative, visual.
+  A chapter is not a list of definitions; it is **one idea coming into focus.**
+  Each chapter is walked as a single red thread — *arrival → question →
+  intuition → picture → experiment → pattern → definition → formula → example →
+  connection → summary* — the way a lecture teaches, ending in the one sentence
+  the whole hall exists to defend. This is the curator, not the manual.
+- **Everything else *preserves* it.** Concepts is the **reference manual** —
+  used after the lecture, never as the lecture. Recognise is pattern retrieval,
+  Memorise is retention, Exam is application. None of them may carry the burden
+  of first teaching; that burden belongs to the Journey alone.
+
+Like a university: you learn from lectures, then keep the textbook on the shelf.
+A definition index does not shape how someone thinks — **a carefully sequenced
+journey through an idea does.** This is the most direct expression of the Canon:
+*the observatory exists to shape the learner's way of thinking, not merely their
+way of studying.* A chapter that leaves the learner asking "why did I just learn
+all of that?" has failed at **sequencing**, not content. Every chapter owes a
+**red thread**: why the idea exists, the problem it answers, the intuition, the
+picture, the formal definition, the techniques, and how it leads into the next
+hall.
+
+A journey is **authored content**, never computed — it lives in `data/journeys/`
+and is rendered by a client that reuses the observatory's own visuals and
+invents no state, exactly like every other renderer.
+
+### The Journey's craft (prove one before writing ten)
+
+A second journey may not be written until the first is the best digital lesson
+we can make. Coverage is not the bottleneck; **craft is.** Once the teaching
+language is right, the remaining halls are almost mechanical — so the whole
+project's leverage sits in perfecting one.
+
+- **Discovery before the name.** The learner *moves something and notices* before
+  any word is offered. The secant is dragged into a tangent, and the slope is
+  felt to settle, *before* "limit" or "derivative" ever appears. Museums guide
+  attention; they do not narrate the exhibit before you have seen it.
+- **The rhythm breathes; the definition is not first.** Question → Play →
+  Confusion → Observation → Prediction → Failure → Insight → **Definition
+  (past the midpoint)** → Proof → Application → Reflection. The symbol is only
+  worth writing once the idea is already in the learner's hands.
+- **Figures are instruments, not illustrations.** Every picture is *mathematical*
+  and *interactive* — a thing the learner drives and the mathematics answers.
+  Two honest dimensions beat a decorative 3D scene. Productive failure earns its
+  own figure: the corner where the derivative does not exist.
+- **Equations are read like an art book.** Centred, framed by air, plated, never
+  left as inline HTML. No mathematics appears as plain text if KaTeX can set it.
+- **End in reflection, not drilling.** Before practice, the learner explains the
+  idea back in their own words and is asked what surprised them. Retrieval and
+  self-explanation consolidate understanding; the answers are kept only for the
+  learner, to exam night.
+
+The bar: *could a first-year student genuinely prefer this to a good lecture on
+the same idea?* Until the answer is yes, do not scale — a second journey only
+multiplies whatever is still missing in the first.
+
 ## The simulation (world → screens)
 
 The app is not a set of screens. It is a **simulation** whose current state
