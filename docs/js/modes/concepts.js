@@ -51,7 +51,7 @@ window.ConceptsMode = {
     });
     const entries = Object.entries(byChapter).sort((a, b) =>
       (a[1].ms.course || '').localeCompare(b[1].ms.course || '') ||
-      String(a[1].ms.chapter).localeCompare(String(b[1].ms.chapter), undefined, { numeric: true }));
+      Geography.chapterOrder(a[1].ms.chapter) - Geography.chapterOrder(b[1].ms.chapter));
     const groups = {};
     entries.forEach(([k, v]) => {
       const place = Geography.placeName(v.ms.chapter);
@@ -140,8 +140,6 @@ window.ConceptsMode = {
     const ms = CS_SKILLS.find((s) => s.id === id);
     if (!ms) { root.innerHTML = '<div class="card">Not found. <a href="#/concepts">Back</a></div>'; return; }
     const arch = (CS_ARCH[id] || []);
-    const worked = arch[0];
-    const cues = [...new Set(arch.map((a) => a.recognitionCue).filter(Boolean))];
 
     // A monograph, not a stack of equal cards: a titled section with its own
     // accent, the equations dominating as centred display objects.
@@ -155,7 +153,6 @@ window.ConceptsMode = {
         <div class="fg">
           <div class="kicker">${escapeHtml(ms.topic || '')}${ms.subtopic ? ' · ' + escapeHtml(ms.subtopic) : ''}</div>
           <div class="display">${escapeHtml(ms.microSkill)}</div>
-          ${cues.length ? `<p class="lede mono-lede">${MathRender.inline(cues[0])}</p>` : ''}
         </div>
       </div>`;
 
@@ -179,12 +176,6 @@ window.ConceptsMode = {
       html += sec('Key formulas', 'fml', ms.formulas.map(eqOrProse).join(''));
     }
 
-    // How to recognise it (remaining cues beyond the lede)
-    const moreCues = cues.slice(1);
-    if (moreCues.length) {
-      html += sec('How to recognise it', 'cue', `<ul class="mono-list">${moreCues.map((c) => `<li>${MathRender.inline(c)}</li>`).join('')}</ul>`);
-    }
-
     // Common mistakes
     const traps = []; const seen = new Set();
     arch.forEach((a) => (a.commonErrors || []).forEach((e) => {
@@ -195,16 +186,26 @@ window.ConceptsMode = {
       html += sec('Common mistakes', 'trap', `<ul class="mono-list mono-traps">${traps.slice(0, 6).map((e) => `<li><span class="mono-tag">${escapeHtml(e.type || '')}</span> ${MathRender.inline(e.description || '')}</li>`).join('')}</ul>`);
     }
 
-    // Worked example — statement, method, answer
-    if (worked) {
-      const inner = `
-        ${renderPrompt(worked.example || worked.promptTemplate || '')}
-        ${(worked.methodPlan || []).length ? `<ol class="mono-steps">${worked.methodPlan.map((s) => `<li>${MathRender.inline(s)}</li>`).join('')}</ol>` : ''}
-        ${worked.answer ? `<div class="mono-answer"><span class="mono-answer-lbl">Answer</span>${eqOrProse(worked.answer)}</div>` : ''}`;
-      html += sec('Worked example', 'ex', inner);
+    // Worked examples — ALL of them, easiest first (F18: the data holds a
+    // median of three per skill and the page was showing one). Fluency comes
+    // from seeing the pattern several times, with its recognition cue attached
+    // to the example it belongs to (F21).
+    if (arch.length) {
+      const ord = { easy: 0, medium: 1, hard: 2 };
+      const sorted = arch.slice().sort((a, b) => (ord[a.difficulty] ?? 1) - (ord[b.difficulty] ?? 1));
+      const inner = sorted.map((a, k) => `
+        <div class="mono-ex-head"><span class="mono-ex-n">Example ${k + 1}</span>${a.difficulty ? `<span class="mono-diff ${escapeHtml(a.difficulty)}">${escapeHtml(a.difficulty)}</span>` : ''}</div>
+        ${renderPrompt(a.example || a.promptTemplate || '')}
+        ${a.recognitionCue ? `<p class="mono-cond"><em>Spot it:</em> ${MathRender.inline(a.recognitionCue)}</p>` : ''}
+        ${(a.methodPlan || []).length ? `<ol class="mono-steps">${a.methodPlan.map((s) => `<li>${MathRender.inline(s)}</li>`).join('')}</ol>` : ''}
+        ${a.answer ? `<div class="mono-answer"><span class="mono-answer-lbl">Answer</span>${eqOrProse(a.answer)}</div>` : ''}
+      `).join('<div class="mono-rule"></div>');
+      html += sec(sorted.length > 1 ? `Worked examples` : 'Worked example', 'ex', inner);
     }
 
-    html += `<a class="rc-go" href="#/hall" style="margin-top:26px;">${Icon('drill')}&nbsp; Study this in the hall</a>`;
+    // Exit to this skill's own section practice (F29 — the old link led to
+    // the Vessel regardless of chapter).
+    html += `<a class="rc-go" href="#/drill/s/${encodeURIComponent(String(ms.chapter))}/${encodeURIComponent(String(ms.section))}" style="margin-top:26px;">${Icon('drill')}&nbsp; Practice this section</a>`;
     root.innerHTML = html;
   },
 };

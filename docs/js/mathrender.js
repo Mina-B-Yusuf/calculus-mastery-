@@ -260,20 +260,45 @@
     return false;
   }
 
+  // Net bracket opening of a token — used to keep a math run alive while any
+  // bracket it opened is still unclosed.
+  function bracketDelta(tok) {
+    let d = 0;
+    for (const ch of tok) {
+      if (ch === '(' || ch === '[' || ch === '{') d++;
+      else if (ch === ')' || ch === ']' || ch === '}') d--;
+    }
+    return d;
+  }
+
   // Render mixed prose+math: typeset only the math runs.
   function inline(str) {
     if (str === undefined || str === null) return '';
     const tokens = greekify(opsify(String(str))).split(/(\s+)/); // normalize operators/greek, keep whitespace
     let out = '';
     let run = [];
+    let runDepth = 0;   // unclosed brackets opened inside the current run
     const flush = () => {
       if (!run.length) return;
       let s = run.join('');
       run = [];
+      // Safety net: if the bracket-glue swallowed a prose parenthetical
+      // ("(even numbers stay even)"), emit it as TEXT — math mode deletes the
+      // spaces between letters and would render it unreadable. Three or more
+      // real words (function names don't count) means it was prose all along.
+      const proseProbe = s.replace(new RegExp('\\b(' + FUNCS.concat(OPNAMES).join('|') + ')\\b', 'gi'), ' ');
+      if ((proseProbe.match(/\b[A-Za-z]{3,}\b/g) || []).length >= 3) {
+        out += escapeText(s);
+        return;
+      }
       // peel trailing whitespace so the gap before following prose survives
       let tail = '';
       const tw = s.match(/\s+$/);
       if (tw) { tail = tw[0]; s = s.slice(0, -tail.length); }
+      // peel trailing operator glue — an operator followed by prose belonged
+      // to the prose ("f(x) - a polynomial"), not to the mathematics
+      const gm = s.match(/(?:\s*[-+·×\/]\s*)+$/);
+      if (gm) { tail = gm[0] + tail; s = s.slice(0, s.length - gm[0].length); }
       // peel trailing sentence punctuation / wrapping quotes (keep closing parens — they're math)
       let punct = '';
       const pm = s.match(/[.,;:?'"]+$/);
@@ -291,10 +316,30 @@
         if (run.length) run.push(tok); else out += tok;
         continue;
       }
-      if (wordIsMath(tok)) {
+      // A math run must NEVER sever while a bracket it opened is unclosed —
+      // severing there was the P0 trust bug (F91): "(1 - cos(x^2))/(x(...))"
+      // split at the spaced minus and the fragments rendered as garbled
+      // fractions. While a run is active, bare operators, digits and single
+      // letters are glue ("x sin x - x^2"), not prose.
+      const glue = run.length > 0 && (
+        runDepth > 0
+        || /^[-+·×\/]$/.test(tok)
+        || /^\d+(\.\d+)?$/.test(tok)
+        || /^[A-Za-z]$/.test(tok)
+      );
+      // A token that OPENS a bracket around maths ("(1", "(e^(x^2/2)") begins a
+      // run even though its bare inner isn't a math word — but never for prose
+      // parentheticals ("(a well-known fact)"): the inner must be a number,
+      // empty, or itself pass the math test.
+      const innerCore = tok.replace(/^[(\[{]+/, '').replace(/[)\]}.,;:]+$/, '');
+      const opener = bracketDelta(tok) > 0
+        && (innerCore === '' || /^\d+(\.\d+)?$/.test(innerCore) || wordIsMath(innerCore));
+      if (wordIsMath(tok) || glue || opener) {
         run.push(tok);
+        runDepth = Math.max(0, runDepth + bracketDelta(tok));
       } else {
         flush();
+        runDepth = 0;
         out += escapeText(tok);
       }
     }

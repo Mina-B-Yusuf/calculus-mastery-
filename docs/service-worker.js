@@ -1,7 +1,7 @@
 // Versioned, offline-first service worker.
 // Bump CACHE_VERSION whenever shipped files change so clients pick up updates
 // via the "update available" flow instead of silently going stale.
-const CACHE_VERSION = 'v29';
+const CACHE_VERSION = 'v36';
 const SHELL_CACHE = `calc-mastery-shell-${CACHE_VERSION}`;
 const DATA_CACHE = `calc-mastery-data-${CACHE_VERSION}`;
 

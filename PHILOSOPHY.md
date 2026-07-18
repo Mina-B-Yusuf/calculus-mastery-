@@ -105,14 +105,117 @@ project's leverage sits in perfecting one.
   own figure: the corner where the derivative does not exist.
 - **Equations are read like an art book.** Centred, framed by air, plated, never
   left as inline HTML. No mathematics appears as plain text if KaTeX can set it.
-- **End in reflection, not drilling.** Before practice, the learner explains the
-  idea back in their own words and is asked what surprised them. Retrieval and
-  self-explanation consolidate understanding; the answers are kept only for the
-  learner, to exam night.
+- **Predict before you teach.** The single highest-value moment: stop the learner
+  mid-play and make them *commit* to what happens next — *does the slope settle,
+  or change forever?* — before anything is revealed. Prediction is where
+  understanding begins; a reveal that follows a guess lands, a reveal that
+  follows nothing washes over.
+- **Let them invent the rule before you show it.** After the discovery, ask the
+  learner to write the rule themselves, and let them struggle — even fail. Then
+  Newton's quotient is not "here is the formula" but "someone solved *exactly*
+  the problem you just felt." That emotional difference is the lesson.
+- **Make them fail once, on purpose.** Non-differentiability is not a theorem to
+  state; it is an experience to have. Ask the learner to *do* the thing that
+  just worked (make the slope settle) at a corner, and let it refuse.
+- **End in reflection, not drilling — three rungs, hardest last.** Explain it to
+  a friend, draw it, then reason about its *absence* (what must be true of a
+  curve where the derivative fails?). Kept only for the learner, to exam night.
+- **Test transfer, outside the subject.** The proof of teaching a concept rather
+  than a procedure is whether it travels: after the derivative, ask which day a
+  *plant* grew fastest. If the idea moves to a curve with no $x$ in it, it was
+  learned.
+- **One unforgettable image (Canon truth 13).** Design the whole room around the
+  single picture the learner keeps: *derivative →* "the curve became straight
+  because I got close enough"; *integration →* "tiny pieces quietly became a
+  whole"; *convergence →* "the motion stopped changing, though it never stopped
+  moving." Not the formula, not the name — the image.
 
 The bar: *could a first-year student genuinely prefer this to a good lecture on
 the same idea?* Until the answer is yes, do not scale — a second journey only
-multiplies whatever is still missing in the first.
+multiplies whatever is still missing in the first. This is the slow, valuable
+phase: one interaction may take days, and changing a single sentence can matter
+more than a hundred features. That is where museums, textbooks, and great
+teachers all arrive — refine until it feels inevitable.
+
+## The unit is the section; the app carries the momentum
+
+The app is organised around **sections, not chapters.** A chapter is too broad to
+learn or to drill; the learning unit is the subsection (1.1, 1.2, 3.4) — one
+subtopic, its handful of micro-skills, its own set of questions.
+
+- **A section is a complete unit:** its own reference, its own practice, its own
+  place in the path. "Practise this" means *only this section's questions* — never
+  the whole chapter dumped at once, which breaks the flow the moment it starts.
+- **The chapter is a spine, not a menu.** Sections run in order with a quiet
+  orientation ("Section 2 of 5") — position, never a score. The map is somewhere
+  you go only if you *want* to; it is never the way forward.
+- **Momentum is the product.** Every time the learner finishes something, the app
+  answers the only question that matters — *what is the next most sensible
+  thing?* — and offers it: finish a section, and the next section is one tap
+  away. The learner should never have to navigate **back** to continue.
+- **Mixed practice is earned, and placed last.** A Chapter Review — everything
+  mixed together — unlocks only after a section has been practised, and becomes
+  the primary mode once the whole chapter is done. Mixed questions are the *test*
+  of learning, not its beginning.
+
+Organising around momentum instead of content is what decides whether the
+observatory is *used*. It is the foundation the atmosphere sits on.
+
+### The anatomy of a problem: Observe → Recognize → Plan → Execute
+
+The app exists to prevent mistakes **before** they happen, not to react after.
+Students rarely fail because they "can't do calculus" — they fail at one of
+**four moments**: they didn't *notice* the important feature, they chose the
+wrong *approach*, they *executed* poorly, or they *communicated* poorly. The
+app is an operating system for those four moments, and the exam is only the
+proof — the product is mathematical thinking.
+
+- **Observe** — before anything, what do you *notice*? Experts don't magically
+  know the method; they perceive features novices miss. Two seconds, one tiny
+  screen — perception is trained, not assumed. (The correct observation is the
+  archetype's recognition cue; the false ones are the confusable techniques'
+  cues — features this problem does not have.)
+- **Recognize** — which technique does this need? The first move of every
+  problem, not a separate game mode.
+- **Plan** — before touching the algebra, what is the first move? Committed
+  *before* execution, against the confusable attacks.
+- **Execute** — on paper, where mathematics actually happens; the app checks,
+  it does not replace the pen.
+
+**Confidence is the answer's second dimension — and hesitation its third.**
+Confidence is asked before the verdict (so it cannot be contaminated by it):
+a lucky guess is never mastery; *certain-but-wrong* is the most valuable
+signal the simulation receives and is surfaced first, by name. Time-to-answer
+is logged beside it, never shown as a score: certain-in-one-second and
+certain-after-twenty-seconds are different states of knowledge.
+
+**Scaffolding fades.** Early, the phases are explicit. Late, the question is
+only *Solve* — and the phases are reconstructed afterwards. Independence is
+the goal, so support is designed to be removed. Diagnosis, when it comes,
+thinks like the examiner — a marking scheme, and *which mark was lost first* —
+because the anatomy of mistakes mirrors the anatomy of problems.
+
+### The variable ledger — remember what matters, not what happened
+
+Every recorded variable must answer one question: **what decision becomes
+better because this exists?** A variable with no decision is deleted — the
+observatory remembers everything that *matters*, not everything that
+*happened*. The ledger:
+
+| Variable | The decision it buys |
+|---|---|
+| `correct` | scheduling; structural integrity |
+| `confidence` | was this mastery or luck? (guessed-right is never mastery) |
+| `msTaken` | is recognition automatic yet? (certain-but-slow caps the interval) |
+| `observeCorrect` | pattern-matched or perceived? (missed observation caps the interval) |
+| `planCorrect` | right attack, or lucky landing? (caps the interval) |
+| `execOk` | does paper execution hold? (slip caps to the short interval) |
+| `errorType` | which of the four moments failed (feeds the error notebook) |
+| `recon` (exam) | did the learner understand the method *after* solving? |
+| `held` / `markFell` (exam) | is the template stable — and which mark falls first? |
+
+Adding a variable means adding a row — with a real decision in the right-hand
+column — or not adding the variable.
 
 ## The simulation (world → screens)
 

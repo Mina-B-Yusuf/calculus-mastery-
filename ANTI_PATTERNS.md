@@ -18,6 +18,8 @@ Every time you feel one of these reflexes, stop and ask the question instead.
 | Add particles because it looks premium | What do these particles *represent*? |
 | Add sound because silence feels boring | Is silence the *correct* emotion here? |
 | Add a reward because motivation dropped | Why isn't the *mathematics* rewarding enough? |
+| Add a new mode because the idea is good | Could an existing **verb** (Observe, Recognize, Reconstruct…) become 10% better instead? |
+| Record a variable because it's measurable | What **decision** becomes better because this exists? |
 
 If the question has no honest answer, the thing does not belong.
 
@@ -60,6 +62,26 @@ one, and it does not ship.
    maintenance weight?) — not "can I code it?"
 5. **Emotional** — *What should the learner feel?* If you cannot answer in **one
    sentence**, the feature is not ready.
+
+## Bug priorities — trust outranks everything
+
+Not all bugs are bugs. Some are **trust violations**, and those are a different
+species. The app's entire value proposition is *"I can trust this"* — one
+garbled formula during an exam and the learner wonders whether *any* formula is
+right. That doubt is catastrophic and irreversible.
+
+- **P0 · Trust** — anything that makes the mathematics questionable: broken
+  rendering, a wrong formula, wrong answer, wrong theorem, parser bugs,
+  ambiguity. **Fixed immediately. No discussion.** P0 outranks every freeze,
+  every roadmap, every rule in this repository — including a research
+  no-fix week.
+- **P1 · Learning** — anything that hurts understanding: poor examples,
+  confusing explanations, weak distractors.
+- **P2 · Flow** — navigation, momentum, interruptions, dead ends.
+- **P3 · Polish** — animation, lighting, atmosphere.
+
+A P0 fix must carry **trust-grade verification**: prove across the whole
+content corpus that the fix garbles nothing else, before it ships.
 
 ## The forbidden sentence
 

@@ -19,6 +19,9 @@
 
   function place(chapter) { return PLACES[String(chapter)] || DEFAULT; }
   function placeName(chapter) { return place(chapter).name; }
+  // Curriculum order: Preliminaries comes FIRST, not after chapter 9 the way a
+  // string sort puts it (friction F13).
+  function chapterOrder(chapter) { const c = String(chapter); return c === 'P' ? 0 : (parseInt(c, 10) || 99); }
 
-  window.Geography = { place, placeName, PLACES };
+  window.Geography = { place, placeName, chapterOrder, PLACES };
 })();

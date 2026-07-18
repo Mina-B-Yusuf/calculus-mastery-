@@ -4,7 +4,12 @@ const tabbarLinks = document.querySelectorAll('nav.tabbar a');
 const routes = {
   home: () => window.HomeMode.render(appRoot),
   journey: (sub) => window.JourneyMode.render(appRoot, sub),
-  drill: () => window.RecognitionMode.render(appRoot),
+  drill: (sub) => {
+    let opts = {};
+    if (sub[0] === 's' && sub[1] != null && sub[2] != null) opts.filter = { chapter: sub[1], section: sub[2] };
+    else if (sub[0] === 'ch' && sub[1] != null) opts.filter = { chapter: sub[1] };
+    return window.RecognitionMode.render(appRoot, opts);
+  },
   hall: () => window.HallMode.render(appRoot),
   speed: () => window.SpeedMode.render(appRoot),
   flashcards: (sub) => window.FlashcardsMode.render(appRoot, sub),
@@ -53,8 +58,12 @@ async function router() {
   appRoot.innerHTML = '';   // handlers paint immediately; no spinner
   try {
     await handler(sub);
-    // remember where the learner was, so Home can offer to resume it honestly
-    if (!['home', 'journey'].includes(name) || parts.length > 1) {
+    // remember where the learner was, so Home can offer to resume it honestly.
+    // A drill session can't be re-entered by URL (it would rebuild), so a
+    // section drill records its section unit as the resume point (F2).
+    if (name === 'drill') {
+      if (sub[0] === 's' && sub[1] && sub[2]) localStorage.setItem('lastPlace', `#/journey/${sub[1]}/s/${sub[2]}`);
+    } else if (!['home', 'journey'].includes(name) || parts.length > 1) {
       localStorage.setItem('lastPlace', location.hash);
     }
     // retrigger route entrance animation

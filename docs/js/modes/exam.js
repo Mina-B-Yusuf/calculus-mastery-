@@ -16,22 +16,49 @@ function templateLabel(t) {
   return label ? `${t} · ${label}` : t;
 }
 
-// De-boxed problem: number + template kicker, floating statement, hairline
-// reveal row that expands to the answer/solution (matches Recognize's reveals).
+// The observatory witnesses a sitting: every checked problem leaves a trace —
+// which attack the learner reconstructed, and whether their paper held.
+const SIT_KEY = 'examSits';
+function sitRecords() {
+  try { return JSON.parse(localStorage.getItem(SIT_KEY) || '[]'); } catch (e) { return []; }
+}
+function recordSit(rec) {
+  const all = sitRecords();
+  all.push(Object.assign({ t: Date.now() }, rec));
+  try { localStorage.setItem(SIT_KEY, JSON.stringify(all.slice(-500))); } catch (e) {}
+}
+
+// De-boxed problem: number + template kicker, floating statement. The check
+// flow witnesses the sit: Reconstruct (which attack?) → solution → "did your
+// paper hold?" — solve first, name the anatomy after (scaffolding at its far
+// end fades to "just Solve", then reconstructs).
+// Marked solutions render as the examiner's atoms (see marking-grammar.md);
+// the map lets wireReveals find a card's atoms without re-threading the data.
+const CARD_MARKS = {};
+
 function problemCard(prob, paperId) {
   const cueId = `sol-${paperId}-${prob.num}`;
-  const drill = (prob.sections || []).length
-    ? `<a class="ex-drill" href="#/drill">${Icon('drill')} Drill this skill</a>`
+  if (prob.marks && prob.marks.length) CARD_MARKS[cueId] = prob.marks;
+  const scheme = (prob.marks && prob.marks.length) ? `
+    <div class="ex-scheme">
+      ${prob.marks.map((m) => `<div class="ex-atom"><span class="ex-atom-k ${escapeHtml(m.k[0])}">${escapeHtml(m.k)}</span><span class="ex-atom-t">${MathRender.inline(m.text)}</span></div>`).join('')}
+    </div>` : '';
+  const sec = (prob.sections || [])[0];
+  const drill = sec
+    ? `<a class="ex-drill" href="#/drill/s/${encodeURIComponent(sec.split('.')[0])}/${encodeURIComponent(sec)}">${Icon('drill')} Practice this skill's section</a>`
     : '';
   return `
-    <div class="ex-prob">
+    <div class="ex-prob" data-template="${escapeHtml(prob.template || '')}" data-num="${escapeHtml(prob.num)}" data-paper="${escapeHtml(paperId)}">
       <div class="ex-phead"><span class="ex-pnum">${escapeHtml(prob.num)}</span>${prob.template ? `<span class="ex-ptag">${escapeHtml(templateLabel(prob.template))}</span>` : ''}</div>
       <div class="ex-stmt">${MathRender.inline(prob.statement)}</div>
-      <button class="rc-reveal reveal-sol" data-target="${cueId}" aria-expanded="false">${Icon('gist')}<span>Reveal solution</span><span class="rc-chev">${Icon('chevron')}</span></button>
+      <button class="rc-reveal reveal-sol" data-target="${cueId}" aria-expanded="false">${Icon('gist')}<span>I've worked it — check</span><span class="rc-chev">${Icon('chevron')}</span></button>
+      <div class="ex-recon" id="rec-${cueId}"></div>
       <div class="reveal-wrap" id="${cueId}"><div class="reveal-inner"><div class="rc-rbody">
         ${prob.answer ? `<div class="callout ex tint" style="margin:2px 0 8px;"><div class="callout-head"><span class="callout-icon">${Icon('check')}</span>Answer</div><div class="callout-body">${MathRender.inline(prob.answer)}</div></div>` : ''}
+        ${scheme}
         ${prob.solution ? `<p style="margin:0 0 8px;">${MathRender.inline(prob.solution)}</p>` : ''}
         ${drill}
+        <div class="ex-mark" id="mark-${cueId}"></div>
       </div></div></div>
     </div>
   `;
@@ -39,14 +66,104 @@ function problemCard(prob, paperId) {
 
 function wireReveals(root) {
   root.querySelectorAll('.reveal-sol').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const el = document.getElementById(btn.dataset.target);
-      const open = el.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const probEl = btn.closest('.ex-prob');
+    const tpl = probEl.dataset.template;
+    const cueId = btn.dataset.target;
+    const templates = (META && META.templates) || {};
+    // Theory has one template — nothing to reconstruct there.
+    let reconPending = tpl && tpl !== 'TH' && Object.keys(templates).length >= 4;
+    let reconResult = null;
+
+    const mountMark = () => {
+      const host = document.getElementById('mark-' + cueId);
+      if (!host || host.innerHTML) return;
+      const done = (held, markFell) => {
+        recordSit({
+          paper: probEl.dataset.paper.replace(/^mock.*/, 'mock'),
+          num: probEl.dataset.num, template: tpl || null,
+          recon: reconResult, held, markFell: markFell || null,
+        });
+        host.innerHTML = `<div class="ex-marked">${Icon(held ? 'check' : 'x')}<span>${held ? 'Full marks.' : `Lost at ${markFell}.`} The observatory remembers this sitting.</span></div>`;
+      };
+      const marks = CARD_MARKS[cueId];
+      if (marks) {
+        // The examiner's question: not "did it hold?" but WHICH mark fell first.
+        host.innerHTML = `
+          <div class="rc-phase">Mark your paper — which mark fell first?</div>
+          <div class="rc-choices ex-fell">
+            ${marks.map((m, i) => `<button class="rc-choice" data-i="${i}"><span class="ex-atom-k ${escapeHtml(m.k[0])}">${escapeHtml(m.k)}</span><span class="rc-ctext">${MathRender.inline(m.text)}</span></button>`).join('')}
+            <button class="rc-choice ex-full" data-i="full"><span class="rc-mark"></span><span class="rc-ctext">None fell — full marks</span></button>
+          </div>`;
+        host.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
+          const i = b.dataset.i;
+          if (i === 'full') return done(true, null);
+          done(false, `${marks[Number(i)].k} · ${marks[Number(i)].text}`);
+        }));
+        return;
+      }
+      host.innerHTML = `
+        <div class="rc-phase">Your paper — did it hold?</div>
+        <div class="rc-rate"><button data-held="1">It held</button><button data-held="0">Lost marks</button></div>`;
+      host.querySelectorAll('[data-held]').forEach((b) => b.addEventListener('click', () => {
+        const held = b.dataset.held === '1';
+        recordSit({
+          paper: probEl.dataset.paper.replace(/^mock.*/, 'mock'),
+          num: probEl.dataset.num, template: tpl || null,
+          recon: reconResult, held,
+        });
+        host.innerHTML = `<div class="ex-marked">${Icon(held ? 'check' : 'x')}<span>${held ? 'Held.' : 'Noted.'} The observatory remembers this sitting.</span></div>`;
+      }));
+    };
+    const openSolution = () => {
+      const el = document.getElementById(cueId);
+      el.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
       const lbl = btn.querySelector('span:not(.rc-chev)');
-      if (lbl) lbl.textContent = open ? 'Hide solution' : 'Reveal solution';
+      if (lbl) lbl.textContent = 'Hide solution';
+      mountMark();
+    };
+
+    btn.addEventListener('click', () => {
+      const el = document.getElementById(cueId);
+      if (el.classList.contains('open')) {
+        el.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        const lbl = btn.querySelector('span:not(.rc-chev)');
+        if (lbl) lbl.textContent = "I've worked it — check";
+        return;
+      }
+      if (!reconPending) return openSolution();
+      const host = document.getElementById('rec-' + cueId);
+      if (host.innerHTML) return;   // gate already showing — answer it to proceed
+      const others = Object.keys(templates).filter((k) => k !== 'TH' && k !== tpl);
+      const opts = [tpl, ...shuffleT(others).slice(0, 3)];
+      shuffleT(opts);
+      host.innerHTML = `
+        <div class="rc-phase"><span class="rc-phase-n">Reconstruct</span> Before the solution — which attack did this need?</div>
+        <div class="rc-choices">${opts.map((t) => `
+          <button class="rc-choice" data-t="${escapeHtml(t)}"><span class="rc-mark"></span><span class="rc-ctext">${escapeHtml(templates[t] || t)}</span></button>`).join('')}
+        </div>`;
+      host.querySelectorAll('button').forEach((ob) => ob.addEventListener('click', () => {
+        if (reconResult != null) return;
+        reconResult = ob.dataset.t === tpl;
+        host.querySelectorAll('button').forEach((x) => {
+          x.disabled = true;
+          if (x.dataset.t === tpl) x.classList.add('correct');
+          else if (x === ob) x.classList.add('incorrect');
+        });
+        reconPending = false;
+        setTimeout(openSolution, reconResult ? 450 : 1100);
+      }));
     });
   });
+}
+
+function shuffleT(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 window.ExamMode = {
@@ -90,7 +207,32 @@ window.ExamMode = {
         <div class="kicker" style="margin:26px 2px 4px;">${escapeHtml(c)}</div>
         <div class="cx-list">${groups[c].map(row).join('')}</div>
       `).join('')}
+      ${this.shelfHtml()}
     `;
+  },
+
+  // The shelf of sittings — examinations belong to the observatory's memory.
+  shelfHtml() {
+    const sits = sitRecords();
+    if (!sits.length) return '';
+    const agg = {};
+    sits.forEach((r) => {
+      const day = new Date(r.t).toISOString().slice(0, 10);
+      const key = day + '|' + r.paper;
+      const a = (agg[key] = agg[key] || { day, paper: r.paper, held: 0, total: 0, t: 0 });
+      a.total += 1; if (r.held) a.held += 1; a.t = Math.max(a.t, r.t);
+    });
+    const shelf = Object.values(agg).sort((a, b) => b.t - a.t).slice(0, 6);
+    const nameOf = (id) => id === 'mock' ? 'Mock exam — professor style'
+      : ((PAPERS.find((p) => p.id === id) || {}).title || id);
+    return `
+      <div class="kicker" style="margin:28px 2px 4px;">Sittings</div>
+      <div class="cx-list">${shelf.map((s) => `
+        <div class="cx-row">
+          <span class="cx-num ex-yr">${escapeHtml(s.day.slice(5))}</span>
+          <span class="cx-main"><span class="cx-title">${escapeHtml(nameOf(s.paper))}</span><span class="cx-sub">${s.held} of ${s.total} problems held</span></span>
+        </div>`).join('')}
+      </div>`;
   },
 
   async renderPaper(root, id) {

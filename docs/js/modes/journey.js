@@ -58,10 +58,16 @@ function plate(math, opts) {
     + `</figure>`;
 }
 
-// An interactive figure the learner drives; its content is discovered, so a
-// hidden line can be revealed only once the figure fires onDiscover.
+function choices(list) {
+  return `<div class="jb-choices">${(list || []).map((c, k) => `<button class="jb-choice" data-guess="${k}">${richText(c)}</button>`).join('')}</div>`;
+}
+
+// An interactive figure the learner drives. When it fires onDiscover we don't
+// hand over the answer — if the beat carries a prediction, we stop the learner
+// and ask it first; only their commitment reveals what happened.
 function figure(b) {
   return `<div class="jb-fig" data-figure="${escapeHtml(b.figure)}"></div>`
+    + (b.predict ? `<div class="jb-predict" data-predict><p class="jb-p jb-predict-q">${richText(b.predict.body)}</p>${choices(b.predict.choices)}</div>` : '')
     + (b.reveal ? `<p class="jb-p jb-reveal" data-reveal>${richText(b.reveal)}</p>` : '');
 }
 
@@ -75,16 +81,20 @@ function renderBeat(b, i) {
     case 'question':
       inner = `<div class="jb-question">${richText(b.body)}</div>${ASIDE(b.aside)}`;
       break;
-    case 'play': case 'observation': case 'failure':
+    case 'play': case 'observation': case 'failure': case 'transfer':
       inner = `${P(b.body)}${figure(b)}`;
       break;
     case 'application':
       inner = `${P(b.body)}${figure(b)}${ASIDE(b.aside)}`;
       break;
     case 'prediction':
-      inner = `${P(b.body)}`
-        + `<div class="jb-choices">${(b.choices || []).map((c, k) => `<button class="jb-choice" data-guess="${k}">${richText(c)}</button>`).join('')}</div>`
+      inner = `${P(b.body)}${choices(b.choices)}`
         + (b.reveal ? `<p class="jb-p jb-reveal" data-reveal>${richText(b.reveal)}</p>` : '');
+      break;
+    case 'invent':
+      inner = `${P(b.body)}`
+        + `<textarea class="jb-reflect-in jb-invent-in" data-reflect="${i}-invent" rows="2" placeholder="Your rule — even a rough guess…"></textarea>`
+        + P(b.after);
       break;
     case 'insight':
       inner = `${P(b.body)}${(b.words || []).length ? `<div class="jb-words">${b.words.map((w) => `<span class="jb-word">${escapeHtml(w)}</span>`).join('')}</div>` : ''}${P(b.after)}`;
@@ -98,16 +108,23 @@ function renderBeat(b, i) {
         + plate(b.math, { label: b.label })
         + P(b.after);
       break;
-    case 'reflection':
-      inner = `${P(b.body)}`
-        + `<div class="jb-reflect">${(b.prompts || []).map((pr, k) => `
-            <label class="jb-reflect-q"><span>${richText(pr)}</span>
-            <textarea class="jb-reflect-in" data-reflect="${i}-${k}" rows="2" placeholder="In your own words…"></textarea></label>`).join('')}`
-        + (b.draw ? `<div class="jb-draw">${richText(b.draw)}</div>` : '')
-        + `</div>`;
+    case 'reflection': {
+      // Three levels, hardest last, with the drawing in the middle. Each is a
+      // rung: explain it, picture it, then reason about its absence.
+      const steps = (b.levels || []).map((lv, k) => {
+        const tag = lv.tag ? `<span class="jb-level">${escapeHtml(lv.tag)}</span>` : '';
+        if (lv.draw) return `<div class="jb-reflect-q">${tag}<span>${richText(lv.prompt)}</span><div class="jb-draw">${richText(lv.draw)}</div></div>`;
+        return `<label class="jb-reflect-q">${tag}<span>${richText(lv.prompt)}</span>`
+          + `<textarea class="jb-reflect-in" data-reflect="${i}-${k}" rows="2" placeholder="In your own words…"></textarea></label>`;
+      }).join('');
+      inner = `${P(b.body)}<div class="jb-reflect">${steps}</div>`;
       break;
+    }
     case 'summary':
-      inner = `${P(b.body)}${b.one_idea ? `<div class="jb-idea">${richText(b.one_idea)}</div>` : ''}${P(b.after)}`;
+      inner = `${P(b.body)}`
+        + (b.image ? `<figure class="jb-image"><blockquote>${richText(b.image)}</blockquote></figure>` : '')
+        + (b.one_idea ? `<div class="jb-idea">${richText(b.one_idea)}</div>` : '')
+        + P(b.after);
       break;
     default: // confusion, and any prose+maths beat
       inner = `${P(b.body)}${b.math ? plate(b.math, { label: b.label, caption: b.caption }) : ''}${P(b.after)}${ASIDE(b.aside)}`;
@@ -117,8 +134,11 @@ function renderBeat(b, i) {
 
 window.JourneyMode = {
   async render(root, sub) {
-    if (sub && sub[0]) return this.renderJourney(root, decodeURIComponent(sub[0]));
-    return this.renderLanding(root);
+    if (!sub || !sub[0]) return this.renderLanding(root);
+    const chapter = sub[0];
+    if (sub[1] === 'walk') return this.renderJourney(root, chapter);      // the authored narrative
+    if (sub[1] === 's' && sub[2] != null) return this.renderSection(root, chapter, sub[2]);
+    return this.renderChapterPath(root, chapter);                         // the section spine
   },
 
   async renderLanding(root) {
@@ -131,33 +151,156 @@ window.JourneyMode = {
     });
     const chapters = [...seen.values()].sort((a, b) =>
       (a.course || '').localeCompare(b.course || '') ||
-      a.chapter.localeCompare(b.chapter, undefined, { numeric: true }));
+      Geography.chapterOrder(a.chapter) - Geography.chapterOrder(b.chapter));
 
+    // Every chapter now opens its path of sections; a guided narrative, where it
+    // exists, is a badge — not a separate destination.
     const row = (ch) => {
       const place = Geography.placeName(ch.chapter);
-      if (walkable.has(ch.chapter)) {
-        return `<a class="jn-row walkable" href="#/journey/${encodeURIComponent(ch.chapter)}">
-          <span class="jn-mark">${Icon('path')}</span>
-          <span class="jn-main"><span class="jn-title">${escapeHtml(place)}</span><span class="jn-sub">${escapeHtml(ch.title)} · a guided walk</span></span>
-          <span class="jn-chev">${Icon('forward')}</span></a>`;
-      }
-      const key = `${ch.course}|${ch.chapter}|${ch.title}`;
-      return `<a class="jn-row" href="#/concepts/ch/${encodeURIComponent(key)}">
-        <span class="jn-mark quiet">${Icon('concepts')}</span>
-        <span class="jn-main"><span class="jn-title">${escapeHtml(place)}</span><span class="jn-sub">${escapeHtml(ch.title)} · reference only, for now</span></span>
-        <span class="jn-chev">${Icon('chevron')}</span></a>`;
+      const walk = walkable.has(ch.chapter);
+      return `<a class="jn-row${walk ? ' walkable' : ''}" href="#/journey/${encodeURIComponent(ch.chapter)}">
+        <span class="jn-mark${walk ? '' : ' quiet'}">${Icon(walk ? 'path' : 'concepts')}</span>
+        <span class="jn-main"><span class="jn-title">${escapeHtml(place)}</span><span class="jn-sub">${escapeHtml(ch.title)}${walk ? ' · guided walk inside' : ''}</span></span>
+        <span class="jn-chev">${Icon('forward')}</span></a>`;
     };
 
     root.innerHTML = `
       <div class="editorial">
-        <div class="ghost-word">journey</div>
+        <div class="ghost-word">study</div>
         <div class="fg">
           <div class="kicker">Guided study</div>
-          <div class="display">Walk the idea</div>
-          <div class="lede">Before the definitions, the story. Each chapter is one idea coming into focus — a question, an image, an experiment, and only then the mathematics. Walk it once; afterwards the Concepts pages are your reference.</div>
+          <div class="display">One section at a time</div>
+          <div class="lede">Each chapter is a path of small sections. Walk one, practise only it, then step straight to the next — the reference and the mixed review are always a tap away, never in your path.</div>
         </div>
       </div>
       <div class="jn-list">${chapters.map(row).join('')}</div>
+    `;
+  },
+
+  // ---- the Chapter Path: sections as a spine, with orientation and a gated
+  //      review at the end -----------------------------------------------------
+  async renderChapterPath(root, chapter) {
+    const [microSkills, archetypes, attempts, index] = await Promise.all([
+      DB.getAll('microSkills'), DB.getAll('archetypes'), DB.getAllAttempts(), journeyIndex(),
+    ]);
+    const inCh = microSkills.filter((m) => String(m.chapter) === String(chapter));
+    if (!inCh.length) { root.innerHTML = `<div class="card">Not found. <a href="#/journey">All chapters</a></div>`; return; }
+    const head = inCh[0];
+    // Honesty (F46): a question is "held" only if its LATEST attempt was
+    // correct — and not a lucky guess (a guessed-right answer is not mastery).
+    // A section is steadied when fully attempted AND ≥80% held — never a
+    // checkmark over rubble.
+    const latest = {};
+    attempts.forEach((a) => {
+      const cur = latest[a.archetypeId];
+      if (!cur || (a.timestamp || 0) > cur.t) latest[a.archetypeId] = { t: a.timestamp || 0, c: !!a.correct && a.confidence !== 'guess' };
+    });
+    const archBySection = {};
+    archetypes.forEach((a) => {
+      const ms = microSkills.find((m) => m.id === a.microSkillId);
+      if (ms && String(ms.chapter) === String(chapter)) (archBySection[ms.section] = archBySection[ms.section] || []).push(a.id);
+    });
+    const secs = [...new Set(inCh.map((m) => m.section))]
+      .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }))
+      .map((section) => {
+        const skills = inCh.filter((m) => m.section === section);
+        const archIds = archBySection[section] || [];
+        const tried = archIds.filter((id) => latest[id]).length;
+        const held = archIds.filter((id) => latest[id] && latest[id].c).length;
+        const state = (archIds.length && tried >= archIds.length && held >= Math.ceil(archIds.length * 0.8))
+          ? 'done' : tried > 0 ? 'started' : 'new';
+        return { section, name: skills[0].subtopic || skills[0].topic || ('Section ' + section), archCount: archIds.length, state, tried, held };
+      });
+    const doneCount = secs.filter((s) => s.state === 'done').length;
+    const startedAny = secs.some((s) => s.state !== 'new');
+    const allDone = doneCount === secs.length;
+    const walkable = new Set((index.journeys || []).map((j) => String(j.chapter))).has(String(chapter));
+
+    const seg = secs.map((s) => `<span class="cp-seg ${s.state}"></span>`).join('');
+    const rows = secs.map((s, i) => `
+      <a class="cp-row ${s.state}" href="#/journey/${chapter}/s/${encodeURIComponent(s.section)}">
+        <span class="cp-badge">${s.state === 'done' ? Icon('check') : escapeHtml(s.section)}</span>
+        <span class="cp-main"><span class="cp-title">${escapeHtml(s.name)}</span><span class="cp-sub">Section ${i + 1} of ${secs.length} · ${s.archCount} question${s.archCount === 1 ? '' : 's'}${s.tried ? ` · ${s.held} of ${s.archCount} held` : ''}</span></span>
+        <span class="jn-chev">${Icon('forward')}</span></a>`).join('');
+
+    const review = startedAny
+      ? `<a class="cp-review ${allDone ? 'ready' : ''}" href="#/drill/ch/${chapter}">
+           <span class="cp-badge">${Icon('dice')}</span>
+           <span class="cp-main"><span class="cp-title">Chapter Review</span><span class="cp-sub">${allDone ? 'Everything mixed — the real test' : 'Every section so far, mixed together'}</span></span>
+           <span class="jn-chev">${Icon('forward')}</span></a>`
+      : `<div class="cp-review locked">
+           <span class="cp-badge">${Icon('dice')}</span>
+           <span class="cp-main"><span class="cp-title">Chapter Review</span><span class="cp-sub">Practice a section first — then everything mixes here</span></span></div>`;
+
+    root.innerHTML = `
+      <a class="crumb" href="#/journey">${Icon('back')} All chapters</a>
+      <div class="editorial">
+        <div class="ghost-word">${escapeHtml(String(chapter))}</div>
+        <div class="fg">
+          <div class="kicker">${escapeHtml(head.chapterTitle)}</div>
+          <div class="display">${escapeHtml(Geography.placeName(chapter))}</div>
+        </div>
+      </div>
+      <div class="cp-orient"><div class="cp-prog">${seg}</div><div class="cp-orient-lbl">${doneCount} of ${secs.length} sections steadied</div></div>
+      ${walkable ? `<a class="cp-walk" href="#/journey/${chapter}/walk">${Icon('path')}<span><strong>Walk the guided journey</strong><span>Discover the whole idea, start to finish</span></span>${Icon('forward')}</a>` : ''}
+      <div class="cp-list">${rows}</div>
+      ${review}
+    `;
+  },
+
+  // ---- a Section Unit: reference for one idea, then the next sensible move ----
+  async renderSection(root, chapter, section) {
+    const [microSkills, archetypes, attempts] = await Promise.all([
+      DB.getAll('microSkills'), DB.getAll('archetypes'), DB.getAllAttempts(),
+    ]);
+    const inCh = microSkills.filter((m) => String(m.chapter) === String(chapter));
+    const skills = inCh.filter((m) => String(m.section) === String(section));
+    if (!skills.length) { root.innerHTML = `<div class="card">Not found. <a href="#/journey/${chapter}">Back</a></div>`; return; }
+    const secList = [...new Set(inCh.map((m) => m.section))]
+      .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
+    const i = secList.indexOf(String(section));
+    const head = inCh[0];
+    const chapterKey = `${head.course}|${head.chapter}|${head.chapterTitle}`;
+    const name = skills[0].subtopic || skills[0].topic || ('Section ' + section);
+    const nextSec = i < secList.length - 1 ? secList[i + 1] : null;
+    const prevSec = i > 0 ? secList[i - 1] : null;
+    const nameOf = (s) => { const m = inCh.find((x) => String(x.section) === String(s)); return m ? (m.subtopic || m.topic || ('Section ' + s)) : s; };
+    const skillIds = new Set(skills.map((s) => s.id));
+    const archCount = archetypes.filter((a) => skillIds.has(a.microSkillId)).length;
+    const arch = await DB.getAll('archetypes');
+    const cueBySkill = {};
+    arch.forEach((a) => { if (skillIds.has(a.microSkillId) && a.recognitionCue && !cueBySkill[a.microSkillId]) cueBySkill[a.microSkillId] = a.recognitionCue; });
+
+    const seg = secList.map((s, k) => `<span class="cp-seg ${k === i ? 'now' : ''}"></span>`).join('');
+    const refRows = skills.map((s) => `
+      <a class="su-idea" href="#/concepts/skill/${encodeURIComponent(s.id)}">
+        <span class="su-idea-main"><span class="su-idea-t">${escapeHtml(s.microSkill)}</span>${cueBySkill[s.id] ? `<span class="su-idea-cue"><em>Spot it:</em> ${MathRender.inline(cueBySkill[s.id])}</span>` : ''}</span>
+        <span class="jn-chev">${Icon('chevron')}</span></a>`).join('');
+
+    const nextBtn = nextSec
+      ? `<a class="rc-go" href="#/journey/${chapter}/s/${encodeURIComponent(nextSec)}">Next · ${escapeHtml(nextSec)} ${escapeHtml(nameOf(nextSec))}&nbsp; ${Icon('forward')}</a>`
+      : `<a class="rc-go" href="#/drill/ch/${chapter}">${Icon('dice')}&nbsp; Chapter Review — everything mixed</a>`;
+
+    root.innerHTML = `
+      <a class="crumb" href="#/journey/${chapter}">${Icon('back')} ${escapeHtml(Geography.placeName(chapter))}</a>
+      <div class="cp-orient"><div class="cp-prog">${seg}</div><div class="cp-orient-lbl">Section ${i + 1} of ${secList.length}</div></div>
+      <div class="editorial" style="padding-top:2px;">
+        <div class="fg">
+          <div class="kicker">${escapeHtml(head.chapterTitle)} · ${escapeHtml(String(section))}</div>
+          <div class="display">${escapeHtml(name)}</div>
+        </div>
+      </div>
+      <div class="section-title">In this section</div>
+      <div class="su-ideas">${refRows}</div>
+      <div class="su-next">
+        <div class="kicker" style="margin-bottom:10px;">What next?</div>
+        <a class="rc-go su-primary" href="#/drill/s/${chapter}/${encodeURIComponent(section)}">${Icon('drill')}&nbsp; Practice this section · ${archCount} question${archCount === 1 ? '' : 's'}</a>
+        ${nextBtn}
+        <div class="su-more">
+          <a href="#/concepts/ch/${encodeURIComponent(chapterKey)}">${Icon('concepts')} Full reference</a>
+          ${prevSec ? `<a href="#/journey/${chapter}/s/${encodeURIComponent(prevSec)}">${Icon('back')} ${escapeHtml(prevSec)} ${escapeHtml(nameOf(prevSec))}</a>` : ''}
+        </div>
+      </div>
     `;
   },
 
@@ -174,7 +317,7 @@ window.JourneyMode = {
 
     const refKey = `${data.course}|${data.chapter}|${data.chapter_title}`;
     root.innerHTML = `
-      <a class="crumb" href="#/journey">${Icon('back')} All journeys</a>
+      <a class="crumb" href="#/journey/${data.chapter}">${Icon('back')} ${escapeHtml(Geography.placeName(data.chapter))}</a>
       <div class="journey">
         <header class="jn-open">
           <div class="kicker">${escapeHtml(data.hall)} · ${escapeHtml(data.duration || 'a short walk')}</div>
@@ -189,36 +332,42 @@ window.JourneyMode = {
           <div class="kicker">You've walked the idea</div>
           <p class="jb-p">Now the reference becomes useful — not as a lesson, but as the shelf you reach for when a detail slips.</p>
           <div class="jn-close-actions">
-            <a class="rc-go" href="#/concepts/ch/${encodeURIComponent(refKey)}">${Icon('concepts')}&nbsp; Open the reference</a>
-            <a class="jn-secondary" href="#/drill">${Icon('drill')}&nbsp; Take it to the drills</a>
+            <a class="rc-go" href="#/journey/${data.chapter}">${Icon('path')}&nbsp; Study it section by section</a>
+            <a class="jn-secondary" href="#/concepts/ch/${encodeURIComponent(refKey)}">${Icon('concepts')}&nbsp; Open the reference</a>
           </div>
         </footer>
       </div>
     `;
 
-    // Mount the interactive figures. Each reveals its sibling discovery line the
-    // first time the learner reaches the key state — the word after the doing.
+    // Mount the interactive figures. Reaching the key state does not hand over
+    // the answer: if the beat carries a prediction, discovery surfaces the
+    // question first; only the learner's commitment reveals what happened.
     window.__journeyFigs = [];
     root.querySelectorAll('.jb-fig[data-figure]').forEach((el) => {
       const kind = el.getAttribute('data-figure');
       if (!(window.JourneyFigures && JourneyFigures.has(kind))) return;
       const section = el.closest('.jb');
       const onDiscover = () => {
+        const predict = section && section.querySelector('[data-predict]');
+        if (predict && !predict.classList.contains('shown')) { predict.classList.add('shown'); return; }
         const r = section && section.querySelector('[data-reveal]');
         if (r) r.classList.add('shown');
       };
       try { window.__journeyFigs.push(JourneyFigures.mount(el, kind, { onDiscover })); } catch (e) {}
     });
 
-    // Predictions: any commitment reveals the truth (a prediction has no wrong).
-    root.querySelectorAll('.jb-prediction').forEach((section) => {
-      const reveal = section.querySelector('[data-reveal]');
-      section.querySelectorAll('.jb-choice').forEach((btn) => btn.addEventListener('click', () => {
-        section.querySelectorAll('.jb-choice').forEach((b) => b.classList.remove('chosen'));
+    // Any prediction — standalone or inside a figure — reveals its truth once the
+    // learner commits. A prediction has no wrong answer; committing is the point.
+    root.querySelectorAll('.jb-choice').forEach((btn) => {
+      const holder = btn.closest('[data-predict]') || btn.closest('.jb');
+      const section = btn.closest('.jb');
+      btn.addEventListener('click', () => {
+        (holder ? holder.querySelectorAll('.jb-choice') : []).forEach((b) => b.classList.remove('chosen'));
         btn.classList.add('chosen');
-        section.classList.add('answered');
+        if (section) section.classList.add('answered');
+        const reveal = section && section.querySelector('[data-reveal]');
         if (reveal) reveal.classList.add('shown');
-      }));
+      });
     });
 
     // Reflection: kept only for the learner, persisted locally so it survives to

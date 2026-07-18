@@ -113,7 +113,15 @@
           "statement": "Is integral_1^infinity (1 - cos(1/x)) dx convergent or divergent?",
           "answer": "Convergent",
           "solution": "1-cos(1/x) ~ (1/2)(1/x)^2 = 1/(2x^2) as x->infinity. Limit comparison with sum/integral of 1/x^2 (p=2>1) gives convergence." },
-        { "num": "A3", "part": "A", "template": "T3", "sections": ["6.2"],
+        { "num": "A3",
+          "marks": [
+            {"k": "M1", "text": "Recognizes partial fractions over (x+1)² and (x²+4)"},
+            {"k": "A1", "text": "Correct decomposition form A/(x+1)+B/(x+1)²+(Cx+D)/(x²+4)"},
+            {"k": "A1", "text": "Coefficients A, B, C, D correct"},
+            {"k": "M1", "text": "Integrates each term by standard forms"},
+            {"k": "A1", "text": "ln, −1/(x+1) and arctan terms correct"},
+            {"k": "P1", "text": "Constant of integration stated"}
+          ], "part": "A", "template": "T3", "sections": ["6.2"],
           "statement": "Compute integral (2x^3+5x^2+6x-2)/((x+1)^2(4+x^2)) dx.",
           "answer": "a ln|x+1| + b/(x+1) + c ln(x^2+4) + d arctan(x/2) + C",
           "solution": "Partial fractions: (2x^3+5x^2+6x-2)/((x+1)^2(x^2+4)) = A/(x+1)+B/(x+1)^2+(Cx+D)/(x^2+4). Solve for A,B,C,D, then integrate: 1/(x+1) -> ln, 1/(x+1)^2 -> -1/(x+1), (Cx+D)/(x^2+4) -> (C/2)ln(x^2+4)+(D/2)arctan(x/2)." },

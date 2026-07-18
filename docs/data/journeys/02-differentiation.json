@@ -4,77 +4,81 @@
   "hall": "The Tangent Gallery",
   "chapter_title": "Differentiation",
   "one_idea": "Instantaneous change can be measured.",
+  "mental_image": "The curve became straight because I got close enough.",
   "duration": "about 12 minutes",
   "beats": [
     {
       "type": "arrival",
       "kicker": "The Tangent Gallery",
       "title": "Don't take my word for anything here",
-      "body": "This room has one idea in it. You are going to *find* it yourself — by moving things and watching what happens — before I give it a name. Nothing below is to be memorised yet. Just look, drag, and notice."
+      "body": "This room has one idea in it, and you are going to *find* it — by moving things, guessing what happens next, and being wrong once or twice — before I give it a name. Nothing below is to be memorised. Predict, drag, and notice."
     },
     {
       "type": "question",
       "kicker": "The question",
       "body": "What is the *direction* of a curve at a single point?",
-      "aside": "A straight line has one obvious slope. A curve bends — it is steeper here than there. So what could \"steepness\" even mean at a single point, where there is no second point to compare against? Hold the question. Don't answer it yet."
+      "aside": "A straight line has one obvious slope. A curve bends — steeper here than there. So what could \"steepness\" mean at a single point, where there is no second point to measure against? Hold the question. Don't answer it yet."
     },
     {
       "type": "play",
-      "kicker": "Play",
+      "kicker": "Play, then predict",
       "figure": "secant",
-      "body": "Two points sit on this curve, joined by a straight line. Its slope is easy — rise over run. Now **drag the moving point toward the fixed one** and keep your eyes on the slope number.",
-      "reveal": "Did you feel it? The line stopped swinging. As the gap closed, the slope stopped changing — it *settled* on one number instead of running away."
+      "body": "Two points sit on this curve, joined by a straight line whose slope is easy — rise over run. **Drag the moving point toward the fixed one** and watch the slope number as the gap closes.",
+      "predict": {
+        "body": "Stop for a second — don't drag all the way yet. **Predict first:** as the gap keeps shrinking toward nothing, what does the slope do?",
+        "choices": [
+          "keeps changing forever",
+          "settles on one exact value",
+          "shoots off to infinity"
+        ]
+      },
+      "reveal": "Now finish the drag and see. It **settles** — the swinging stops and the slope closes in on one number instead of running away. Whatever you predicted, you have now *seen* what happens."
     },
     {
       "type": "confusion",
       "kicker": "The confusion",
-      "body": "But look at what you just did. To get a slope you needed *two* points and the run between them. At the very end you wanted them to be the *same* point — run zero, rise zero, $0/0$, which means nothing.",
-      "aside": "So the honest slope needs two points, yet the direction-at-a-point wants one. That contradiction is the whole difficulty. Everything else in this room is how mathematics slips between the horns of it."
+      "body": "But look at what that would need. A slope wants *two* points and the run between them. At the very end you want them to be the *same* point — run zero, rise zero, $0/0$, which means nothing.",
+      "aside": "So the honest slope needs two points, yet a direction-at-a-point wants one. That contradiction is the whole difficulty. Everything else in this room is how mathematics slips between its horns."
     },
     {
       "type": "observation",
       "kicker": "Observe",
       "figure": "zoom",
-      "body": "Set the run aside for a moment and just *look* at the curve near the point. Drag the slider and zoom in. Keep going.",
-      "reveal": "There it is. Zoom in far enough and the curve becomes indistinguishable from a straight line. A smooth curve, up close, *is* straight — and that straight line has a single, definite slope."
-    },
-    {
-      "type": "prediction",
-      "kicker": "Predict, before you read on",
-      "body": "You watched the slope settle as the two points merged. Commit to an answer: as the gap shrinks all the way to nothing, that average slope —",
-      "choices": [
-        "blows up to infinity",
-        "settles on one exact number",
-        "collapses to zero"
-      ],
-      "reveal": "It settles on one exact number — the slope of that straight line you found by zooming. We never reach zero gap; we watch what the slope *approaches*. That word, *approaches*, is the escape from $0/0$ — and it is exactly why the previous hall had to be about limits."
+      "body": "Set the run aside and just *look* at the curve near the point. Drag the slider and zoom in. Keep going.",
+      "reveal": "There it is, and it is worth remembering above everything else in this room: **the curve became straight because you got close enough.** A smooth curve, seen closely enough, *is* a straight line — and a straight line has one definite slope."
     },
     {
       "type": "failure",
-      "kicker": "Where it breaks",
+      "kicker": "Now try to break it",
       "figure": "corner",
-      "body": "Before we name anything, test how fragile this is. Here is a curve with a sharp corner. Put the fixed point *on* the corner and drag the other point in from one side, then the other. Watch the slope.",
-      "reveal": "The two sides disagree — one slope from the left, a different one from the right. Nothing settles. At a corner there is no single direction, and the mathematics refuses to invent one. The idea only works where the curve is smooth — and where it fails, that failure is information."
+      "body": "Do exactly what just worked. Put the fixed point on the sharp corner, drag the other point in, and **make the slope settle** the way it did before.",
+      "reveal": "It won't. Come in from the left and the slope says one thing; from the right, another. Nothing settles. Here mathematics simply *refuses* — at a corner there is no single direction, and no honest method can invent one. You didn't read that in a theorem; you just failed to do it."
     },
     {
       "type": "insight",
       "kicker": "The insight",
-      "body": "Put the three things together. The average slope over a shrinking step *settles* on a number. Up close the curve *is* the line with that slope. And it exists only where the curve is smooth.",
-      "after": "That settled number is the answer to the question you were holding. It has a name — two, in fact. The number the average slopes *approach* is a **limit**. The limit, taken here, is called the **derivative**.",
+      "body": "Put the three experiences together. The average slope over a shrinking step *settled*. Up close the curve *became* the straight line with that slope. And it exists only where the curve is smooth.",
+      "after": "That settled number is the answer to the question you were holding. It has a name — two, in fact. The number the average slopes *approach* is a **limit**. This particular limit is the **derivative**.",
       "words": ["limit", "derivative"]
     },
     {
+      "type": "invent",
+      "kicker": "Before I show you the formula — invent it",
+      "body": "You have felt the whole thing: a step $h$, an average slope, a number it approaches. **In symbols, how would you write the rule for that number?** Try — a rough attempt is worth more than a clean one you read.",
+      "after": "Whatever you wrote, hold it next to what comes now."
+    },
+    {
       "type": "definition",
-      "kicker": "Now the definition means something",
-      "body": "Only now, with the idea already in your hands, is the symbol worth writing. The **derivative** of $f$ at $x$ is the limit of the average slope as the step $h$ closes to nothing:",
+      "kicker": "Someone solved exactly your problem",
+      "body": "Three and a half centuries ago, Newton and Leibniz were stuck on the very thing you just did by hand. This is what they wrote — read it as the sentence you already know:",
       "math": "f'(x) = lim_(h -> 0) (f(x+h) - f(x)) / h",
       "label": "the derivative",
-      "caption": "Read it aloud as what you did: shrink the step $h$, watch the average slope, take the number it approaches."
+      "caption": "Shrink the step $h$, watch the average slope, take the number it approaches. Not a formula handed to you — the answer to a problem you experienced."
     },
     {
       "type": "proof",
       "kicker": "Prove it once, by hand",
-      "body": "Take $f(x) = x^2$ and follow the definition — no rules, just the limit you already understand.",
+      "body": "Take $f(x) = x^2$ and follow the definition — no rules, just the limit you now understand.",
       "steps": [
         "Form the quotient: ((x+h)^2 - x^2) / h",
         "Expand the numerator: (x^2 + 2xh + h^2 - x^2) / h",
@@ -89,32 +93,40 @@
       "type": "application",
       "kicker": "The idea, felt as speed",
       "figure": "velocity",
-      "body": "This is position against time. Drag the moment $t$ and read the tangent's slope. That slope is the *speed at that instant* — the speedometer reading, the thing that felt impossible at the start.",
-      "aside": "Differentiate position and you get velocity. The abstract slope and the everyday speedometer are the same object, seen twice."
+      "body": "This is position against time. Drag the moment $t$ and read the tangent's slope. That slope is the *speed at that instant* — the speedometer reading that felt impossible at the start.",
+      "aside": "Differentiate position and you get velocity. The abstract slope and the everyday speedometer are one object, seen twice."
     },
     {
       "type": "application",
       "kicker": "The idea, as the summit",
       "figure": "optimize",
       "body": "Here is a hill. Drag the point until the tangent lies perfectly flat. Where does that happen?",
-      "aside": "Exactly at the top. A maximum or minimum sits where the slope is zero — which is why every optimization problem (largest volume, least cost, shortest path) becomes the single equation $f'(x) = 0$."
+      "aside": "Exactly at the top. A maximum or minimum sits where the slope is zero — which is why every optimization problem becomes the single equation $f'(x) = 0$."
+    },
+    {
+      "type": "transfer",
+      "kicker": "Somewhere with no x in sight",
+      "figure": "growth",
+      "body": "Forget calculus for a moment. This is a **seedling's height across two weeks**. Using only what you built today — no numbers given — drag to the day it was **growing fastest**. Judge by the tilt of the little line alone.",
+      "reveal": "That's the day. You just read the fastest change on a curve that has nothing to do with $x^2$ — a plant, not a parabola. That is the difference between learning a *procedure* and owning an *idea*: the idea travels."
     },
     {
       "type": "reflection",
       "kicker": "Before you leave — think, don't scroll",
-      "body": "You will remember this far better if you say it back in your own words. Nothing here is graded; it is kept only for you, and you can read it again before the exam.",
-      "prompts": [
-        "Explain the derivative to your future self, in two sentences.",
-        "What surprised you in this room?"
-      ],
-      "draw": "On paper, sketch a curve, a point on it, and the tangent there. Label the slope. Ten seconds — the drawing is the point, not its neatness."
+      "body": "You remember what you rebuild. Three rungs, hardest last; all kept only for you, to read again before the exam.",
+      "levels": [
+        { "tag": "Say it", "prompt": "Explain what a derivative is to a friend who has never taken calculus — two sentences, your words." },
+        { "tag": "Draw it", "prompt": "Sketch what happened when you zoomed in.", "draw": "On paper: a curve, a point, and the tangent there — then the same point zoomed in until the curve *is* the line. Ten seconds; the drawing is the point, not its neatness." },
+        { "tag": "Stretch it", "prompt": "Imagine the derivative did *not* exist at some point. What would have to be true of the curve there? (You've already met one answer.)" }
+      ]
     },
     {
       "type": "summary",
-      "kicker": "One idea",
-      "body": "You arrived with a question and found its answer with your own hands. Everything in this gallery — every rule, every application, every exam question about a rate, a slope, a maximum, a velocity — is this one sentence:",
+      "kicker": "One image to carry out",
+      "body": "You arrived with a question and answered it with your own hands. Out of everything here — the formula, the names, Newton — the one thing worth keeping is not a symbol. It is a picture:",
+      "image": "The curve became straight because I got close enough.",
       "one_idea": "Instantaneous change can be measured.",
-      "after": "That is what to carry out of the room."
+      "after": "When an exam asks for a rate, a slope, a maximum, a velocity — close your eyes and zoom in. You are always being asked about this."
     }
   ]
 }

@@ -84,7 +84,7 @@
     };
     drawLineThrough(tangent, a, f(a), 2 * a);
 
-    let discovered = false, curX = a + 1.0;
+    let asked = false, curX = a + 1.0;
     const update = (xq) => {
       curX = Math.max(a + 0.02, Math.min(v.xmax - 0.05, xq));     // stay right of P
       const h = curX - a, slope = curX + a;                       // exact for x^2
@@ -93,7 +93,8 @@
       s.read.innerHTML = `<span class="fig-r"><i>step</i> h = <b>${fmt(h)}</b></span>`
         + `<span class="fig-r accent"><i>average slope</i> = <b>${fmt(slope)}</b></span>`;
       s.wrap.classList.toggle('settling', h <= 0.16);
-      if (h <= 0.06 && !discovered) { discovered = true; s.wrap.classList.add('discovered'); if (opts.onDiscover) opts.onDiscover(); }
+      if (h <= 0.06) s.wrap.classList.add('discovered');          // the tangent locks in
+      if (h <= 0.30 && !asked) { asked = true; if (opts.onDiscover) opts.onDiscover(); } // interrupt to predict
     };
     update(a + 1.0);
 
@@ -261,7 +262,50 @@
     return { destroy() { window.removeEventListener('pointerup', up); container.innerHTML = ''; } };
   }
 
-  const FIGS = { secant, zoom, velocity, corner, optimize };
+  // ===========================================================================
+  // 6) TRANSFER — the idea on a curve that has nothing to do with x². A seedling's
+  //    height over two weeks: on which day was it growing fastest? Judge by the
+  //    tilt of the tangent alone — no numbers. The steepest point is the
+  //    inflection, and finding it means the learner carried the idea outside
+  //    calculus.
+  // ===========================================================================
+  function growth(container, opts) {
+    opts = opts || {};
+    const L = 3, k = 1.9, t0 = 1.15;
+    const f = (t) => L / (1 + Math.exp(-k * (t - t0)));
+    const v = { xmin: 0, xmax: 2.3, ymin: 0, ymax: 3.25 };
+    const s = stage(container);
+    const m = mapper(v);
+    if (v.ymin <= 0) s.svg.appendChild(el('line', { class: 'fig-axis', x1: BOX.x, y1: m.Y(0), x2: BOX.x + BOX.w, y2: m.Y(0) }));
+    s.svg.appendChild(el('path', { class: 'fig-curve', d: curve(f, v, m, 90) }));
+    const seg = el('line', { class: 'fig-secant' });                // the tangent tilt, no number
+    const dot = el('circle', { class: 'fig-point drag', r: 6.5, tabindex: '0' });
+    s.svg.append(seg, dot);
+    const day = (t) => Math.round(1 + t / v.xmax * 13);
+    const update = (t) => {
+      t = Math.max(0.12, Math.min(v.xmax - 0.1, t));
+      const y = f(t), slope = k * y * (1 - y / L);
+      dot.setAttribute('cx', m.X(t)); dot.setAttribute('cy', m.Y(y));
+      const L2 = t - 0.34, R2 = t + 0.34;
+      seg.setAttribute('x1', m.X(L2)); seg.setAttribute('y1', m.Y(y + slope * (L2 - t)));
+      seg.setAttribute('x2', m.X(R2)); seg.setAttribute('y2', m.Y(y + slope * (R2 - t)));
+      const near = Math.abs(t - t0) < 0.13;
+      s.wrap.classList.toggle('settling', near);
+      s.read.innerHTML = `<span class="fig-r"><i>day</i> <b>${day(t)}</b></span>`
+        + `<span class="fig-r">${near ? 'steepest tilt — right here?' : 'where does it climb fastest?'}</span>`;
+      if (near) { s.wrap.classList.add('discovered'); if (opts.onDiscover) opts.onDiscover(); }
+    };
+    update(0.35);
+    let dragging = false;
+    const down = (e) => { dragging = true; update(pointerX(s.svg, m, e)); e.preventDefault(); };
+    const move = (e) => { if (dragging) update(pointerX(s.svg, m, e)); };
+    const up = () => { dragging = false; };
+    s.svg.addEventListener('pointerdown', down); s.svg.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    return { destroy() { window.removeEventListener('pointerup', up); container.innerHTML = ''; } };
+  }
+
+  const FIGS = { secant, zoom, velocity, corner, optimize, growth };
   function mount(container, kind, opts) {
     const fn = FIGS[kind];
     if (!fn) { container.innerHTML = ''; return { destroy() {} }; }

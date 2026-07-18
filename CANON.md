@@ -20,6 +20,16 @@ never for a feature.
 Every decision faces one question: *does this make mathematics feel more like a
 place, or more like software?* If it makes it feel like software — **delete it.**
 
+And the place has one purpose:
+
+> **The observatory witnesses your mathematical thinking, not merely your
+> answers.**
+
+The Journey witnesses discovery. The halls witness growth. The drills witness
+observation, planning, confidence, and execution. The examinations witness the
+sitting. Anything the observatory merely *administers* without witnessing is
+unfinished.
+
 ## The immutable truths
 
 1. There is only one observatory.
@@ -37,6 +47,10 @@ place, or more like software?* If it makes it feel like software — **delete it
     Age, never decay: generations were here before you.
 12. Nothing exists because a developer wanted it — only because mathematicians
     needed it, learners left traces, knowledge accumulated, and time passed.
+13. Every journey leaves the learner with exactly **one unforgettable mental
+    image** — not a formula, not a name. For the derivative it is *"the curve
+    became straight because I got close enough."* Design the room around the
+    image the learner should still hold in five years.
 
 ## One iconic object per hall
 
