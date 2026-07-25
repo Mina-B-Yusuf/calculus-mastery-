@@ -205,7 +205,7 @@ restrained nav. Remove tiles, stats grid, weakest-list from the hero screen (mov
 ## GATE 3 — Home screen specification + three variants
 
 **Content (identical across variants):**
-Greeting ("Good evening, Mina") · one sculpture · Today's Mission (3 forgotten skills · master
+Greeting ("Good evening") · one sculpture · Today's Mission (3 forgotten skills · master
 "Integration by Parts" · exam in 18 days) · one primary **Begin** button · restrained nav. Nothing else.
 
 **Hierarchy:** sculpture → Begin → mission → nav.

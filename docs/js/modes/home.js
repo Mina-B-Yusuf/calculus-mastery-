@@ -1,9 +1,9 @@
 function greeting() {
   const h = new Date().getHours();
-  if (h < 5) return 'Still up, Mina?';
-  if (h < 12) return 'Good morning, Mina';
-  if (h < 18) return 'Good afternoon, Mina';
-  return 'Good evening, Mina';
+  if (h < 5) return 'Still up?';
+  if (h < 12) return 'Good morning';
+  if (h < 18) return 'Good afternoon';
+  return 'Good evening';
 }
 
 function examDays() {
