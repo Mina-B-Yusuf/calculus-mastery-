@@ -1,0 +1,70 @@
+{
+  "id": "09-taylor",
+  "chapter": "9",
+  "section": "9.6",
+  "hall": "The Convergence Observatory",
+  "title": "Why a polynomial can pretend to be eˣ",
+  "minutes": 3,
+  "kind": "scroll",
+  "mystery": "How can one point know the whole curve?",
+  "picture": "A smooth curve carries enough information at a single point to rebuild itself.",
+  "cards": [
+    {
+      "type": "mystery",
+      "text": "How can one point know the whole curve?"
+    },
+    {
+      "type": "beat",
+      "text": "Hold that question. The road to it starts somewhere unglamorous — with an awkward truth nobody mentions: **you cannot actually compute $e^x$.** Not by hand, not with gears, not with a chip. Addition, subtraction, multiplication, division — that is the whole toolkit. Everything else has to be built from those four."
+    },
+    {
+      "type": "beat",
+      "text": "And yet somebody has to. A ship's navigator needs $\\sin$ of an angle to five decimals or she runs aground. So for three centuries, the most valuable question in applied mathematics was brutally practical: *how do you compute a curve you cannot compute?*"
+    },
+    {
+      "type": "beat",
+      "text": "The answer was to find an impostor. Something built only from $+$, $-$, $\\times$ — a **polynomial** — that behaves so much like the real function that nobody can tell the difference."
+    },
+    {
+      "type": "beat",
+      "text": "A straight line can imitate a curve for an instant.\nA parabola imitates it a little longer.\nA cubic survives longer still."
+    },
+    {
+      "type": "figure",
+      "figure": "taylor",
+      "caption": "Raise the degree. Watch how far the imitation holds."
+    },
+    {
+      "type": "beat",
+      "text": "Each extra derivative is another promise: *I will behave like the real function just a little farther.* Match the value — the curves touch. Match the slope — they travel together. Match the bend, and the bend of the bend, and the impostor clings on through territory it had no right to reach."
+    },
+    {
+      "type": "math",
+      "tex": "e^x = 1 + x + x^2/2! + x^3/3! + …",
+      "caption": "Never stop making promises, and the impostor stops pretending. It *becomes* the function."
+    },
+    {
+      "type": "turn",
+      "text": "Now notice what just happened, because it should disturb you slightly.",
+      "text2": "Every coefficient came from derivatives **at a single point** — at $x=0$, and nowhere else. We never looked at what $e^x$ does at $x=2$. We never had to."
+    },
+    {
+      "type": "story",
+      "who": "Brook Taylor · 1715",
+      "text": "Taylor published the recipe as a piece of technique. It took another generation to feel the vertigo in it: a smooth function keeps no secrets. Examine it under a microscope at *one* location — its value, its slope, its curvature, forever — and you have recovered the whole curve, out to the horizon."
+    },
+    {
+      "type": "beat",
+      "text": "That is why this idea earns a room of its own. It is not a trick for computing $e^{0.3}$. It is the discovery that **local information can be total information** — and it is why your exam keeps asking you to replace a monstrous limit with three friendly terms and watch it collapse."
+    },
+    {
+      "type": "picture",
+      "text": "A smooth curve carries enough information at a single point to rebuild itself."
+    },
+    {
+      "type": "try",
+      "text": "Take $\\cos x$ and write its first three promises: match the value at $0$, then the slope, then the bend. You will get $1 - x^2/2$ — and you will have computed a cosine with nothing but arithmetic.",
+      "link": { "label": "Take it to the section", "href": "#/journey/9/s/9.6" }
+    }
+  ]
+}

@@ -180,9 +180,11 @@ window.JourneyMode = {
   // ---- the Chapter Path: sections as a spine, with orientation and a gated
   //      review at the end -----------------------------------------------------
   async renderChapterPath(root, chapter) {
-    const [microSkills, archetypes, attempts, index] = await Promise.all([
+    const [microSkills, archetypes, attempts, index, scrolls] = await Promise.all([
       DB.getAll('microSkills'), DB.getAll('archetypes'), DB.getAllAttempts(), journeyIndex(),
+      (window.scrollIndex ? window.scrollIndex() : Promise.resolve({ scrolls: [] })),
     ]);
+    const scroll = (scrolls.scrolls || []).find((s) => String(s.chapter) === String(chapter));
     const inCh = microSkills.filter((m) => String(m.chapter) === String(chapter));
     if (!inCh.length) { root.innerHTML = `<div class="card">Not found. <a href="#/journey">All chapters</a></div>`; return; }
     const head = inCh[0];
@@ -242,6 +244,10 @@ window.JourneyMode = {
         </div>
       </div>
       <div class="cp-orient"><div class="cp-prog">${seg}</div><div class="cp-orient-lbl">${doneCount} of ${secs.length} sections steadied</div></div>
+      ${scroll ? `<a class="cp-scroll${scroll.kind === 'micro' ? ' micro' : ''}" href="#/scroll/${encodeURIComponent(scroll.id)}">
+        <span class="cp-badge">${Icon('gist')}</span>
+        <span class="cp-main"><span class="cp-title">${escapeHtml(scroll.title)}</span><span class="cp-sub">${scroll.kind === 'micro' ? 'A one-minute intuition' : 'A short read — why this idea matters'}</span></span>
+        <span class="jn-chev">${Icon('forward')}</span></a>` : ''}
       ${walkable ? `<a class="cp-walk" href="#/journey/${chapter}/walk">${Icon('path')}<span><strong>Walk the guided journey</strong><span>Discover the whole idea, start to finish</span></span>${Icon('forward')}</a>` : ''}
       <div class="cp-list">${rows}</div>
       ${review}

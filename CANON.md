@@ -52,6 +52,25 @@ unfinished.
     became straight because I got close enough."* Design the room around the
     image the learner should still hold in five years.
 
+## What this place is: the complete treatment of an idea
+
+This is not a calculus app. It is a **museum of mathematical ideas** — not
+dusty exhibits, but the conviction that every important idea deserves the full
+treatment, and that almost nowhere gives it one. An idea is properly housed
+here when it has all eight:
+
+**a story · an experiment · a picture · a formal definition · a reference ·
+practice · reflection · an exam.**
+
+Most teaching offers two or three of these and calls it a course. The measure
+of this place is that an idea is never left half-honoured — and the eight are
+the checklist for whether a room is finished.
+
+Not every idea earns the full eight at the same weight: a profound idea gets a
+story and an experiment; a supporting technique may need only an intuition and
+practice. **The contrast is deliberate — if everything is treated as profound,
+nothing is.**
+
 ## One iconic object per hall
 
 A room contains an object; people remember the **object**. (The Louvre → the

@@ -51,6 +51,47 @@ An element that satisfies only one or two is **redesigned or removed**. No excep
 
 ---
 
+## The fourth format: Mathematical Scrolls
+
+A Journey teaches an idea. The Reference stores it. A Drill hardens it. A
+**Scroll** does none of those — in two or three minutes it answers the only
+question that makes the other three worth opening: **why did anyone ever
+care?**
+
+It exists for a real moment: the learner is tired, about to close the app, and
+instead remembers that mathematics is *interesting*. That is a different job
+from teaching, and it needs its own form.
+
+- **Open with the central mystery, not a hook.** A hook teases; a mystery is a
+  real question the reader wants resolved and the scroll must resolve. *"How
+  can one point know the whole curve?"* · *"Why should a problem about whole
+  numbers end with π?"* · *"If you must first walk half the distance forever,
+  how do you ever arrive?"*
+- **History illuminates the mathematics — never the reverse.** Nobody needs the
+  publication year; they need to know why someone would ever *think that
+  thought*. Cut any fact that doesn't make the mathematics clearer.
+- **Close with the mathematician's picture.** If the reader forgets every
+  equation, they should still keep the picture: *zoom in far enough and every
+  smooth curve becomes a straight line* · *area assembled from pieces
+  individually too small to matter* · *infinity isn't a number, it's a process
+  that sometimes settles down.*
+- **Serial pacing, honestly borrowed.** One card, one complete thought, scroll
+  for the next. What is *not* borrowed is the emptiness: every card carries an
+  idea, and the last three are fixed — **the mathematician's picture · try it
+  yourself · continue.**
+- **It ends by handing over.** A scroll never teaches the mechanics; it makes
+  the learner want them, then opens the section.
+- **The reader is rebuilding intuition, not starting from zero.** Scrolls
+  assume someone who has met the symbols before and wants to know *why they
+  exist, when to reach for them, and which ideas matter.*
+
+**Not every section gets one, and that is the point.** A full scroll is
+reserved for a genuine mystery; a supporting technique gets a one-minute
+**micro-scroll**; routine material gets neither. If every section receives the
+same dramatic treatment, the dramatic ones stop feeling dramatic — the contrast
+is what makes the great ideas stand out. Authored, never computed, in
+`data/scrolls/` (see `authoring.md`).
+
 ## Two modes of understanding
 
 Learning is not one activity. Computers organise information as *concept →

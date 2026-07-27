@@ -305,7 +305,54 @@
     return { destroy() { window.removeEventListener('pointerup', up); container.innerHTML = ''; } };
   }
 
-  const FIGS = { secant, zoom, velocity, corner, optimize, growth };
+  // ===========================================================================
+  // 7) THE PROMISE — a polynomial pretending to be eˣ. Raise the degree and watch
+  //    each new term buy a little more territory: "I'll behave like the real
+  //    function just a little farther." The number that matters is how far the
+  //    imitation holds, so that is what the readout shows.
+  // ===========================================================================
+  function taylor(container, opts) {
+    opts = opts || {};
+    const v = { xmin: -3, xmax: 3, ymin: -1.5, ymax: 9 };
+    const s = stage(container);
+    const m = mapper(v);
+    axes(s.svg, v, m);
+    const clamp2 = (y) => Math.max(v.ymin - 2, Math.min(v.ymax + 2, y));
+    s.svg.appendChild(el('path', { class: 'fig-curve', d: curve((x) => clamp2(Math.exp(x)), v, m, 140) }));
+    const poly = el('path', { class: 'fig-secant fig-poly' });
+    s.svg.appendChild(poly);
+    const T = (x, n) => { let sum = 0, term = 1; for (let k = 0; k <= n; k++) { if (k) term *= x / k; sum += term; } return sum; };
+    // how far the promise holds: the largest |x| where the imitation stays within 1%
+    const reach = (n) => {
+      let r = 0;
+      for (let x = 0; x <= 3; x += 0.02) {
+        const e = Math.exp(x);
+        if (Math.abs(T(x, n) - e) / e > 0.01 || Math.abs(T(-x, n) - Math.exp(-x)) / Math.exp(-x) > 0.01) break;
+        r = x;
+      }
+      return r;
+    };
+    let n = 1;
+    const NAMES = ['a constant', 'a straight line', 'a parabola', 'a cubic', 'a quartic', 'a quintic'];
+    const redraw = () => {
+      poly.setAttribute('d', curve((x) => clamp2(T(x, n)), v, m, 200));
+      const r = reach(n);
+      s.read.innerHTML = `<span class="fig-r"><i>degree</i> <b>${n}</b> — ${escapeHtmlLocal(NAMES[n] || 'one more promise')}</span>`
+        + `<span class="fig-r accent"><i>holds to</i> <b>|x| ≈ ${r.toFixed(2)}</b></span>`;
+      s.wrap.classList.toggle('discovered', n >= 6);
+      if (n >= 6 && opts.onDiscover) opts.onDiscover();
+    };
+    const range = document.createElement('input');
+    range.type = 'range'; range.min = '0'; range.max = '9'; range.value = '1';
+    range.className = 'fig-slider'; range.setAttribute('aria-label', 'Polynomial degree');
+    range.addEventListener('input', () => { n = parseInt(range.value, 10); redraw(); });
+    s.wrap.appendChild(range);
+    redraw();
+    return { destroy() { container.innerHTML = ''; } };
+  }
+  function escapeHtmlLocal(x) { return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  const FIGS = { secant, zoom, velocity, corner, optimize, growth, taylor };
   function mount(container, kind, opts) {
     const fn = FIGS[kind];
     if (!fn) { container.innerHTML = ''; return { destroy() {} }; }

@@ -1,0 +1,39 @@
+{
+  "id": "06-partial-fractions",
+  "chapter": "6",
+  "section": "6.2",
+  "hall": "The Transformation Workshop",
+  "title": "Taking the fraction apart",
+  "kind": "micro",
+  "minutes": 1,
+  "mystery": "Why is one fraction harder than three?",
+  "picture": "A complicated fraction is several simple ones that were added together — undo the addition.",
+  "cards": [
+    {
+      "type": "mystery",
+      "text": "Why is one fraction harder than three?"
+    },
+    {
+      "type": "beat",
+      "text": "You can integrate $1/(x-2)$ in your head. You can integrate $1/(x-3)$ in your head. Put them over a common denominator and the result is suddenly a problem you have to think about."
+    },
+    {
+      "type": "math",
+      "tex": "1/(x-2) + 1/(x-3) = (2x-5)/((x-2)(x-3))",
+      "caption": "Nothing got harder. Something got *hidden*."
+    },
+    {
+      "type": "beat",
+      "text": "That is the whole technique. The ugly fraction on your exam was assembled from simple ones by somebody adding them together — partial fractions is just running that addition backwards to expose the pieces you already know how to integrate."
+    },
+    {
+      "type": "picture",
+      "text": "A complicated fraction is several simple ones that were added together — undo the addition."
+    },
+    {
+      "type": "try",
+      "text": "Before decomposing anything, glance at the denominator and name the pieces you expect: distinct linear factors give one term each, a repeated factor earns a term per power, an irreducible quadratic gets a $Cx+D$ on top.",
+      "link": { "label": "Take it to the section", "href": "#/journey/6/s/6.2" }
+    }
+  ]
+}

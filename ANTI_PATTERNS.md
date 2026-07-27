@@ -83,6 +83,18 @@ right. That doubt is catastrophic and irreversible.
 A P0 fix must carry **trust-grade verification**: prove across the whole
 content corpus that the fix garbles nothing else, before it ships.
 
+### The notation rule
+
+> **Every mathematical symbol must render correctly across the whole corpus
+> before any new content is written.**
+
+Notation is the language of mathematics; a broken symbol is not a cosmetic
+defect but a wrong answer. `node tools/verify-notation.mjs` is the gate — it
+renders every content string and fails on a symbol reaching KaTeX unmapped, a
+mangled expression, prose swallowed into math mode, or notation escaping as
+prose. Remaining exceptions are *budgeted and recorded*, never hidden, and only
+where the reader still sees correct text rather than garbage.
+
 ## The forbidden sentence
 
 If anyone ever says **"it would be cool if…"** — stop, immediately. Replace it

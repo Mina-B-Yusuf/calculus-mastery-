@@ -1,0 +1,7 @@
+{
+  "note": "Mathematical Scrolls — see authoring.md. A scroll answers 'why did anyone care?'. Not a lesson: a reason to want the lesson. NOT every section gets one: full scrolls are reserved for genuine mysteries, micro-scrolls carry supporting techniques, and many sections need neither.",
+  "scrolls": [
+    { "id": "09-taylor", "chapter": "9", "section": "9.6", "file": "09-taylor.json", "kind": "scroll", "title": "Why a polynomial can pretend to be eˣ" },
+    { "id": "06-partial-fractions", "chapter": "6", "section": "6.2", "file": "06-partial-fractions.json", "kind": "micro", "title": "Taking the fraction apart" }
+  ]
+}

@@ -19,7 +19,30 @@
   const GREEK_TEX = { 'Δ': '\\Delta', 'Σ': '\\Sigma', 'Ω': '\\Omega', 'Θ': '\\Theta', 'Λ': '\\Lambda', 'Γ': '\\Gamma', 'Φ': '\\Phi', 'Ψ': '\\Psi', 'Π': '\\Pi', 'Ξ': '\\Xi',
     'α': '\\alpha', 'β': '\\beta', 'γ': '\\gamma', 'δ': '\\delta', 'ε': '\\epsilon', 'ζ': '\\zeta', 'η': '\\eta', 'θ': '\\theta', 'ι': '\\iota', 'κ': '\\kappa',
     'λ': '\\lambda', 'μ': '\\mu', 'ν': '\\nu', 'ξ': '\\xi', 'π': '\\pi', 'ρ': '\\rho', 'ς': '\\varsigma', 'σ': '\\sigma', 'τ': '\\tau', 'υ': '\\upsilon', 'φ': '\\phi', 'χ': '\\chi', 'ψ': '\\psi', 'ω': '\\omega' };
-  const GLYPHS = 'ΔΣΩΘΛΓΦΨΠΞαβγδεζηθικλμνξπρσςτυφχψω';
+  // Mathematical symbols are the LANGUAGE — never pass one to KaTeX raw and hope.
+  // Every symbol that can reach a math chunk maps to an explicit command here.
+  // (√ and ∛ are handled separately in toLatex: they need an argument.)
+  const SYM_TEX = {
+    '∑': '\\sum', '∏': '\\prod', '∫': '\\int', '∮': '\\oint', '∞': '\\infty',
+    '≤': '\\le', '≥': '\\ge', '≠': '\\ne', '≈': '\\approx', '≡': '\\equiv', '∼': '\\sim',
+    '±': '\\pm', '∓': '\\mp', '×': '\\times', '÷': '\\div', '·': '\\cdot', '−': '-',
+    '→': '\\to', '⇒': '\\Rightarrow', '⇔': '\\Leftrightarrow', '↔': '\\leftrightarrow',
+    '⟺': '\\iff', '↛': '\\nrightarrow', '∂': '\\partial', '∇': '\\nabla',
+    '∈': '\\in', '∉': '\\notin', '⊂': '\\subset', '⊆': '\\subseteq', '∪': '\\cup', '∩': '\\cap',
+    '∅': '\\emptyset', '∥': '\\parallel', '⟂': '\\perp', '∀': '\\forall', '∃': '\\exists',
+    'ℝ': '\\mathbb{R}', 'ℕ': '\\mathbb{N}', 'ℤ': '\\mathbb{Z}', 'ℚ': '\\mathbb{Q}', 'ℂ': '\\mathbb{C}',
+    '°': '^\\circ', 'ȳ': '\\bar{y}', 'x̄': '\\bar{x}', '…': '\\dots', '⋯': '\\cdots',
+  };
+  const SYMS = '∑∏∫∮∞≤≥≠≈≡∼±∓×÷·−→⇒⇔↔⟺↛∂∇∈∉⊂⊆∪∩∅∥⟂∀∃ℝℕℤℚℂ°…⋯';
+  const BIGOPS = '∑∏∫∮';   // prefix operators: never absorbed into a neighbouring operand
+  // Operand grabbers and the final symbol pass both walk this set, so symbols
+  // bind to their operands exactly like greek letters do.
+  const GLYPHS = 'ΔΣΩΘΛΓΦΨΠΞαβγδεζηθικλμνξπρσςτυφχψω' + SYMS + '√∛';
+  // Any token carrying a mathematical symbol IS mathematics — the set that
+  // triggers this must be the same set the renderer knows how to map, or a
+  // symbol can silently escape into prose (⇒, ≈, x̄ all did). Ellipses are
+  // excluded: they are prose punctuation far more often than notation.
+  const MATH_TRIGGER = new RegExp('[\\^_\\u0304\\u2070\\u00b9\\u00b2\\u00b3\\u2074-\\u207f' + GLYPHS.replace(/[…⋯]/g, '') + ']');
   const GREEK_WORD = 'Delta|Sigma|Omega|Theta|Lambda|Gamma|Phi|Psi|Pi|Xi|alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega';
 
   function greekify(s) {
@@ -39,7 +62,11 @@
   const FUNC_ALT = 'arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|cot|sec|csc|ln|log|exp';
   function opsify(s) {
     s = s.replace(/\bsum(?=[_^])/g, '∑');
-    s = s.replace(new RegExp('\\bsum\\b[ ]?(?=[(|]|(?:' + FUNC_ALT + ')\\b|[A-Za-z](?![A-Za-z]))', 'g'), '∑');
+    // a summand may also open with a digit ("sum 1/n!" silently rendered the
+    // word "sum" as prose and dropped the sigma entirely)
+    s = s.replace(new RegExp('\\bsum\\b[ ]?(?=[(|\\d]|(?:' + FUNC_ALT + ')\\b|[A-Za-z](?![A-Za-z]))', 'g'), '∑');
+    // "infinity" is always the symbol, in prose or notation
+    s = s.replace(/\binfinity\b/gi, '∞');
     return s;
   }
 
@@ -102,6 +129,9 @@
         j--;
         continue;
       }
+      // A big operator is a PREFIX, never part of the operand beside it:
+      // "sum 1/n!" must be Σ(1/n!), not (Σ1)/n!.
+      if (BIGOPS.indexOf(c) !== -1) break;
       if (/[A-Za-z0-9._'^!\\]/.test(c) || GLYPHS.indexOf(c) !== -1) { j--; continue; }
       break; // stop at + - = , < > space \cdot or an opening bracket
     }
@@ -123,6 +153,7 @@
       }
       if (c === '(' || c === '[' || c === '{') { k = skipGroup(s, k); continue; }
       if (c === '|') { k++; while (k < s.length && s[k] !== '|') k++; k++; continue; }
+      if (BIGOPS.indexOf(c) !== -1) break;
       if (/[A-Za-z0-9._'!]/.test(c) || GLYPHS.indexOf(c) !== -1) { k++; continue; }
       if (c === '^' || c === '_') {
         k++;
@@ -175,7 +206,18 @@
     return x;
   }
 
+  const SUPER = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-', '⁺': '+', 'ⁿ': 'n' };
+
   function toLatex(s) {
+    // Compose accents first (y + combining macron -> ȳ), then turn any
+    // surviving combining macron into a real \bar — a raw U+0304 is a hard
+    // KaTeX parse error, not a cosmetic issue.
+    s = String(s).normalize ? String(s).normalize('NFC') : String(s);
+    s = s.replace(/([^\s])̄/g, (m, c) => '\\bar{' + c + '}');
+    s = s.replace(/̄/g, '');                       // a stray combining mark is a hard KaTeX error
+    s = s.replace(/_{2,}/g, (m) => '\\underline{\\hspace{' + (m.length * 0.45).toFixed(1) + 'em}}');
+    // unicode superscripts ("x²", "e⁻¹") are notation, not text
+    s = s.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺ⁿ]+/g, (m) => '^{' + [...m].map((c) => SUPER[c] || c).join('') + '}');
     let t = ' ' + greekify(opsify(s)) + ' ';
 
     // strip $-delimiters and normalize vulgar fractions (KaTeX has no glyph for ½, ¾, …)
@@ -192,6 +234,13 @@
 
     // sqrt(...) -> \sqrt{...} (recurse into the argument)
     t = replaceBalanced(t, 'sqrt', (arg) => '\\sqrt{' + toLatex(arg) + '}');
+    // the radical glyphs need an argument too — "√(x+1)" and "√x" both, or the
+    // bare √ swallows the following bracket and renders a root of nothing
+    t = replaceBalanced(t, '∛', (arg) => '\\sqrt[3]{' + toLatex(arg) + '}');
+    t = replaceBalanced(t, '√', (arg) => '\\sqrt{' + toLatex(arg) + '}');
+    t = t.replace(/∛\s*([A-Za-z0-9]+)/g, (m, g) => '\\sqrt[3]{' + g + '}');
+    t = t.replace(/√\s*([A-Za-z0-9]+)/g, (m, g) => '\\sqrt{' + g + '}');
+    t = t.replace(/[√∛]/g, '\\surd ');   // a truly bare radical, never raw
 
     // upright function names — boundary must count "_", digits and "(" as
     // delimiters (so "lim_(h->0)" and "max{...}" convert), and must not fire
@@ -203,10 +252,16 @@
       t = t.replace(new RegExp('(^|[^A-Za-z\\\\])' + fn + '(?![A-Za-z])', 'g'), '$1\\' + fn + ' ');
     });
 
+    // a function command used as a sub/superscript label ("S_min") needs a group
+    t = t.replace(/([_^])\s*\\(min|max|det|gcd|deg|lim|arg)\b\s*/g, '$1{\\$2}');
     // superscripts: ^(...) grabs the whole parenthesized exponent; a bare ^ grabs
     // only a signed number or a single letter (compound exponents use parens in the data)
     t = t.replace(/\^\(([^()]+)\)/g, (m, g) => '^{' + g + '}');
-    t = t.replace(/\^(-?\d+|-?[A-Za-z])/g, '^{$1}');
+    // one-sided limits ("x->0^+", "x->a^-") are core notation; a bare sign
+    // exponent left "^" dangling and KaTeX refused the whole expression
+    t = t.replace(/\^(-?\d+|-?[A-Za-z]|[-+±∓])/g, '^{$1}');
+    // a possessive after an exponent ("e^x's derivative") is prose, not a prime
+    t = t.replace(/(\^\{[^}]*\})'s\b/g, '$1\\text{’s}');
     // subscripts
     t = t.replace(/_\(([^()]+)\)/g, (m, g) => '_{' + g + '}');
     t = t.replace(/_(-?\d+|-?[A-Za-z])/g, '_{$1}');
@@ -228,7 +283,7 @@
     t = t.replace(/%/g, '\\%');
 
     // greek glyphs -> commands (last, so the added space can't split earlier operand grabs)
-    t = t.replace(new RegExp('[' + GLYPHS + ']', 'g'), (m) => (GREEK_TEX[m] || m) + ' ');
+    t = t.replace(new RegExp('[' + GLYPHS + ']', 'g'), (m) => (GREEK_TEX[m] || SYM_TEX[m] || m) + ' ');
 
     return t.trim();
   }
@@ -249,8 +304,10 @@
   function wordIsMath(w) {
     const core = w.replace(/^[([]+/, '').replace(/[.,;:?)\]]+$/, '');
     if (!core) return false;
-    if (/[\^_∫√∑∏∞πθλαβεφμΔ≤≥≠→±∈×÷·°]/.test(core)) return true;   // math symbols
+    if (MATH_TRIGGER.test(core)) return true;                       // math symbols
+    if (/^(->|=>|<->|<=>)$/.test(core)) return true;                // ASCII arrows are always notation
     if (/[A-Za-z0-9]\([^()]*\)/.test(core)) return true;              // f(x), sin(3x)
+    if (/[A-Za-z0-9]\([^()]*\)/.test(w)) return true;                 // …even when a trailing ) was peeled ("sqrt(x)")
     if (/[A-Za-z0-9)]\^/.test(core)) return true;                    // x^2
     if (/=/.test(core)) return true;                                 // equations
     if (/^[-+]?\d+(\.\d+)?([+\-*/^]\S+)+$/.test(core)) return true;   // 2n^2-n
@@ -311,30 +368,46 @@
       if (s) out += renderChunk(s, false);
       out += escapeText(punct) + tail;
     };
-    for (const tok of tokens) {
-      if (/^\s+$/.test(tok)) {
-        if (run.length) run.push(tok); else out += tok;
-        continue;
-      }
-      // A math run must NEVER sever while a bracket it opened is unclosed —
-      // severing there was the P0 trust bug (F91): "(1 - cos(x^2))/(x(...))"
-      // split at the spaced minus and the fragments rendered as garbled
-      // fractions. While a run is active, bare operators, digits and single
-      // letters are glue ("x sin x - x^2"), not prose.
-      const glue = run.length > 0 && (
-        runDepth > 0
-        || /^[-+·×\/]$/.test(tok)
-        || /^\d+(\.\d+)?$/.test(tok)
-        || /^[A-Za-z]$/.test(tok)
-      );
-      // A token that OPENS a bracket around maths ("(1", "(e^(x^2/2)") begins a
-      // run even though its bare inner isn't a math word — but never for prose
-      // parentheticals ("(a well-known fact)"): the inner must be a number,
-      // empty, or itself pass the math test.
+    // Pass 1 — classify every token. "glue" is a fragment that is mathematics
+    // only in the company of mathematics: a bare operator, a digit, or a lone
+    // variable. ("a", "A" and "I" are English words first, never variables.)
+    const n = tokens.length;
+    const sp = new Array(n), cls = new Array(n);
+    for (let i = 0; i < n; i++) {
+      const tok = tokens[i];
+      sp[i] = tok === '' || /^\s+$/.test(tok);
+      if (sp[i]) { cls[i] = 'sp'; continue; }
+      // A token that OPENS a bracket around maths ("(1", "(e^(x^2/2)") is
+      // mathematics even though its bare inner isn't a math word — but never a
+      // prose parenthetical ("(a well-known fact)").
       const innerCore = tok.replace(/^[(\[{]+/, '').replace(/[)\]}.,;:]+$/, '');
       const opener = bracketDelta(tok) > 0
         && (innerCore === '' || /^\d+(\.\d+)?$/.test(innerCore) || wordIsMath(innerCore));
-      if (wordIsMath(tok) || glue || opener) {
+      if (wordIsMath(tok) || opener) cls[i] = 'math';
+      else if (/^[-+·×÷\/]$/.test(tok) || /^\d+(\.\d+)?$/.test(tok) || /^(?![aAI]$)[A-Za-z]$/.test(tok)) cls[i] = 'glue';
+      else cls[i] = 'prose';
+    }
+    // Pass 2 — glue joins the mathematics when it TOUCHES mathematics on
+    // either side, so notation can no longer escape as prose: "x -> 0" was
+    // rendered as three plain words because a lone "x" only counted as glue
+    // when a run was already open to its left.
+    const near = (i, dir) => { for (let j = i + dir; j >= 0 && j < n; j += dir) if (!sp[j]) return j; return -1; };
+    for (let pass = 0; pass < 4; pass++) {
+      let changed = false;
+      for (let i = 0; i < n; i++) {
+        if (cls[i] !== 'glue') continue;
+        const p = near(i, -1), q = near(i, 1);
+        if ((p >= 0 && cls[p] === 'math') || (q >= 0 && cls[q] === 'math')) { cls[i] = 'math'; changed = true; }
+      }
+      if (!changed) break;
+    }
+    // Pass 3 — emit. A run NEVER severs while a bracket it opened is unclosed
+    // (the F91 trust bug: "(1 - cos(x^2))/(x(...))" split at the spaced minus
+    // and each fragment became its own garbled fraction).
+    for (let i = 0; i < n; i++) {
+      const tok = tokens[i];
+      if (sp[i]) { if (run.length) run.push(tok); else out += tok; continue; }
+      if (cls[i] === 'math' || runDepth > 0) {
         run.push(tok);
         runDepth = Math.max(0, runDepth + bracketDelta(tok));
       } else {
