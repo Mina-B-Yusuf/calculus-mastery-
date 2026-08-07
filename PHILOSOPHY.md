@@ -51,7 +51,153 @@ An element that satisfies only one or two is **redesigned or removed**. No excep
 
 ---
 
-## The fourth format: Mathematical Scrolls
+## The Exam Lens — organise by mathematics, study by assessment
+
+Most calculus apps organise content by mathematics. That is right, and the
+chapter structure stays: a learner needs a coherent conceptual foundation. But
+a student preparing for an exam is not asking *what is in chapter 6* — they are
+asking **where should I spend my effort?**, and a chapter list cannot answer it.
+
+So an **Exam Lens** sits *on top of* the structure, never replacing it. Every
+idea should answer four questions:
+
+1. **Why does this idea exist?** → the Scroll
+2. **How do I recognise it?** → Observe → Recognize
+3. **How does the examiner usually test it?** → the Examiner's Desk
+4. **How can this question mutate?** → the versions of a section
+
+- **Frequency is evidence, never opinion.** The Examiner's Desk counts how
+  often each problem template actually appears across the real past papers,
+  what it costs in marks, and which sections it draws on. Only the *why the
+  examiner reaches for it* is authored — a star rating without a reason
+  teaches nothing.
+- **Where there is no evidence, say so.** A chapter with no past-paper coverage
+  gets an empty desk and an explanation, never an invented ranking.
+- **A section is one question and its mutations.** Its micro-skills are Version
+  A, B, C — not unrelated skills — and every section closes by asking *if I
+  were the examiner, how could I change this?* (swap the function, add a step
+  before it, combine with a neighbour, reverse it, ask for justification). The
+  learner should end up **predicting** exam questions rather than memorising
+  solutions.
+
+The goal is a student who thinks like an examiner: not "I have covered chapter
+6" but "I know the four questions this chapter asks, and what each one costs."
+
+### The Question Genome
+
+A section is a **question family**, and every family has **DNA** — a small set
+of genes it always exercises (*make it proper · read the denominator · choose
+the template · find the constants · integrate each piece · finish honestly*).
+Each gene carries a **competency**, because that is what is really being
+measured: *recognise · model · compute · justify · interpret*.
+
+> **Most exam questions are not new. They are familiar ideas with one
+> important change.**
+
+That single sentence is the most valuable thing the app can teach. A student
+who believes there are infinitely many question types is defenceless; a student
+who sees a finite set of families has a conquerable world. So every version of
+a question states **what changed** and **which step it changed**, and the
+versions are ordered as an *evolution* — each a change from the one before,
+never alphabetically.
+
+**The operators are shared across all of calculus.** What varies is not
+per-family trivia; it is a vocabulary of about fifteen recurring moves —
+*change the object · increase multiplicity · add a composition · hide the
+structure · change the domain · change the boundary · introduce a parameter ·
+reverse the question · require justification · approximate instead of compute ·
+interpret instead of calculate · combine two topics · choose the method · push
+to the edge case · change the representation.* This set was **validated against
+ten wildly different families** before anything was built on it
+(`research/genome-grammar-study.md`): it explained eight outright, needed two
+new operators to reach nine, and the tenth turned out not to be a mutation
+family at all. *Hide the structure*, written for partial fractions, reappeared
+in logarithmic differentiation, completing the square, and trigonometric
+substitution — that cross-family reach is the evidence these are real
+operators and not local descriptions.
+
+**Three kinds of family**, each owed a *different study experience* —
+conflating them would destroy the pattern-recognition this is meant to train:
+
+| Type | The question it asks | Example |
+|---|---|---|
+| **Mutation** | *What changed?* | partial fractions, Taylor, improper integrals |
+| **Method** | *Which instrument, and what told you?* | convergence tests, disk vs washer vs shells |
+| **Recall** | *Can you state it, and prove it?* | the theory catalogue |
+
+**Operators present ≠ the operator responsible.** A problem may change the
+representation *and* demand justification while the representation is trivial
+and the proof earns every mark. Only the **load-bearing** operator is worth
+telling a learner about, and it is what lets the Examiner's Desk say something
+useful — *"when Taylor appears, the examiner usually makes it hard by changing
+the object or going one order deeper"* — instead of merely counting topics.
+
+**Both structures were validated against 70 real exam questions, blind**
+(`research/exam-genome-audit.md`): every mutation-family problem classified, no
+grammar failures, no new operators admitted — and the recall family was
+*discovered* by the audit rather than assumed.
+
+**The exam is much smaller than it looks.** The blind audit's largest finding
+was not that the operators worked — it was that **13 of 33** mutation-family
+exam questions carried *no meaningful mutation at all*. Two integrals differing
+by one sign, two ODEs differing by a sign, two recursive sequences differing
+only in constants. A new paper does not mean new mathematics; usually the
+examiner changed the constants, the signs, or the surface and left the
+intellectual problem intact. **Training that perception is worth more than any
+feature**, and it is why reskins are recorded as reskins and never dressed up
+as new variants.
+
+**Families are authored forensically, never from the textbook.** Start with the
+questions the examiner actually set and work backward
+(`data/genome-authoring.md`). A family written from a syllabus describes what
+*could* be asked; only one written from papers shrinks the exam. Every family
+cites the real papers behind it, or admits it has none.
+
+**Aim for "Oh — it's *that* question," not coverage.** The target is the
+smallest set of examples that makes a family feel finite. If nine variants are
+needed to produce that feeling, the family has been over-documented; four
+usually suffice. And the endpoint of good authoring is the *removal* of
+everything authored — no labels, no operator tags, no hints, just the
+past-paper question. If a learner's first reaction is *"I've seen this before"*
+when they literally have not, the authoring worked.
+
+**A metric must change a decision or it does not belong on the page.** The
+competency composition of a family ("33% recognise") is genuinely useful to an
+author and answers no question a learner has — *seeing it changes nothing about
+what to do next*. It lives in the data and the authoring layer; it was removed
+from the learning surface.
+
+- **Coverage, never completion.** "You have seen 4 of the 6 common mutations of
+  this family." Coverage is educational; a completion percentage is a game.
+- **Genome is authored, coverage is computed.** The DNA is written by hand
+  (`data/genome.json`); which mutations the learner has met comes from their
+  own attempts.
+- **A family without a genome still works** — it falls back to the generic
+  mutation prompts. Authoring a genome is an upgrade, never a dependency.
+- **The taxonomy must disappear into the background.** A quiet tag on a
+  mutation, a line in an authoring file — never a classification to browse.
+  This is a place to *think about mathematics*, not a taxonomy explorer. If a
+  learner is ever reading the structure instead of doing the mathematics, the
+  Genome has been misused. Sometimes the important thing is simply **doing the
+  mathematics.**
+
+### The balance: purpose and confidence
+
+The Exam Lens must never dominate the product. Two forces are held at once:
+
+| Layer | What it says |
+|---|---|
+| **Scroll** | "This idea changed mathematics." |
+| **Journey** | "Discover it yourself." |
+| **Reference** | "Here is the precise mathematics." |
+| **Exam Lens** | "Here is how this idea lives in real exams." |
+| **Question Genome** | "Here is how one core idea becomes many questions." |
+
+The Scroll gives **purpose**; the Exam Lens gives **confidence**. Build only the
+second and this becomes another exam-prep tool. Build only the first and it
+becomes a museum with no exit. The project is interesting precisely because it
+refuses to choose — so any change that strengthens assessment at the expense of
+wonder has failed the constitution, and so has the reverse.
 
 A Journey teaches an idea. The Reference stores it. A Drill hardens it. A
 **Scroll** does none of those — in two or three minutes it answers the only

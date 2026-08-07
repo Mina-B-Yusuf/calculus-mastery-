@@ -10,12 +10,21 @@
 // invents state.
 
 let JN_INDEX = null;
+let JN_GENOME = null;
 
 async function journeyIndex() {
   if (JN_INDEX) return JN_INDEX;
   try { JN_INDEX = await DataLoader.fetchJSON('data/journeys/index.json'); }
   catch (e) { JN_INDEX = { journeys: [] }; }
   return JN_INDEX;
+}
+
+// The Question Genome — a family's DNA, and which gene each mutation changes.
+async function genome() {
+  if (JN_GENOME) return JN_GENOME;
+  try { JN_GENOME = await DataLoader.fetchJSON('data/genome.json'); }
+  catch (e) { JN_GENOME = { families: {}, competencies: {} }; }
+  return JN_GENOME;
 }
 
 // Forced inline math: these spans are known to be mathematics, so typeset them
@@ -244,6 +253,10 @@ window.JourneyMode = {
         </div>
       </div>
       <div class="cp-orient"><div class="cp-prog">${seg}</div><div class="cp-orient-lbl">${doneCount} of ${secs.length} sections steadied</div></div>
+      <a class="cp-examiner" href="#/examiner/${chapter}">
+        <span class="cp-badge">${Icon('exam')}</span>
+        <span class="cp-main"><span class="cp-title">The examiner's desk</span><span class="cp-sub">What this chapter is actually asked to do</span></span>
+        <span class="jn-chev">${Icon('forward')}</span></a>
       ${scroll ? `<a class="cp-scroll${scroll.kind === 'micro' ? ' micro' : ''}" href="#/scroll/${encodeURIComponent(scroll.id)}">
         <span class="cp-badge">${Icon('gist')}</span>
         <span class="cp-main"><span class="cp-title">${escapeHtml(scroll.title)}</span><span class="cp-sub">${scroll.kind === 'micro' ? 'A one-minute intuition' : 'A short read — why this idea matters'}</span></span>
@@ -256,9 +269,10 @@ window.JourneyMode = {
 
   // ---- a Section Unit: reference for one idea, then the next sensible move ----
   async renderSection(root, chapter, section) {
-    const [microSkills, archetypes, attempts] = await Promise.all([
-      DB.getAll('microSkills'), DB.getAll('archetypes'), DB.getAllAttempts(),
+    const [microSkills, archetypes, attempts, gen] = await Promise.all([
+      DB.getAll('microSkills'), DB.getAll('archetypes'), DB.getAllAttempts(), genome(),
     ]);
+    const family = (gen.families || {})[String(section)] || null;
     const inCh = microSkills.filter((m) => String(m.chapter) === String(chapter));
     const skills = inCh.filter((m) => String(m.section) === String(section));
     if (!skills.length) { root.innerHTML = `<div class="card">Not found. <a href="#/journey/${chapter}">Back</a></div>`; return; }
@@ -278,10 +292,73 @@ window.JourneyMode = {
     arch.forEach((a) => { if (skillIds.has(a.microSkillId) && a.recognitionCue && !cueBySkill[a.microSkillId]) cueBySkill[a.microSkillId] = a.recognitionCue; });
 
     const seg = secList.map((s, k) => `<span class="cp-seg ${k === i ? 'now' : ''}"></span>`).join('');
-    const refRows = skills.map((s) => `
-      <a class="su-idea" href="#/concepts/skill/${encodeURIComponent(s.id)}">
-        <span class="su-idea-main"><span class="su-idea-t">${escapeHtml(s.microSkill)}</span>${cueBySkill[s.id] ? `<span class="su-idea-cue"><em>Spot it:</em> ${MathRender.inline(cueBySkill[s.id])}</span>` : ''}</span>
-        <span class="jn-chev">${Icon('chevron')}</span></a>`).join('');
+    // A section is not a list of separate skills — it is ONE question and its
+    // mutations. Labelling them A, B, C teaches the family, so the learner
+    // starts predicting how a question can be altered instead of memorising
+    // each variant as if it were unrelated.
+    const LETTERS = 'ABCDEFGHIJ';
+    // Which mutations has the learner actually met? Coverage, never completion:
+    // "6 of 9 seen" is educational; "67% complete" is a game.
+    const attemptedArch = new Set(attempts.map((a) => a.archetypeId));
+    const metSkill = (id) => archetypes.some((a) => a.microSkillId === id && attemptedArch.has(a.id));
+    // Order the family so the plainest form comes first and each mutation
+    // reads as a change from what came before.
+    const ordered = (family && (family.order || []).length)
+      ? skills.slice().sort((a, b) => {
+          const ia = family.order.indexOf(a.id), ib = family.order.indexOf(b.id);
+          return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        })
+      : skills;
+    const refRows = ordered.map((s, k) => {
+      const mut = family && (family.mutations || {})[s.id];
+      const step = mut && (family.steps || []).find((g) => g.id === mut.step);
+      const opName = mut && mut.op && (gen.operators || {})[mut.op];
+      return `<a class="su-idea" href="#/concepts/skill/${encodeURIComponent(s.id)}">
+        <span class="su-ver${metSkill(s.id) ? ' met' : ''}">${ordered.length > 1 ? LETTERS[k] || (k + 1) : Icon('gist')}</span>
+        <span class="su-idea-main">
+          <span class="su-idea-t">${escapeHtml(s.microSkill)}</span>
+          ${mut ? `<span class="su-changed">${opName ? `<span class="su-op-tag${mut.loadBearing ? ' load' : ''}">${escapeHtml(opName)}</span>` : (step ? `<span class="su-gene-tag">${escapeHtml(step.label)}</span>` : '')}${MathRender.inline(mut.changed)}</span>`
+                : (cueBySkill[s.id] ? `<span class="su-idea-cue"><em>Spot it:</em> ${MathRender.inline(cueBySkill[s.id])}</span>` : '')}
+        </span>
+        <span class="jn-chev">${Icon('chevron')}</span></a>`;
+    }).join('');
+
+    let mutations = '';
+    if (family) {
+      const seen = skills.filter((s) => metSkill(s.id)).length;
+      const known = family.commonMutations || skills.length;
+      const comp = (gen.competencies || {});
+      const ftype = (gen.familyTypes || {})[family.type || 'mutation'] || { prompt: 'What changed?' };
+      const isMethod = family.type === 'method';
+      mutations = `
+        <div class="su-genome">
+          <div class="su-mut-lbl">${isMethod ? 'What each instrument costs' : 'What this question always asks of you'}</div>
+          <p class="mono-p su-core">${MathRender.inline(family.core)}</p>
+          <ol class="su-genes">
+            ${(family.steps || []).map((g) => `<li>
+              <span class="su-gene-h"><span class="su-gene-n">${escapeHtml(g.label)}</span></span>
+              <span class="su-gene-t">${MathRender.inline(g.text)}</span></li>`).join('')}
+          </ol>
+          <p class="mono-p su-mut-end">${isMethod
+            ? `<strong>The question never changes — the instrument does.</strong> The marked skill is choosing, and saying what evidence chose it.`
+            : `<strong>Most exam questions are not new. They are familiar ideas with one important change.</strong> Every version above changes exactly one of these steps — so look for the changed part before you start.`}</p>
+          ${family.evidence ? `<div class="su-evidence">${MathRender.inline(family.evidence)}</div>` : ''}
+          <div class="su-coverage">You have seen <strong>${seen} of the ${known}</strong> ${isMethod ? 'instruments in this family' : 'common mutations of this family'}.</div>
+        </div>`;
+    } else if (skills.length > 1) {
+      mutations = `
+        <div class="su-mut">
+          <div class="su-mut-lbl">If I were the examiner, how could I change this?</div>
+          <ul class="mono-list">
+            <li>Swap the numbers, or the function, for one that behaves differently</li>
+            <li>Add a step before it — a rearrangement, a division, a completed square</li>
+            <li>Combine it with a neighbouring topic so two techniques are needed</li>
+            <li>Reverse it: give the answer and ask what was integrated or differentiated</li>
+            <li>Ask for the justification instead of the value</li>
+          </ul>
+          <p class="mono-p su-mut-end">The versions above are the mutations that have actually been set. When you meet a new one, ask which version it is before you start.</p>
+        </div>`;
+    }
 
     const nextBtn = nextSec
       ? `<a class="rc-go" href="#/journey/${chapter}/s/${encodeURIComponent(nextSec)}">Next · ${escapeHtml(nextSec)} ${escapeHtml(nameOf(nextSec))}&nbsp; ${Icon('forward')}</a>`
@@ -296,8 +373,9 @@ window.JourneyMode = {
           <div class="display">${escapeHtml(name)}</div>
         </div>
       </div>
-      <div class="section-title">In this section</div>
+      <div class="section-title">${family ? escapeHtml(family.name) + (family.type === 'method' ? ' — one question, ' + ordered.length + ' instruments' : ' — one question, ' + ordered.length + ' versions') : (skills.length > 1 ? 'One question, ' + skills.length + ' versions' : 'In this section')}</div>
       <div class="su-ideas">${refRows}</div>
+      ${mutations}
       <div class="su-next">
         <div class="kicker" style="margin-bottom:10px;">What next?</div>
         <a class="rc-go su-primary" href="#/drill/s/${chapter}/${encodeURIComponent(section)}">${Icon('drill')}&nbsp; Practice this section · ${archCount} question${archCount === 1 ? '' : 's'}</a>

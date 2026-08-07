@@ -1,7 +1,7 @@
 // Versioned, offline-first service worker.
 // Bump CACHE_VERSION whenever shipped files change so clients pick up updates
 // via the "update available" flow instead of silently going stale.
-const CACHE_VERSION = 'v39';
+const CACHE_VERSION = 'v45';
 const SHELL_CACHE = `calc-mastery-shell-${CACHE_VERSION}`;
 const DATA_CACHE = `calc-mastery-data-${CACHE_VERSION}`;
 
@@ -27,6 +27,7 @@ const SHELL_ASSETS = [
   'js/data-loader.js',
   'js/priority.js',
   'js/observatory.js',
+  'js/examiner.js',
   'js/app.js',
   'js/modes/home.js',
   'js/modes/recognition.js',
@@ -36,6 +37,7 @@ const SHELL_ASSETS = [
   'js/modes/formula.js',
   'js/modes/journey.js',
   'js/modes/scroll.js',
+  'js/modes/examiner.js',
   'js/modes/concepts.js',
   'js/modes/scratchpad.js',
   'js/modes/notes.js',
@@ -51,6 +53,8 @@ const SHELL_ASSETS = [
   'data/journeys/index.json',
   'data/journeys/02-differentiation.json',
   'data/past-papers/past-papers.json',
+  'data/past-papers/examiner-notes.json',
+  'data/genome.json',
   'data/memorize/memorize.json',
   'icons/icon-192.png',
   'icons/icon-512.png',

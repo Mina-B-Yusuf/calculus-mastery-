@@ -1,0 +1,489 @@
+{
+  "note": "The Question Genome. Most exam questions are not new — they are familiar ideas with one important change. Families come in three kinds, validated against 70 real exam questions in research/exam-genome-audit.md: MUTATION (same problem, examiner changes the conditions — ask 'what changed?'), METHOD (same goal, competing tools — ask 'which instrument, and what told you?'), and RECALL (a fixed catalogue to reproduce — ask 'can you state and prove it?'). 'steps' are what the question always asks of you. 'operators' are the shared vocabulary of what an examiner can change; 'loadBearing' marks the one that actually creates the difficulty, which is rarely all of them. 'order' is the EVOLUTION order.",
+  "competencies": {
+    "recognise": "Recognise",
+    "model": "Model",
+    "compute": "Compute",
+    "justify": "Justify",
+    "interpret": "Interpret"
+  },
+  "operators": {
+    "object": "Change the object",
+    "multiplicity": "Increase multiplicity",
+    "composition": "Add a composition",
+    "hide": "Hide the structure",
+    "domain": "Change the domain",
+    "boundary": "Change the boundary",
+    "parameter": "Introduce a parameter",
+    "reverse": "Reverse the question",
+    "justify": "Require justification",
+    "approximate": "Approximate instead of compute",
+    "interpret": "Interpret instead of calculate",
+    "combine": "Combine two topics",
+    "choose": "Choose the method",
+    "edge": "Push to the edge case",
+    "represent": "Change the representation"
+  },
+  "families": {
+    "6.2": {
+      "name": "Partial fractions",
+      "core": "Split a rational function into pieces you already know how to integrate.",
+      "commonMutations": 6,
+      "mutations": {
+        "6.2-partial-fractions-distinct-linear": {
+          "changed": "Nothing yet — this is the family in its plainest form.",
+          "step": "decompose"
+        },
+        "6.2-partial-fractions-setup-long-division": {
+          "changed": "The numerator got heavier than the denominator, so a division appears before the real question starts.",
+          "step": "prepare",
+          "op": "object"
+        },
+        "6.2-partial-fractions-repeated-linear": {
+          "changed": "A factor now repeats, so it earns one term per power instead of one term.",
+          "step": "decompose",
+          "op": "multiplicity",
+          "loadBearing": true
+        },
+        "6.2-partial-fractions-irreducible-quadratic": {
+          "changed": "A factor stopped being factorable, so its numerator becomes linear — and an arctangent appears at the end.",
+          "step": "decompose",
+          "op": "object",
+          "loadBearing": true
+        },
+        "6.2-partial-fractions-repeated-quadratic": {
+          "changed": "Both mutations at once: a quadratic factor that also repeats.",
+          "step": "decompose",
+          "op": "multiplicity"
+        },
+        "6.2-partial-fractions-complete-square-first": {
+          "changed": "The quadratic is disguised — you must complete the square before you can even read the denominator.",
+          "step": "factor",
+          "op": "hide",
+          "loadBearing": true
+        }
+      },
+      "order": [
+        "6.2-partial-fractions-distinct-linear",
+        "6.2-partial-fractions-repeated-linear",
+        "6.2-partial-fractions-irreducible-quadratic",
+        "6.2-partial-fractions-repeated-quadratic",
+        "6.2-partial-fractions-complete-square-first",
+        "6.2-partial-fractions-setup-long-division"
+      ],
+      "type": "mutation",
+      "steps": [
+        {
+          "id": "prepare",
+          "label": "Make it proper",
+          "competency": "recognise",
+          "text": "If the top is as heavy as the bottom, divide first — everything downstream assumes a proper fraction."
+        },
+        {
+          "id": "factor",
+          "label": "Read the denominator",
+          "competency": "recognise",
+          "text": "The factor structure decides the whole shape of the answer before any algebra begins."
+        },
+        {
+          "id": "decompose",
+          "label": "Choose the template",
+          "competency": "model",
+          "text": "One term per distinct linear factor, one per power of a repeated factor, a linear numerator over each quadratic."
+        },
+        {
+          "id": "coefficients",
+          "label": "Find the constants",
+          "competency": "compute",
+          "text": "Cover-up, substitution of convenient values, or equating coefficients."
+        },
+        {
+          "id": "integrate",
+          "label": "Integrate each piece",
+          "competency": "compute",
+          "text": "Logarithms from linear factors, powers from repeated ones, arctangent from quadratics."
+        },
+        {
+          "id": "present",
+          "label": "Finish honestly",
+          "competency": "justify",
+          "text": "Absolute values inside logarithms, and the constant of integration."
+        }
+      ],
+      "evidence": "1 real question (2011b A3) — the exam reaches for this less often than the textbook does, but when it does it arrives with both a repeated factor and an irreducible quadratic at once."
+    },
+    "9.6": {
+      "name": "Taylor approximation",
+      "core": "Rebuild a function near a point from what it does at that point.",
+      "commonMutations": 5,
+      "mutations": {
+        "9.6-taylor-maclaurin-definition-coefficients": {
+          "changed": "Nothing yet — the polynomial is built straight from the definition.",
+          "step": "generate"
+        },
+        "9.6-standard-maclaurin-table-recall": {
+          "changed": "The derivatives are no longer computed; they are recalled. Speed replaces derivation.",
+          "step": "generate",
+          "op": "choose"
+        },
+        "9.6-building-new-series-substitution": {
+          "changed": "You start from a series you already own and transform it rather than beginning again.",
+          "step": "generate",
+          "op": "composition"
+        },
+        "9.6-series-via-long-division": {
+          "changed": "No closed form exists, so the terms must be ground out by division.",
+          "step": "generate",
+          "op": "object",
+          "loadBearing": true
+        },
+        "9.6-analytic-functions-remainder": {
+          "changed": "The question stops asking for the polynomial and starts asking how wrong it is.",
+          "step": "error",
+          "op": "justify",
+          "loadBearing": true
+        }
+      },
+      "order": [
+        "9.6-taylor-maclaurin-definition-coefficients",
+        "9.6-standard-maclaurin-table-recall",
+        "9.6-building-new-series-substitution",
+        "9.6-series-via-long-division",
+        "9.6-analytic-functions-remainder"
+      ],
+      "type": "mutation",
+      "steps": [
+        {
+          "id": "point",
+          "label": "Choose the expansion point",
+          "competency": "recognise",
+          "text": "Almost always 0, but a question can move it — and everything shifts with it."
+        },
+        {
+          "id": "generate",
+          "label": "Generate the polynomial",
+          "competency": "compute",
+          "text": "From the definition, from the standard table, or by transforming a series you already know."
+        },
+        {
+          "id": "evaluate",
+          "label": "Use it",
+          "competency": "compute",
+          "text": "Substitute, or feed the expansion into a limit and watch the low-order terms decide the answer."
+        },
+        {
+          "id": "error",
+          "label": "Bound the error",
+          "competency": "justify",
+          "text": "A polynomial is a promise with a range; the remainder term says how far the promise holds."
+        },
+        {
+          "id": "interpret",
+          "label": "Say what it means",
+          "competency": "interpret",
+          "text": "How many terms are needed, whether it converges, what happens as x grows."
+        }
+      ],
+      "evidence": "10 citations, 9 of them the opening Taylor-limit. The audit found the numerator is often reused verbatim between sittings while the denominator goes one order deeper."
+    },
+    "9.3": {
+      "name": "Convergence tests",
+      "type": "method",
+      "core": "One unchanging question — does this series converge? — and six instruments to answer it.",
+      "steps": [
+        {
+          "id": "shape",
+          "label": "Read the shape",
+          "competency": "recognise",
+          "text": "Factorials and n-th powers point one way; rational and logarithmic terms point another."
+        },
+        {
+          "id": "pick",
+          "label": "Pick the instrument",
+          "competency": "model",
+          "text": "The cheapest test that can settle it, not the most powerful one."
+        },
+        {
+          "id": "apply",
+          "label": "Apply it cleanly",
+          "competency": "compute",
+          "text": "Compute the limit or the comparison the test actually requires."
+        },
+        {
+          "id": "evidence",
+          "label": "Say what settled it",
+          "competency": "justify",
+          "text": "A convergence claim without the test that produced it earns nothing."
+        }
+      ],
+      "commonMutations": 6,
+      "order": [
+        "9.3-integral-test",
+        "9.3-direct-comparison-test",
+        "9.3-limit-comparison-test",
+        "9.3-ratio-test",
+        "9.3-root-test",
+        "9.3-test-selection"
+      ],
+      "mutations": {
+        "9.3-integral-test": {
+          "step": "apply",
+          "changed": "Wins when the terms are a decreasing function you can actually integrate — and it delivers the p-series outright."
+        },
+        "9.3-direct-comparison-test": {
+          "step": "pick",
+          "changed": "Wins when you already know a neighbouring series and the inequality points the right way."
+        },
+        "9.3-limit-comparison-test": {
+          "step": "pick",
+          "changed": "Wins when the inequality is awkward but the asymptotic behaviour is obvious."
+        },
+        "9.3-ratio-test": {
+          "step": "shape",
+          "changed": "Wins on factorials and products, where consecutive terms simplify."
+        },
+        "9.3-root-test": {
+          "step": "shape",
+          "changed": "Wins on n-th powers, especially exponent towers where the ratio is a mess."
+        },
+        "9.3-test-selection": {
+          "step": "pick",
+          "changed": "The exam rarely names the test — choosing is the marked skill.",
+          "loadBearing": true
+        }
+      },
+      "evidence": "16 citations across all 8 papers — the most-tested family in the course. Every paper asks it in three parts, each part demanding a different instrument."
+    },
+    "6.5": {
+      "name": "Improper-integral convergence",
+      "type": "mutation",
+      "core": "Never evaluate it — decide whether it is finite by comparing it with something you already understand.",
+      "steps": [
+        {
+          "id": "where",
+          "label": "Find where it is improper",
+          "competency": "recognise",
+          "text": "An infinite limit, a singular point, or — the expensive case — both ends at once."
+        },
+        {
+          "id": "order",
+          "label": "Read the order of the integrand",
+          "competency": "recognise",
+          "text": "Near the trouble, replace every factor by its leading behaviour: sin u ~ u, 1-cos u ~ u²/2, 1-e^(-u) ~ u."
+        },
+        {
+          "id": "compare",
+          "label": "Choose the comparison",
+          "competency": "model",
+          "text": "A p-integral you know converges or diverges, pointing the right way for the inequality."
+        },
+        {
+          "id": "verify",
+          "label": "Say what settled it",
+          "competency": "justify",
+          "text": "An inequality in the wrong direction proves nothing; asymptotic comparison needs a limit."
+        }
+      ],
+      "commonMutations": 4,
+      "order": [
+        "6.5-comparison-test",
+        "6.5-p-integral-test",
+        "6.5-type-1-infinite-interval",
+        "6.5-type-2-unbounded-integrand"
+      ],
+      "mutations": {
+        "6.5-comparison-test": {
+          "step": "compare",
+          "changed": "Nothing yet — the plain form. Read the leading order, compare with a p-integral. Seen bare in 2011 A3."
+        },
+        "6.5-p-integral-test": {
+          "step": "compare",
+          "changed": "The comparison itself becomes the question: for which p does it converge?",
+          "op": "parameter"
+        },
+        "6.5-type-1-infinite-interval": {
+          "step": "order",
+          "changed": "The integrand is disguised — a difference of roots, or something needing a series expansion, before its order can be read at all. This is the most common twist on these papers (2010 A3, 2012 A5, 2011b A2).",
+          "op": "hide",
+          "loadBearing": true
+        },
+        "6.5-type-2-unbounded-integrand": {
+          "step": "where",
+          "changed": "The lower limit becomes 0, so the integral is singular at BOTH ends and must be split. The integrand may look terrifying and be routine; the marks are in the splitting (2020 A5, 2023 A5).",
+          "op": "domain",
+          "loadBearing": true
+        }
+      },
+      "evidence": "8 of 8 papers carry this family. Blind audit: 1 base, 3 hide-the-structure, 2 change-the-domain, 2 change-the-object."
+    },
+    "9.1": {
+      "name": "Recursive sequence limits",
+      "type": "mutation",
+      "core": "Show a recursively defined sequence converges, then find what it converges to.",
+      "steps": [
+        {
+          "id": "monotone",
+          "label": "Show it is monotone",
+          "competency": "justify",
+          "text": "Induction: assume the step, prove the next one keeps the direction."
+        },
+        {
+          "id": "bounded",
+          "label": "Show it is bounded",
+          "competency": "justify",
+          "text": "Guess the bound from the fixed point, then prove it by induction."
+        },
+        {
+          "id": "exists",
+          "label": "Conclude the limit exists",
+          "competency": "justify",
+          "text": "Monotone and bounded is the theorem being tested — name it."
+        },
+        {
+          "id": "solve",
+          "label": "Solve for the limit",
+          "competency": "compute",
+          "text": "Let n→∞ on both sides of the recursion and solve; discard roots the bound forbids."
+        }
+      ],
+      "commonMutations": 2,
+      "order": [
+        "9.1-sequence-monotonic-bounded-convergence",
+        "9.1-sequence-workhorse-limits",
+        "9.1-sequence-limit-basic-laws"
+      ],
+      "mutations": {
+        "9.1-sequence-monotonic-bounded-convergence": {
+          "step": "exists",
+          "changed": "Nothing yet — and on these papers, almost nothing ever does. 2011 A4 and 2011b A4 are the SAME question with different constants."
+        },
+        "9.1-sequence-workhorse-limits": {
+          "step": "solve",
+          "changed": "The sequence is given in closed form instead of recursively, so the work moves to standard limits.",
+          "op": "represent"
+        },
+        "9.1-sequence-limit-basic-laws": {
+          "step": "solve",
+          "changed": "The limit is assembled from limit laws or the Squeeze Theorem rather than a fixed point.",
+          "op": "choose"
+        }
+      },
+      "evidence": "3 real questions. The audit found this family is dominated by RESKINNING: the sequences differ in constants only. Learn it once and it is done."
+    },
+    "9.5": {
+      "name": "Radius of convergence",
+      "type": "mutation",
+      "core": "Find where a power series lives — and then check its two endpoints separately.",
+      "steps": [
+        {
+          "id": "ratio",
+          "label": "Test the coefficients",
+          "competency": "compute",
+          "text": "Ratio or root test on |a_n|; whichever the coefficient shape makes cheap."
+        },
+        {
+          "id": "radius",
+          "label": "Read off the radius",
+          "competency": "compute",
+          "text": "The limit gives 1/R — mind whether you computed R or its reciprocal."
+        },
+        {
+          "id": "ends",
+          "label": "Test each endpoint",
+          "competency": "justify",
+          "text": "Substitute x = ±R and test the resulting number series. This is where the marks hide."
+        },
+        {
+          "id": "state",
+          "label": "State the interval",
+          "competency": "interpret",
+          "text": "Open, half-open or closed — the endpoints decide, and they can disagree."
+        }
+      ],
+      "commonMutations": 3,
+      "order": [
+        "9.5-radius-interval-of-convergence-with-endpoints",
+        "9.5-power-series-definition-radius-concept",
+        "9.5-power-series-algebra",
+        "9.5-term-by-term-differentiation-integration",
+        "9.5-abels-theorem-continuity"
+      ],
+      "mutations": {
+        "9.5-radius-interval-of-convergence-with-endpoints": {
+          "step": "ratio",
+          "changed": "Nothing yet — the plain form. Every paper that asks this asks it in parts, with the last part hardest (2010 A4, 2023 A3, 2023b A3)."
+        },
+        "9.5-power-series-definition-radius-concept": {
+          "step": "radius",
+          "changed": "The coefficients become an exponent tower or a ratio of factorials, so the ratio test must survive n^(n²) and (n!)^5.",
+          "op": "multiplicity",
+          "loadBearing": true
+        },
+        "9.5-power-series-algebra": {
+          "step": "ratio",
+          "changed": "Two series are combined first, so the coefficient sequence must be built before it can be tested.",
+          "op": "combine"
+        },
+        "9.5-term-by-term-differentiation-integration": {
+          "step": "radius",
+          "changed": "The series is differentiated or integrated term by term — the radius survives, the endpoints may not.",
+          "op": "reverse"
+        },
+        "9.5-abels-theorem-continuity": {
+          "step": "ends",
+          "changed": "The question moves entirely to the endpoint, where Abel's theorem is the only tool.",
+          "op": "edge"
+        }
+      },
+      "evidence": "3 real questions, all multi-part with an exponent-tower coefficient in the final part."
+    }
+  },
+  "familyTypes": {
+    "mutation": {
+      "prompt": "What changed?",
+      "note": "Same problem; the examiner changed the conditions."
+    },
+    "method": {
+      "prompt": "Which instrument, and what told you?",
+      "note": "Same goal; competing tools. The skill is choosing."
+    },
+    "recall": {
+      "prompt": "Can you state it, and prove it?",
+      "note": "A fixed catalogue of results to reproduce. Nothing is being mutated."
+    }
+  },
+  "reskins": [
+    {
+      "pair": [
+        "2023-03-21 A1",
+        "2023-08-23 A1"
+      ],
+      "family": "integration technique",
+      "changed": "a single sign in the denominator (-3 sin x vs +3 sin x)"
+    },
+    {
+      "pair": [
+        "2023-03-21 A4",
+        "2023-08-23 A4"
+      ],
+      "family": "2nd-order ODE",
+      "changed": "the sign of the damping term and of the exponential"
+    },
+    {
+      "pair": [
+        "2011-05-31 A4",
+        "2011b-05-31 A4"
+      ],
+      "family": "recursive sequence",
+      "changed": "the constants only"
+    },
+    {
+      "pair": [
+        "2023-03-21 B1",
+        "2023-08-23 B1"
+      ],
+      "family": "theory",
+      "changed": "nothing — the identical proof"
+    }
+  ]
+}

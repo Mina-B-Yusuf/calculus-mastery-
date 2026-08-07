@@ -5,6 +5,7 @@ const routes = {
   home: () => window.HomeMode.render(appRoot),
   journey: (sub) => window.JourneyMode.render(appRoot, sub),
   scroll: (sub) => window.ScrollMode.render(appRoot, sub),
+  examiner: (sub) => window.ExaminerMode.render(appRoot, sub),
   drill: (sub) => {
     let opts = {};
     if (sub[0] === 's' && sub[1] != null && sub[2] != null) opts.filter = { chapter: sub[1], section: sub[2] };
@@ -31,7 +32,7 @@ const HOME_ROUTES = ['home', 'speed', 'flashcards', 'memorize'];
 const MORE_ROUTES = ['formula', 'scratchpad', 'notes', 'radar', 'errors', 'settings', 'more'];
 // The Journey is where understanding is born; Concepts is now its reference,
 // so both live under the Journey tab.
-const JOURNEY_ROUTES = ['journey', 'concepts', 'scroll'];
+const JOURNEY_ROUTES = ['journey', 'concepts', 'scroll', 'examiner'];
 
 function setActiveTab(name) {
   let tab = name;

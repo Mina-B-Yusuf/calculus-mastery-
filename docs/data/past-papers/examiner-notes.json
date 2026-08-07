@@ -1,0 +1,25 @@
+{
+  "note": "Why the examiner reaches for each template, and HOW they usually make it hard. Frequency is COMPUTED from the eight real papers. 'hardenedBy' comes from the Exam Genome Audit (research/exam-genome-audit.md): the operator that actually carries the difficulty, not merely the operators present.",
+  "why": {
+    "T1": "One question that checks three things at once: do you know the standard expansions by heart, can you keep track of orders, and do you understand that a limit only cares about the lowest surviving power. It is unforgiving and quick to mark — which is exactly why it opens almost every paper.",
+    "T2": "Pure technique, no modelling. It rewards the student who reaches for the right identity immediately (odd power → peel one factor; all even → double-angle) and punishes the one who tries to brute-force it. A clean test of method choice.",
+    "T3": "The examiner's favourite fork in the road: substitution, by parts, or partial fractions. Most marks lost here are lost before the pen moves, by attacking with the wrong technique — so this problem is really testing recognition, not integration.",
+    "T4": "Convergence questions test whether you understand that an integral can be finite over an infinite region. You are not asked to evaluate it — only to compare it with something you already understand, which is a far deeper skill than computing.",
+    "T5": "Two-part by design: show a limit exists (monotone + bounded), then find it. It separates students who can quote the Monotone Convergence Theorem from those who can use it, and the second half is worthless without the first.",
+    "T6": "The purest test of judgement on the paper. Every test — ratio, comparison, integral, alternating — is easy in isolation; the skill is choosing. That is why the question rarely says which test to use.",
+    "T7": "Mechanical once recognized (ratio test on the coefficients), so the marks sit in the endpoints, which must be checked separately and are the most commonly forgotten marks in the whole exam.",
+    "T8": "Combines a technique with an interpretation: solve, then say what the solution means as t grows. It rewards students who can move between the algebra and the behaviour it describes.",
+    "TH": "Every paper carries theory because the course is not only computational. These are memorisable — the same handful of statements and proofs recur — which makes them the cheapest marks on the paper and the ones most often left blank."
+  },
+  "hardenedBy": {
+    "T1": "changing the object — a binomial or fractional power in place of the usual exponential — or by going one order deeper in the denominator. The numerator is often reused verbatim between sittings.",
+    "T2": "flipping the parity of the exponents: all-even forces double-angle instead of peeling a factor.",
+    "T3": "hiding the structure, so a rationalisation or a substitution must happen before the real technique can start.",
+    "T4": "changing the domain — an integral from 0 to infinity is singular at BOTH ends and must be split, which is where the marks go.",
+    "T5": "reskinning: these appear nearly unchanged between papers apart from the constants.",
+    "T6": "increasing multiplicity — iterated logarithms, or exponent towers that defeat the ratio test and demand the root test.",
+    "T7": "increasing multiplicity in the coefficients, so the ratio test has to survive factorials over exponent towers.",
+    "T8": "pushing to the edge case: the forcing term resonates with the homogeneous solution, so the standard ansatz fails and must be multiplied by x.",
+    "TH": "not making it hard at all — the catalogue barely changes between papers. These are recall marks, and the most commonly left blank."
+  }
+}
